@@ -16,9 +16,9 @@ const capabilities = [
     bullets: ['Full provenance', 'Versioned protocols', 'Audit-ready exports'],
   },
   {
-    title: 'Scalable Infrastructure',
-    description: 'Deploy a single workcell or a networked lab. ATLAS orchestrates resources across sites.',
-    bullets: ['Modular hardware', 'Cloud-native control', 'Remote monitoring'],
+    title: 'Local-First Infrastructure',
+    description: 'Deploy autonomous labs with local computation and data sovereignty. ATLAS operates independently or connects to larger networks as needed.',
+    bullets: ['Edge-first architecture', 'On-device intelligence', 'Optional cloud sync'],
   },
 ];
 
