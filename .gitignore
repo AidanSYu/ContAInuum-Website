@@ -1,10 +1,8 @@
 # Dependencies
 node_modules/
-app/node_modules/
 
 # Build outputs
 dist/
-app/dist/
 build/
 
 # Environment variables
@@ -32,3 +30,6 @@ yarn-error.log*
 
 # Vercel
 .vercel
+
+# Legacy app folder (moved to root)
+app/
