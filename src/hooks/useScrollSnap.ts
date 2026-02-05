@@ -41,9 +41,9 @@ export const useScrollSnap = () => {
       ScrollTrigger.create({
         snap: {
           snapTo: (value: number) => {
-            // Check if within any pinned section (with small buffer)
+            // Check if within any pinned section (with larger buffer for easier snapping)
             const inPinned = pinnedSections.some(
-              (s) => value >= s.start - 0.02 && value <= s.end + 0.02
+              (s) => value >= s.start - 0.03 && value <= s.end + 0.03
             );
 
             // If not in a pinned section, allow free scroll
@@ -64,7 +64,7 @@ export const useScrollSnap = () => {
 
             return nearestCenter ?? value;
           },
-          duration: { min: 0.15, max: 0.35 },
+          duration: { min: 0.12, max: 0.25 },
           delay: 0,
           ease: 'power2.out',
         },

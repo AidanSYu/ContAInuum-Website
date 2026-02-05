@@ -31,7 +31,7 @@ export const ThesisSection: React.FC = () => {
         scrollTrigger: {
           trigger: section,
           start: 'top top',
-          end: '+=200%',
+          end: '+=140%',
           pin: true,
           scrub: 0.5,
         },
@@ -94,7 +94,7 @@ export const ThesisSection: React.FC = () => {
         style={{
           backgroundImage: 'url(/images/sr71-quote-wide.png)',
           backgroundSize: 'cover',
-          backgroundPosition: 'center',
+          backgroundPosition: 'center center',
         }}
       />
 
@@ -106,14 +106,13 @@ export const ThesisSection: React.FC = () => {
         }}
       />
 
-      {/* Quote content - positioned on left */}
+      {/* Quote content - positioned in upper left, away from key image elements */}
       <div 
         className="absolute z-10"
         style={{ 
           left: '5vw', 
-          top: '50%',
-          transform: 'translateY(-50%)',
-          maxWidth: '45vw',
+          top: '18vh',
+          maxWidth: '38vw',
         }}
       >
         {/* Attribution */}

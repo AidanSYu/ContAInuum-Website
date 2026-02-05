@@ -29,7 +29,7 @@ export const MissionSection: React.FC = () => {
         scrollTrigger: {
           trigger: section,
           start: 'top top',
-          end: '+=150%',
+          end: '+=120%',
           pin: true,
           scrub: 0.7,
         },
@@ -197,18 +197,46 @@ export const MissionSection: React.FC = () => {
           </span>
         </h2>
 
-        {/* Body copy */}
+        {/* Body copy - The Hook */}
         <p
           ref={bodyRef}
-          className="text-body text-text-secondary/90 will-change-transform mb-8"
+          className="text-body text-text-secondary/90 will-change-transform mb-6"
           style={{
-            fontSize: 'clamp(14px, 1.1vw, 17px)',
+            fontSize: 'clamp(13px, 1.05vw, 16px)',
             lineHeight: 1.7,
-            maxWidth: '32vw',
+            maxWidth: '36vw',
             textShadow: '0 2px 20px rgba(7, 10, 14, 0.8)',
           }}
         >
-          We're building the infrastructure for a new kind of science: autonomous, continuous, and precise. Our platforms combine advanced robotics, machine learning, and closed-loop control to run experiments at scales—and speeds—impossible for human teams alone.
+          Global research and development spending exceeds <strong className="text-text-primary">$800 billion</strong> annually, yet scientific throughput remains fundamentally constrained. Studies show that <strong className="text-text-primary">20–50%</strong> of experimental capacity is lost to manual repetition, protocol errors, poor data management, and disconnected systems, while large fractions of published experiments fail to reproduce. The data already exists at massive scale, but it is fragmented across papers, lab notebooks, instrument logs, and raw spectra, rendering most experimental knowledge inert rather than cumulative.
+          <br /><br />
+          <strong className="text-text-primary">contAInuum</strong> is built on the belief that discovery is <em>bottlenecked by cognition, not automation</em>. We are building persistent knowledge structures that unify literature, experimental records, and instrument-level data into a single reasoning substrate. Our first step is a horizontal intelligence layer that connects disparate scientific sources and closes the loop through reasoning before any experiment is executed.
+        </p>
+
+        {/* Market stats row */}
+        <div className="flex flex-wrap gap-6 mb-6">
+          <div className="stat-card">
+            <div className="stat-value">$800B+</div>
+            <div className="stat-label">Global R&D Market</div>
+          </div>
+          <div className="stat-card">
+            <div className="stat-value">10-100x</div>
+            <div className="stat-label">Throughput Increase</div>
+          </div>
+          <div className="stat-card">
+            <div className="stat-value">24/7</div>
+            <div className="stat-label">Continuous Operation</div>
+          </div>
+        </div>
+
+        {/* Why this matters */}
+        <p className="text-body text-text-secondary/70 mb-6" style={{
+          fontSize: 'clamp(12px, 0.95vw, 15px)',
+          lineHeight: 1.6,
+          maxWidth: '34vw',
+          fontStyle: 'italic',
+        }}>
+          We did not build this because it was easy. We built it because the hardest problems in climate, disease, energy, and matter demand orders of magnitude more experimentation than human hands alone can execute. The OS is the substrate. The lab is the interface. The science is the outcome.
         </p>
 
         {/* CTA */}
@@ -219,6 +247,32 @@ export const MissionSection: React.FC = () => {
           Request a briefing
         </button>
       </div>
+
+      {/* Stats card styles */}
+      <style>{`
+        .stat-card {
+          background: rgba(7, 10, 14, 0.5);
+          border: 1px solid rgba(159, 176, 199, 0.15);
+          border-radius: 6px;
+          padding: 12px 16px;
+          backdrop-filter: blur(8px);
+        }
+        .stat-value {
+          font-family: 'Sora', sans-serif;
+          font-size: clamp(16px, 1.4vw, 22px);
+          font-weight: 700;
+          color: #FF4D2E;
+          line-height: 1.2;
+        }
+        .stat-label {
+          font-family: 'IBM Plex Mono', monospace;
+          font-size: clamp(9px, 0.75vw, 11px);
+          color: rgba(242, 245, 249, 0.5);
+          text-transform: uppercase;
+          letter-spacing: 0.08em;
+          margin-top: 4px;
+        }
+      `}</style>
 
       {/* Orbiting text - curved around the black hole area */}
       <div
