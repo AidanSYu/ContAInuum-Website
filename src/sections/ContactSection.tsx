@@ -178,7 +178,15 @@ export const ContactSection: React.FC = () => {
           
           {/* Contact details overlay */}
           <div className="absolute bottom-[4vh] md:bottom-[6vh] left-6 md:left-[4vw] right-6 md:right-[4vw]">
-            <div className="font-mono-tech text-micro text-text-secondary tracking-wider space-y-1 md:space-y-2">
+            <div 
+              className="font-mono-tech text-micro text-text-primary tracking-wider space-y-1 md:space-y-2 p-4 rounded-md"
+              style={{
+                backgroundColor: 'rgba(7, 10, 14, 0.75)',
+                backdropFilter: 'blur(8px)',
+                border: '1px solid rgba(159, 176, 199, 0.2)',
+                boxShadow: '0 4px 20px rgba(0, 0, 0, 0.5)',
+              }}
+            >
               <div>hello@containuum.io</div>
               <div>Shanghai / San Francisco / Salt Lake City / Boston</div>
               <div>Partnerships & press: press@containuum.io</div>
