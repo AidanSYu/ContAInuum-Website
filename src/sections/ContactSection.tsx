@@ -180,7 +180,7 @@ export const ContactSection: React.FC = () => {
           <div className="absolute bottom-[4vh] md:bottom-[6vh] left-6 md:left-[4vw] right-6 md:right-[4vw]">
             <div className="font-mono-tech text-micro text-text-secondary tracking-wider space-y-1 md:space-y-2">
               <div>hello@containuum.io</div>
-              <div>San Francisco / Boston</div>
+              <div>Shanghai / San Francisco / Salt Lake City / Boston</div>
               <div>Partnerships & press: press@containuum.io</div>
             </div>
           </div>

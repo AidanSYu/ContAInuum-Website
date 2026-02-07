@@ -158,8 +158,13 @@ export const MissionSection: React.FC = () => {
       {/* Label - top left, below nav */}
       <div
         ref={labelRef}
-        className="absolute font-mono-tech text-micro text-text-secondary/70 tracking-[0.25em] z-10"
-        style={{ left: '4vw', top: '8vh' }}
+        className="absolute font-mono-tech text-micro tracking-[0.25em] z-10"
+        style={{ 
+          left: '4vw', 
+          top: '10vh',
+          color: 'rgba(242, 245, 249, 0.5)',
+          textShadow: '0 2px 8px rgba(7, 10, 14, 0.8)',
+        }}
       >
         MISSION
       </div>
@@ -171,7 +176,7 @@ export const MissionSection: React.FC = () => {
           left: '6vw', 
           top: '50%',
           transform: 'translateY(-50%)',
-          maxWidth: '38vw',
+          maxWidth: '50vw',
         }}
       >
         {/* Headline - integrated with the cosmic theme */}
@@ -179,10 +184,11 @@ export const MissionSection: React.FC = () => {
           ref={headlineRef}
           className="font-display font-bold text-text-primary will-change-transform mb-6"
           style={{
-            fontSize: 'clamp(28px, 3.5vw, 56px)',
-            lineHeight: 1.15,
+            fontSize: 'clamp(24px, 3.2vw, 52px)',
+            lineHeight: 1.12,
             letterSpacing: '-0.02em',
             textShadow: '0 4px 30px rgba(7, 10, 14, 0.9)',
+            whiteSpace: 'nowrap',
           }}
         >
           The Rhetoric of Humanity
@@ -197,56 +203,75 @@ export const MissionSection: React.FC = () => {
           </span>
         </h2>
 
-        {/* Body copy - The Hook */}
+        {/* Body copy - The Hook - Compact version */}
         <p
           ref={bodyRef}
-          className="text-body text-text-secondary/90 will-change-transform mb-6"
+          className="text-body text-text-secondary/90 will-change-transform mb-5"
           style={{
-            fontSize: 'clamp(13px, 1.05vw, 16px)',
-            lineHeight: 1.7,
-            maxWidth: '36vw',
+            fontSize: 'clamp(11px, 0.9vw, 14px)',
+            lineHeight: 1.6,
+            maxWidth: '38vw',
             textShadow: '0 2px 20px rgba(7, 10, 14, 0.8)',
           }}
         >
-          Global research and development spending exceeds <strong className="text-text-primary">$800 billion</strong> annually, yet scientific throughput remains fundamentally constrained. Studies show that <strong className="text-text-primary">20–50%</strong> of experimental capacity is lost to manual repetition, protocol errors, poor data management, and disconnected systems, while large fractions of published experiments fail to reproduce. The data already exists at massive scale, but it is fragmented across papers, lab notebooks, instrument logs, and raw spectra, rendering most experimental knowledge inert rather than cumulative.
+          Global R&D expenditure has reached <strong className="text-text-primary">$2.5 trillion</strong> annually (<em>R&D World</em>), yet <em>PLOS Biology</em> reports that up to <strong className="text-text-primary">50%</strong> of this output is non-reproducible due to protocol errors and disconnected systems. Fragmented data and manual orchestration currently consume <strong className="text-text-primary">40%</strong> of researcher time, creating a <strong className="text-text-primary">$1 trillion</strong> annual "innovation tax" that leaves most scientific knowledge inert rather than cumulative.
           <br /><br />
-          <strong className="text-text-primary">contAInuum</strong> is built on the belief that discovery is <em>bottlenecked by cognition, not automation</em>. We are building persistent knowledge structures that unify literature, experimental records, and instrument-level data into a single reasoning substrate. Our first step is a horizontal intelligence layer that connects disparate scientific sources and closes the loop through reasoning before any experiment is executed.
+          <strong className="text-text-primary">ContAInuum</strong> is building <strong className="text-text-primary">Atlas</strong> to reclaim this potential by unifying literature, experimental records, and instrument-level data into a single autonomous reasoning substrate. By closing the loop with intelligence before execution, we transition science from a sequence of disconnected trials to a <em>continuous, cumulative intelligence</em>. We are building <strong className="text-text-primary">the operating system for the next century of discovery</strong>.
         </p>
 
-        {/* Market stats row */}
-        <div className="flex flex-wrap gap-6 mb-6">
+        {/* Market stats row - Compact */}
+        <div className="flex flex-wrap gap-4 mb-5">
           <div className="stat-card">
             <div className="stat-value">$800B+</div>
-            <div className="stat-label">Global R&D Market</div>
+            <div className="stat-label">Global R&D</div>
           </div>
           <div className="stat-card">
             <div className="stat-value">10-100x</div>
-            <div className="stat-label">Throughput Increase</div>
+            <div className="stat-label">Throughput</div>
           </div>
           <div className="stat-card">
             <div className="stat-value">24/7</div>
-            <div className="stat-label">Continuous Operation</div>
+            <div className="stat-label">Continuous</div>
           </div>
         </div>
 
-        {/* Why this matters */}
-        <p className="text-body text-text-secondary/70 mb-6" style={{
-          fontSize: 'clamp(12px, 0.95vw, 15px)',
-          lineHeight: 1.6,
-          maxWidth: '34vw',
+        {/* Why this matters - Compact */}
+        <p className="text-body text-text-secondary/70 mb-5" style={{
+          fontSize: 'clamp(11px, 0.85vw, 14px)',
+          lineHeight: 1.55,
+          maxWidth: '32vw',
           fontStyle: 'italic',
         }}>
-          We did not build this because it was easy. We built it because the hardest problems in climate, disease, energy, and matter demand orders of magnitude more experimentation than human hands alone can execute. The OS is the substrate. The lab is the interface. The science is the outcome.
+          The hardest problems in climate, disease, and energy demand more experimentation than human hands alone can execute. The OS is the substrate. The lab is the interface.
         </p>
 
-        {/* CTA */}
-        <button
-          ref={ctaRef}
-          className="btn-outline will-change-transform"
-        >
-          Request a briefing
-        </button>
       </div>
+
+      {/* CTA - Centered at bottom of page */}
+      <button
+        ref={ctaRef}
+        className="absolute z-10 will-change-transform px-6 py-3 font-mono-tech text-sm tracking-wider rounded border transition-all duration-300"
+        style={{
+          left: '50%',
+          bottom: '6vh',
+          transform: 'translateX(-50%)',
+          backgroundColor: 'rgba(242, 245, 249, 0.95)',
+          color: '#070A0E',
+          borderColor: 'rgba(242, 245, 249, 0.95)',
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.backgroundColor = '#FF4D2E';
+          e.currentTarget.style.borderColor = '#FF4D2E';
+          e.currentTarget.style.color = '#F2F5F9';
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.backgroundColor = 'rgba(242, 245, 249, 0.95)';
+          e.currentTarget.style.borderColor = 'rgba(242, 245, 249, 0.95)';
+          e.currentTarget.style.color = '#070A0E';
+        }}
+      >
+        Request a briefing
+      </button>
 
       {/* Stats card styles */}
       <style>{`
@@ -254,7 +279,7 @@ export const MissionSection: React.FC = () => {
           background: rgba(7, 10, 14, 0.5);
           border: 1px solid rgba(159, 176, 199, 0.15);
           border-radius: 6px;
-          padding: 12px 16px;
+          padding: 10px 14px;
           backdrop-filter: blur(8px);
         }
         .stat-value {
