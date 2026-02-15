@@ -4,7 +4,6 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 import { GrainOverlay, VignetteOverlay, DustParticles } from '@/components/effects';
 import { Navigation } from '@/components/Navigation';
-import { useScrollSnap } from '@/hooks/useScrollSnap';
 
 import {
   HeroSection,
@@ -19,14 +18,9 @@ import {
 gsap.registerPlugin(ScrollTrigger);
 
 function App() {
-  // Setup global scroll snap
-  useScrollSnap();
-
   useEffect(() => {
-    // Refresh ScrollTrigger on load
     ScrollTrigger.refresh();
 
-    // Handle resize
     const handleResize = () => {
       ScrollTrigger.refresh();
     };
@@ -45,7 +39,7 @@ function App() {
       {/* Navigation */}
       <Navigation />
 
-      {/* Main content */}
+      {/* Main content — natural vertical scroll */}
       <main className="relative">
         <HeroSection />
         <ThesisSection />

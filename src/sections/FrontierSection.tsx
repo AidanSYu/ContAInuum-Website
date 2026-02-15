@@ -4,7 +4,18 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const headlineWords = ["We", "didn't", "come", "this", "far", "to", "stop", "at", "the", "possible."];
+const headlineWords = [
+  'We',
+  "didn't",
+  'come',
+  'this',
+  'far',
+  'to',
+  'stop',
+  'at',
+  'the',
+  'possible.',
+];
 
 export const FrontierSection: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -27,97 +38,88 @@ export const FrontierSection: React.FC = () => {
     const wordElements = headline.querySelectorAll('.headline-word');
 
     const ctx = gsap.context(() => {
-      const scrollTl = gsap.timeline({
-        scrollTrigger: {
-          trigger: section,
-          start: 'top top',
-          end: '+=120%',
-          pin: true,
-          scrub: 0.7,
-        },
-      });
-
-      // Background
-      // ENTRANCE (0% - 22%)
-      scrollTl.fromTo(
+      // Background parallax
+      gsap.fromTo(
         bg,
-        { scale: 1.14, opacity: 0 },
-        { scale: 1, opacity: 1, ease: 'none' },
-        0
+        { scale: 1.1 },
+        {
+          scale: 1,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: section,
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: 1,
+          },
+        }
       );
 
-      // Label
-      // ENTRANCE (5% - 18%)
-      scrollTl.fromTo(
+      // Label entrance
+      gsap.fromTo(
         label,
-        { y: -20, opacity: 0 },
-        { y: 0, opacity: 1, ease: 'power2.out' },
-        0.05
+        { y: 20, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.6,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: section,
+            start: 'top 75%',
+            toggleActions: 'play none none reverse',
+          },
+        }
       );
 
-      // Headline words
-      // ENTRANCE (10% - 30%)
-      wordElements.forEach((word, i) => {
-        scrollTl.fromTo(
-          word,
-          { y: 36, opacity: 0 },
-          { y: 0, opacity: 1, ease: 'power2.out' },
-          0.10 + i * 0.018
-        );
-      });
+      // Headline words stagger
+      gsap.fromTo(
+        wordElements,
+        { y: 40, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.5,
+          stagger: 0.04,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: section,
+            start: 'top 70%',
+            toggleActions: 'play none none reverse',
+          },
+        }
+      );
 
       // CTA + micro
-      // ENTRANCE (18% - 30%)
-      scrollTl.fromTo(
+      gsap.fromTo(
         cta,
-        { y: 12, opacity: 0 },
-        { y: 0, opacity: 1, ease: 'power2.out' },
-        0.18
+        { y: 20, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.5,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: section,
+            start: 'top 60%',
+            toggleActions: 'play none none reverse',
+          },
+        }
       );
 
-      scrollTl.fromTo(
+      gsap.fromTo(
         micro,
-        { y: 12, opacity: 0 },
-        { y: 0, opacity: 1, ease: 'power2.out' },
-        0.20
-      );
-
-      // EXIT phase (70% - 100%)
-      scrollTl.fromTo(
-        bg,
-        { opacity: 1 },
-        { opacity: 0, ease: 'power2.in' },
-        0.75
-      );
-
-      wordElements.forEach((word, i) => {
-        scrollTl.fromTo(
-          word,
-          { opacity: 1 },
-          { opacity: 0, ease: 'power2.in' },
-          0.78 + i * 0.01
-        );
-      });
-
-      scrollTl.fromTo(
-        cta,
-        { opacity: 1 },
-        { opacity: 0, ease: 'power2.in' },
-        0.85
-      );
-
-      scrollTl.fromTo(
-        micro,
-        { opacity: 1 },
-        { opacity: 0, ease: 'power2.in' },
-        0.85
-      );
-
-      scrollTl.fromTo(
-        label,
-        { opacity: 1 },
-        { opacity: 0, ease: 'power2.in' },
-        0.80
+        { y: 20, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.5,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: section,
+            start: 'top 60%',
+            toggleActions: 'play none none reverse',
+          },
+        }
       );
     }, section);
 
@@ -127,7 +129,7 @@ export const FrontierSection: React.FC = () => {
   return (
     <section
       ref={sectionRef}
-      className="section-pinned z-[60]"
+      className="section-pinned relative flex items-center justify-center overflow-hidden"
     >
       {/* Background image */}
       <div
@@ -141,7 +143,7 @@ export const FrontierSection: React.FC = () => {
       />
 
       {/* Dark overlay */}
-      <div className="absolute inset-0 bg-void/50" />
+      <div className="absolute inset-0 bg-void/55" />
 
       {/* Label */}
       <div
@@ -155,20 +157,19 @@ export const FrontierSection: React.FC = () => {
       {/* Headline */}
       <h2
         ref={headlineRef}
-        className="absolute font-display font-bold text-text-primary text-center z-10 px-4"
+        className="relative font-display font-bold text-text-primary text-center z-10 px-6 md:px-8"
         style={{
-          top: '42%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          width: '100%',
           maxWidth: '1000px',
           fontSize: 'clamp(28px, 5vw, 80px)',
-          lineHeight: 1.2,
-          letterSpacing: '-0.02em',
+          lineHeight: 1.15,
+          letterSpacing: '-0.025em',
         }}
       >
         {headlineWords.map((word, i) => (
-          <span key={i} className="headline-word inline-block mr-[0.25em] will-change-transform">
+          <span
+            key={i}
+            className="headline-word inline-block mr-[0.25em] will-change-transform"
+          >
             {word}
           </span>
         ))}
@@ -178,8 +179,8 @@ export const FrontierSection: React.FC = () => {
       <button
         ref={ctaRef}
         className="absolute btn-filled z-10 will-change-transform"
-        style={{ 
-          right: '4vw', 
+        style={{
+          right: '4vw',
           bottom: '8vh',
         }}
       >
@@ -190,8 +191,8 @@ export const FrontierSection: React.FC = () => {
       <div
         ref={microRef}
         className="absolute font-mono-tech text-micro text-text-secondary tracking-wider z-10 will-change-transform"
-        style={{ 
-          left: '4vw', 
+        style={{
+          left: '4vw',
           bottom: '8vh',
           maxWidth: '50vw',
         }}
