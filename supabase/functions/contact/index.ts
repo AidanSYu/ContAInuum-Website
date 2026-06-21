@@ -1,0 +1,105 @@
+// Edge Function: contact
+// Validates + Turnstile-verifies a contact submission, stores it with the
+// service_role key (bypassing RLS), and optionally emails a notification.
+//
+// Deploy:  supabase functions deploy contact
+// Secrets: SUPABASE_URL & SUPABASE_SERVICE_ROLE_KEY are auto-injected.
+//          Optionally set TURNSTILE_SECRET_KEY, RESEND_API_KEY,
+//          CONTACT_NOTIFY_EMAIL, EMAIL_FROM.
+
+import { createClient } from 'jsr:@supabase/supabase-js@2';
+import {
+  clientIp,
+  corsHeaders,
+  isValidEmail,
+  json,
+  sha256,
+  verifyTurnstile,
+} from '../_shared/cors.ts';
+
+Deno.serve(async (req) => {
+  if (req.method === 'OPTIONS') return new Response('ok', { headers: corsHeaders });
+  if (req.method !== 'POST') return json({ error: 'Method not allowed' }, 405);
+
+  try {
+    const body = await req.json().catch(() => null);
+    if (!body || typeof body !== 'object') return json({ error: 'Invalid body' }, 400);
+
+    const name = String(body.name ?? '').trim();
+    const email = String(body.email ?? '').trim().toLowerCase();
+    const organization = String(body.organization ?? '').trim();
+    const message = String(body.message ?? '').trim();
+    const honeypot = String(body.company_website ?? '');
+    const token = String(body.turnstileToken ?? '');
+
+    // Bot caught by honeypot — pretend success, store nothing.
+    if (honeypot) return json({ ok: true });
+
+    // Server-side validation (mirrors the client Zod schema).
+    if (!name || name.length > 200) return json({ error: 'Invalid name' }, 400);
+    if (!isValidEmail(email)) return json({ error: 'Invalid email' }, 400);
+    if (organization.length > 200) return json({ error: 'Organization is too long' }, 400);
+    if (!message || message.length > 5000) return json({ error: 'Invalid message' }, 400);
+
+    const ip = clientIp(req);
+    if (!(await verifyTurnstile(token, ip))) {
+      return json({ error: 'Verification failed. Please try again.' }, 400);
+    }
+
+    const supabase = createClient(
+      Deno.env.get('SUPABASE_URL')!,
+      Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!,
+      { auth: { persistSession: false } },
+    );
+
+    const { error } = await supabase.from('contact_messages').insert({
+      name,
+      email,
+      organization: organization || null,
+      message,
+      ip_hash: ip ? await sha256(ip) : null,
+    });
+
+    if (error) {
+      console.error('insert contact_messages failed:', error);
+      return json({ error: 'Could not save your message.' }, 500);
+    }
+
+    // Best-effort email notification (no-op unless Resend is configured).
+    await notify({ name, email, organization, message }).catch((e) =>
+      console.error('notify failed:', e),
+    );
+
+    return json({ ok: true });
+  } catch (e) {
+    console.error('contact function error:', e);
+    return json({ error: 'Unexpected error' }, 500);
+  }
+});
+
+async function notify(msg: {
+  name: string;
+  email: string;
+  organization: string;
+  message: string;
+}): Promise<void> {
+  const apiKey = Deno.env.get('RESEND_API_KEY');
+  const to = Deno.env.get('CONTACT_NOTIFY_EMAIL');
+  const from = Deno.env.get('EMAIL_FROM');
+  if (!apiKey || !to || !from) return;
+
+  await fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      from,
+      to,
+      reply_to: msg.email,
+      subject: `New contact: ${msg.name}${msg.organization ? ` (${msg.organization})` : ''}`,
+      text: `From: ${msg.name} <${msg.email}>\nOrg: ${msg.organization || '—'}\n\n${msg.message}`,
+    }),
+  });
+}

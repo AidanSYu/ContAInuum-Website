@@ -23,6 +23,7 @@ export type Database = {
           id: string;
           full_name: string | null;
           role: 'user' | 'admin';
+          stripe_customer_id: string | null;
           created_at: string;
           updated_at: string;
         };
@@ -30,12 +31,14 @@ export type Database = {
           id: string;
           full_name?: string | null;
           role?: 'user' | 'admin';
+          stripe_customer_id?: string | null;
           created_at?: string;
           updated_at?: string;
         };
         Update: {
           full_name?: string | null;
           role?: 'user' | 'admin';
+          stripe_customer_id?: string | null;
           updated_at?: string;
         };
         Relationships: [];
@@ -113,6 +116,115 @@ export type Database = {
         Update: {
           title?: string;
           data?: Json;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
+      plans: {
+        Row: {
+          id: string;
+          name: string;
+          description: string | null;
+          stripe_price_id: string | null;
+          amount_cents: number;
+          currency: string;
+          interval: 'month' | 'year';
+          trial_days: number;
+          features: Json;
+          is_active: boolean;
+          sort_order: number;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id: string;
+          name: string;
+          description?: string | null;
+          stripe_price_id?: string | null;
+          amount_cents?: number;
+          currency?: string;
+          interval?: 'month' | 'year';
+          trial_days?: number;
+          features?: Json;
+          is_active?: boolean;
+          sort_order?: number;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          name?: string;
+          description?: string | null;
+          stripe_price_id?: string | null;
+          amount_cents?: number;
+          currency?: string;
+          interval?: 'month' | 'year';
+          trial_days?: number;
+          features?: Json;
+          is_active?: boolean;
+          sort_order?: number;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
+      subscriptions: {
+        Row: {
+          id: string;
+          user_id: string;
+          plan_id: string | null;
+          stripe_subscription_id: string | null;
+          stripe_customer_id: string | null;
+          status:
+            | 'trialing'
+            | 'active'
+            | 'past_due'
+            | 'canceled'
+            | 'incomplete'
+            | 'incomplete_expired'
+            | 'unpaid'
+            | 'paused';
+          current_period_end: string | null;
+          trial_end: string | null;
+          cancel_at_period_end: boolean;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          user_id: string;
+          plan_id?: string | null;
+          stripe_subscription_id?: string | null;
+          stripe_customer_id?: string | null;
+          status?:
+            | 'trialing'
+            | 'active'
+            | 'past_due'
+            | 'canceled'
+            | 'incomplete'
+            | 'incomplete_expired'
+            | 'unpaid'
+            | 'paused';
+          current_period_end?: string | null;
+          trial_end?: string | null;
+          cancel_at_period_end?: boolean;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          plan_id?: string | null;
+          stripe_subscription_id?: string | null;
+          stripe_customer_id?: string | null;
+          status?:
+            | 'trialing'
+            | 'active'
+            | 'past_due'
+            | 'canceled'
+            | 'incomplete'
+            | 'incomplete_expired'
+            | 'unpaid'
+            | 'paused';
+          current_period_end?: string | null;
+          trial_end?: string | null;
+          cancel_at_period_end?: boolean;
           updated_at?: string;
         };
         Relationships: [];

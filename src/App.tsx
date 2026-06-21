@@ -1,55 +1,54 @@
-import { useEffect } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { Routes, Route } from 'react-router-dom';
 
-import { GrainOverlay, VignetteOverlay, DustParticles } from '@/components/effects';
-import { Navigation } from '@/components/Navigation';
+import { MarketingLayout, AuthLayout, DashboardLayout } from '@/components/layout';
+import { RequireAuth } from '@/components/auth/RequireAuth';
 
-import {
-  HeroSection,
-  ThesisSection,
-  MissionSection,
-  AtlasSection,
-  CapabilitiesSection,
-  FrontierSection,
-  ContactSection,
-} from '@/sections';
+import { LandingPage } from '@/pages/marketing/LandingPage';
+import { PricingPage } from '@/pages/marketing/PricingPage';
+import { ContactPage } from '@/pages/marketing/ContactPage';
 
-gsap.registerPlugin(ScrollTrigger);
+import { LoginPage } from '@/pages/auth/LoginPage';
+import { SignupPage } from '@/pages/auth/SignupPage';
+import { ForgotPasswordPage } from '@/pages/auth/ForgotPasswordPage';
+import { ResetPasswordPage } from '@/pages/auth/ResetPasswordPage';
+
+import { OverviewPage } from '@/pages/app/OverviewPage';
+import { ProjectsPage } from '@/pages/app/ProjectsPage';
+import { BillingPage } from '@/pages/app/BillingPage';
+import { SettingsPage } from '@/pages/app/SettingsPage';
+
+import { NotFoundPage } from '@/pages/NotFoundPage';
 
 function App() {
-  useEffect(() => {
-    ScrollTrigger.refresh();
-
-    const handleResize = () => {
-      ScrollTrigger.refresh();
-    };
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
   return (
-    <div className="relative bg-void">
-      {/* Global overlays */}
-      <GrainOverlay />
-      <VignetteOverlay />
-      <DustParticles />
+    <Routes>
+      {/* Public marketing */}
+      <Route element={<MarketingLayout />}>
+        <Route index element={<LandingPage />} />
+        <Route path="pricing" element={<PricingPage />} />
+        <Route path="contact" element={<ContactPage />} />
+      </Route>
 
-      {/* Navigation */}
-      <Navigation />
+      {/* Auth */}
+      <Route element={<AuthLayout />}>
+        <Route path="login" element={<LoginPage />} />
+        <Route path="signup" element={<SignupPage />} />
+        <Route path="forgot-password" element={<ForgotPasswordPage />} />
+        <Route path="reset-password" element={<ResetPasswordPage />} />
+      </Route>
 
-      {/* Main content — natural vertical scroll */}
-      <main className="relative">
-        <HeroSection />
-        <ThesisSection />
-        <MissionSection />
-        <AtlasSection />
-        <CapabilitiesSection />
-        <FrontierSection />
-        <ContactSection />
-      </main>
-    </div>
+      {/* Authenticated app */}
+      <Route element={<RequireAuth />}>
+        <Route path="app" element={<DashboardLayout />}>
+          <Route index element={<OverviewPage />} />
+          <Route path="projects" element={<ProjectsPage />} />
+          <Route path="billing" element={<BillingPage />} />
+          <Route path="settings" element={<SettingsPage />} />
+        </Route>
+      </Route>
+
+      <Route path="*" element={<NotFoundPage />} />
+    </Routes>
   );
 }
 
