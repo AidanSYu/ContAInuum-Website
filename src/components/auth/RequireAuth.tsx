@@ -13,7 +13,7 @@ export function RequireAuth() {
 
   if (loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-void">
+      <div className="flex min-h-screen items-center justify-center bg-paper">
         <Spinner className="h-6 w-6 text-safety" />
       </div>
     );

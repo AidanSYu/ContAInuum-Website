@@ -12,7 +12,7 @@ const NAV = [
   { label: 'Contact', to: '/contact' },
 ];
 
-/** Persistent marketing-site header. Solid-on-scroll, responsive, auth-aware. */
+/** Persistent marketing-site header. Hairline-on-scroll, responsive, auth-aware. */
 export function SiteHeader() {
   const { user } = useAuth();
   const [scrolled, setScrolled] = useState(false);
@@ -30,33 +30,38 @@ export function SiteHeader() {
       className={cn(
         'fixed inset-x-0 top-0 z-[100] transition-all duration-300',
         scrolled
-          ? 'border-b border-white/10 bg-void/70 backdrop-blur-xl'
+          ? 'border-b border-line bg-paper/80 backdrop-blur-xl'
           : 'border-b border-transparent bg-transparent',
       )}
     >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-[5vw] lg:px-8">
-        <Logo className="text-lg" />
+        <div className="flex items-center gap-3">
+          <Logo className="text-lg" />
+          <span className="hidden font-mono-tech text-[10px] uppercase tracking-[0.2em] text-ink-faint sm:inline">
+            / ATLAS
+          </span>
+        </div>
 
-        <nav className="hidden items-center gap-8 md:flex">
+        <nav className="hidden items-center gap-9 md:flex">
           {NAV.map((item) => (
             <a
               key={item.to}
               href={item.to}
-              className="font-mono-tech text-xs uppercase tracking-[0.15em] text-text-secondary transition-colors hover:text-text-primary"
+              className="font-mono-tech text-[11px] uppercase tracking-[0.18em] text-ink-muted transition-colors hover:text-ink"
             >
               {item.label}
             </a>
           ))}
         </nav>
 
-        <div className="hidden items-center gap-3 md:flex">
+        <div className="hidden items-center gap-2 md:flex">
           {user ? (
             <Button asChild size="sm" className="bg-safety text-white hover:bg-safety/90">
               <Link to="/app">Dashboard</Link>
             </Button>
           ) : (
             <>
-              <Button asChild variant="ghost" size="sm" className="text-text-secondary hover:text-text-primary">
+              <Button asChild variant="ghost" size="sm" className="text-ink-muted hover:text-ink">
                 <Link to="/login">Sign in</Link>
               </Button>
               <Button asChild size="sm" className="bg-safety text-white hover:bg-safety/90">
@@ -67,7 +72,7 @@ export function SiteHeader() {
         </div>
 
         <button
-          className="text-text-primary md:hidden"
+          className="text-ink md:hidden"
           onClick={() => setOpen((v) => !v)}
           aria-label="Toggle menu"
         >
@@ -76,14 +81,14 @@ export function SiteHeader() {
       </div>
 
       {open && (
-        <div className="border-t border-white/10 bg-void/95 px-[5vw] py-6 backdrop-blur-xl md:hidden">
+        <div className="border-t border-line bg-paper/95 px-[5vw] py-6 backdrop-blur-xl md:hidden">
           <nav className="flex flex-col gap-5">
             {NAV.map((item) => (
               <a
                 key={item.to}
                 href={item.to}
                 onClick={() => setOpen(false)}
-                className="font-mono-tech text-sm uppercase tracking-[0.15em] text-text-secondary"
+                className="font-mono-tech text-sm uppercase tracking-[0.15em] text-ink-muted"
               >
                 {item.label}
               </a>

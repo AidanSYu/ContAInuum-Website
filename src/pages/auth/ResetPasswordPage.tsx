@@ -68,7 +68,7 @@ export function ResetPasswordPage() {
 
   if (!ready) {
     return (
-      <div className="rounded-2xl border border-white/10 bg-void-lifted/40 p-8 text-center text-text-secondary backdrop-blur-xl">
+      <div className="border border-line bg-surface p-8 text-center text-ink-muted shadow-lab">
         Verifying reset link…
       </div>
     );
@@ -76,9 +76,9 @@ export function ResetPasswordPage() {
 
   if (!validSession) {
     return (
-      <div className="rounded-2xl border border-white/10 bg-void-lifted/40 p-8 text-center backdrop-blur-xl">
-        <h1 className="font-display text-2xl font-bold text-text-primary">Link expired</h1>
-        <p className="mt-2 text-sm text-text-secondary">
+      <div className="border border-line bg-surface p-8 text-center shadow-lab">
+        <h1 className="font-display text-2xl font-bold tracking-tight text-ink">Link expired</h1>
+        <p className="mt-2 text-sm text-ink-muted">
           This password-reset link is invalid or has expired. Request a new one.
         </p>
         <Button asChild className="mt-6 w-full bg-safety text-white hover:bg-safety/90">
@@ -89,18 +89,18 @@ export function ResetPasswordPage() {
   }
 
   return (
-    <div className="rounded-2xl border border-white/10 bg-void-lifted/40 p-8 backdrop-blur-xl">
-      <h1 className="font-display text-2xl font-bold text-text-primary">Set a new password</h1>
-      <p className="mt-1 text-sm text-text-secondary">Choose a strong password you don’t use elsewhere.</p>
+    <div className="border border-line bg-surface p-8 shadow-lab">
+      <h1 className="font-display text-2xl font-bold tracking-tight text-ink">Set a new password</h1>
+      <p className="mt-1 text-sm text-ink-muted">Choose a strong password you don’t use elsewhere.</p>
 
       <form onSubmit={onSubmit} className="mt-6 space-y-4" noValidate>
         <div>
-          <Label htmlFor="password" className="mb-2 block text-text-secondary">New password</Label>
+          <Label htmlFor="password" className="mb-2 block text-ink-muted">New password</Label>
           <Input id="password" type="password" autoComplete="new-password" {...register('password')} aria-invalid={Boolean(errors.password)} />
           {errors.password && <p className="mt-1.5 text-xs text-safety">{errors.password.message}</p>}
         </div>
         <div>
-          <Label htmlFor="confirm" className="mb-2 block text-text-secondary">Confirm password</Label>
+          <Label htmlFor="confirm" className="mb-2 block text-ink-muted">Confirm password</Label>
           <Input id="confirm" type="password" autoComplete="new-password" {...register('confirm')} aria-invalid={Boolean(errors.confirm)} />
           {errors.confirm && <p className="mt-1.5 text-xs text-safety">{errors.confirm.message}</p>}
         </div>

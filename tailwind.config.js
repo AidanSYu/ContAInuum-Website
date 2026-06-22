@@ -48,11 +48,27 @@ module.exports = {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
-        void: "#070A0E",
-        "void-lifted": "#0E141C",
-        safety: "#FF4D2E",
-        "text-primary": "#F2F5F9",
-        "text-secondary": "#9FB0C7",
+
+        /* ── Lab Instrument palette (light / Swiss) ───────────────────────── */
+        // `void` / `void-lifted` / `text-*` are kept as names for backward
+        // compatibility but now point at the light paper palette.
+        void: "#FBFAF8",          // page "paper"
+        "void-lifted": "#FFFFFF", // raised surface
+        paper: "#FBFAF8",
+        surface: "#FFFFFF",
+        panel: "#F3F2ED",         // inset / muted panel
+        ink: {
+          DEFAULT: "#16191F",     // primary text / strong rules
+          muted: "#586172",       // secondary text
+          faint: "#9AA1AC",       // tertiary / mono labels
+        },
+        line: {
+          DEFAULT: "#E6E3DD",     // warm hairline
+          strong: "#16191F",      // emphatic Swiss rule
+        },
+        safety: "#FF4D2E",        // brand accent (orange) — used sparingly
+        "text-primary": "#16191F",
+        "text-secondary": "#586172",
       },
       borderRadius: {
         xl: "calc(var(--radius) + 4px)",
@@ -63,6 +79,7 @@ module.exports = {
       },
       boxShadow: {
         xs: "0 1px 2px 0 rgb(0 0 0 / 0.05)",
+        lab: "0 1px 0 0 rgb(22 25 31 / 0.04), 0 14px 40px -24px rgb(22 25 31 / 0.25)",
       },
       keyframes: {
         "accordion-down": {
@@ -77,11 +94,16 @@ module.exports = {
           "0%,70%,100%": { opacity: "1" },
           "20%,50%": { opacity: "0" },
         },
+        "pulse-tick": {
+          "0%,100%": { opacity: "1" },
+          "50%": { opacity: "0.25" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         "caret-blink": "caret-blink 1.25s ease-out infinite",
+        "pulse-tick": "pulse-tick 2.4s ease-in-out infinite",
       },
     },
   },

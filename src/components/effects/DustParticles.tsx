@@ -55,7 +55,7 @@ export const DustParticles: React.FC = () => {
 
         ctx.beginPath();
         ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(242, 245, 249, ${particle.opacity})`;
+        ctx.fillStyle = `rgba(22, 25, 31, ${particle.opacity})`;
         ctx.fill();
       });
 

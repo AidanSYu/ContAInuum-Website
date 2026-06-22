@@ -34,10 +34,10 @@ export function ForgotPasswordPage() {
 
   if (sent) {
     return (
-      <div className="rounded-2xl border border-white/10 bg-void-lifted/40 p-8 text-center backdrop-blur-xl">
-        <MailCheck className="mx-auto h-10 w-10 text-safety" />
-        <h1 className="mt-4 font-display text-2xl font-bold text-text-primary">Check your email</h1>
-        <p className="mt-2 text-sm text-text-secondary">
+      <div className="border border-line bg-surface p-8 text-center shadow-lab">
+        <MailCheck className="mx-auto h-10 w-10 text-safety" strokeWidth={1.5} />
+        <h1 className="mt-4 font-display text-2xl font-bold tracking-tight text-ink">Check your email</h1>
+        <p className="mt-2 text-sm text-ink-muted">
           If an account exists for that address, we’ve sent a link to reset your password.
         </p>
         <Button asChild className="mt-6 w-full bg-safety text-white hover:bg-safety/90">
@@ -48,15 +48,15 @@ export function ForgotPasswordPage() {
   }
 
   return (
-    <div className="rounded-2xl border border-white/10 bg-void-lifted/40 p-8 backdrop-blur-xl">
-      <h1 className="font-display text-2xl font-bold text-text-primary">Reset your password</h1>
-      <p className="mt-1 text-sm text-text-secondary">
+    <div className="border border-line bg-surface p-8 shadow-lab">
+      <h1 className="font-display text-2xl font-bold tracking-tight text-ink">Reset your password</h1>
+      <p className="mt-1 text-sm text-ink-muted">
         Enter your email and we’ll send you a reset link.
       </p>
 
       <form onSubmit={onSubmit} className="mt-6 space-y-4" noValidate>
         <div>
-          <Label htmlFor="email" className="mb-2 block text-text-secondary">Email</Label>
+          <Label htmlFor="email" className="mb-2 block text-ink-muted">Email</Label>
           <Input id="email" type="email" autoComplete="email" {...register('email')} aria-invalid={Boolean(errors.email)} />
           {errors.email && <p className="mt-1.5 text-xs text-safety">{errors.email.message}</p>}
         </div>
@@ -65,7 +65,7 @@ export function ForgotPasswordPage() {
         </Button>
       </form>
 
-      <p className="mt-6 text-center text-sm text-text-secondary">
+      <p className="mt-6 text-center text-sm text-ink-muted">
         <Link to="/login" className="text-safety hover:underline">Back to sign in</Link>
       </p>
     </div>

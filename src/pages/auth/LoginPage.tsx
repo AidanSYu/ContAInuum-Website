@@ -33,20 +33,20 @@ export function LoginPage() {
   });
 
   return (
-    <div className="rounded-2xl border border-white/10 bg-void-lifted/40 p-8 backdrop-blur-xl">
-      <h1 className="font-display text-2xl font-bold text-text-primary">Welcome back</h1>
-      <p className="mt-1 text-sm text-text-secondary">Sign in to your contAInuum account.</p>
+    <div className="border border-line bg-surface p-8 shadow-lab">
+      <h1 className="font-display text-2xl font-bold tracking-tight text-ink">Welcome back</h1>
+      <p className="mt-1 text-sm text-ink-muted">Sign in to your contAInuum account.</p>
 
       <form onSubmit={onSubmit} className="mt-6 space-y-4" noValidate>
         <div>
-          <Label htmlFor="email" className="mb-2 block text-text-secondary">Email</Label>
+          <Label htmlFor="email" className="mb-2 block text-ink-muted">Email</Label>
           <Input id="email" type="email" autoComplete="email" {...register('email')} aria-invalid={Boolean(errors.email)} />
           {errors.email && <p className="mt-1.5 text-xs text-safety">{errors.email.message}</p>}
         </div>
         <div>
           <div className="mb-2 flex items-center justify-between">
-            <Label htmlFor="password" className="text-text-secondary">Password</Label>
-            <Link to="/forgot-password" className="text-xs text-text-secondary hover:text-text-primary">
+            <Label htmlFor="password" className="text-ink-muted">Password</Label>
+            <Link to="/forgot-password" className="text-xs text-ink-muted hover:text-ink">
               Forgot?
             </Link>
           </div>
@@ -59,7 +59,7 @@ export function LoginPage() {
         </Button>
       </form>
 
-      <p className="mt-6 text-center text-sm text-text-secondary">
+      <p className="mt-6 text-center text-sm text-ink-muted">
         Don’t have an account?{' '}
         <Link to="/signup" className="text-safety hover:underline">Start free trial</Link>
       </p>

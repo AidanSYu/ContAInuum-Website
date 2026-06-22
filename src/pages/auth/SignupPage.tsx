@@ -50,12 +50,12 @@ export function SignupPage() {
 
   if (submittedEmail) {
     return (
-      <div className="rounded-2xl border border-white/10 bg-void-lifted/40 p-8 text-center backdrop-blur-xl">
-        <MailCheck className="mx-auto h-10 w-10 text-safety" />
-        <h1 className="mt-4 font-display text-2xl font-bold text-text-primary">Confirm your email</h1>
-        <p className="mt-2 text-sm text-text-secondary">
+      <div className="border border-line bg-surface p-8 text-center shadow-lab">
+        <MailCheck className="mx-auto h-10 w-10 text-safety" strokeWidth={1.5} />
+        <h1 className="mt-4 font-display text-2xl font-bold tracking-tight text-ink">Confirm your email</h1>
+        <p className="mt-2 text-sm text-ink-muted">
           We sent a confirmation link to{' '}
-          <span className="text-text-primary">{submittedEmail}</span>. Click it to
+          <span className="text-ink">{submittedEmail}</span>. Click it to
           activate your account, then sign in to start your trial.
         </p>
         <Button asChild className="mt-6 w-full bg-safety text-white hover:bg-safety/90">
@@ -66,26 +66,26 @@ export function SignupPage() {
   }
 
   return (
-    <div className="rounded-2xl border border-white/10 bg-void-lifted/40 p-8 backdrop-blur-xl">
-      <h1 className="font-display text-2xl font-bold text-text-primary">Start your free trial</h1>
-      <p className="mt-1 text-sm text-text-secondary">
+    <div className="border border-line bg-surface p-8 shadow-lab">
+      <h1 className="font-display text-2xl font-bold tracking-tight text-ink">Start your free trial</h1>
+      <p className="mt-1 text-sm text-ink-muted">
         14 days free{plan ? <> on the <span className="text-safety capitalize">{plan}</span> plan</> : ''}. No
         charge to start.
       </p>
 
       <form onSubmit={onSubmit} className="mt-6 space-y-4" noValidate>
         <div>
-          <Label htmlFor="fullName" className="mb-2 block text-text-secondary">Full name</Label>
+          <Label htmlFor="fullName" className="mb-2 block text-ink-muted">Full name</Label>
           <Input id="fullName" autoComplete="name" {...register('fullName')} aria-invalid={Boolean(errors.fullName)} />
           {errors.fullName && <p className="mt-1.5 text-xs text-safety">{errors.fullName.message}</p>}
         </div>
         <div>
-          <Label htmlFor="email" className="mb-2 block text-text-secondary">Email</Label>
+          <Label htmlFor="email" className="mb-2 block text-ink-muted">Email</Label>
           <Input id="email" type="email" autoComplete="email" {...register('email')} aria-invalid={Boolean(errors.email)} />
           {errors.email && <p className="mt-1.5 text-xs text-safety">{errors.email.message}</p>}
         </div>
         <div>
-          <Label htmlFor="password" className="mb-2 block text-text-secondary">Password</Label>
+          <Label htmlFor="password" className="mb-2 block text-ink-muted">Password</Label>
           <Input id="password" type="password" autoComplete="new-password" {...register('password')} aria-invalid={Boolean(errors.password)} />
           {errors.password && <p className="mt-1.5 text-xs text-safety">{errors.password.message}</p>}
         </div>
@@ -95,11 +95,11 @@ export function SignupPage() {
         </Button>
       </form>
 
-      <p className="mt-6 text-center text-sm text-text-secondary">
+      <p className="mt-6 text-center text-sm text-ink-muted">
         Already have an account?{' '}
         <Link to="/login" className="text-safety hover:underline">Sign in</Link>
       </p>
-      <p className="mt-4 text-center text-xs text-text-secondary/60">
+      <p className="mt-4 text-center text-xs text-ink-faint">
         By continuing you agree to our terms. Payments are processed securely by Stripe.
       </p>
     </div>

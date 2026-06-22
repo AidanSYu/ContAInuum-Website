@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
-import { GrainOverlay, VignetteOverlay } from '@/components/effects';
+import { GrainOverlay } from '@/components/effects';
 import { SiteHeader } from './SiteHeader';
 import { SiteFooter } from './SiteFooter';
 
-/** Public marketing shell: global overlays, header, page content, footer. */
+/** Public marketing shell: paper grain, header, page content, footer. */
 export function MarketingLayout() {
   const { pathname, hash } = useLocation();
 
@@ -21,9 +21,8 @@ export function MarketingLayout() {
   }, [pathname, hash]);
 
   return (
-    <div className="relative min-h-screen bg-void">
+    <div className="relative min-h-screen bg-paper text-ink">
       <GrainOverlay />
-      <VignetteOverlay />
       <SiteHeader />
       <main className="relative">
         <Outlet />
