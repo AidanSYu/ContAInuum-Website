@@ -7,6 +7,12 @@
 @import '@fontsource/inter/700.css';
 @import '@fontsource/ibm-plex-mono/400.css';
 @import '@fontsource/ibm-plex-mono/500.css';
+/* Fraunces — editorial serif display (mixed-case headlines, italic pull-quotes) */
+@import '@fontsource/fraunces/400.css';
+@import '@fontsource/fraunces/400-italic.css';
+@import '@fontsource/fraunces/600.css';
+@import '@fontsource/fraunces/700.css';
+@import '@fontsource/fraunces/900.css';
 
 @tailwind base;
 @tailwind components;
@@ -44,6 +50,62 @@
     --sidebar-accent-foreground: 220 17% 10%;
     --sidebar-border: 43 14% 88%;
     --sidebar-ring: 9 100% 59%;
+
+    /* Lab palette as variables (previously hardcoded in tailwind.config.js) */
+    --paper: #FBFAF8;
+    --surface: #FFFFFF;
+    --panel: #F3F2ED;
+    --ink: #16191F;
+    --ink-muted: #586172;
+    --ink-faint: #6B7280;       /* tertiary text — darkened for WCAG AA on paper */
+    --line: #E6E3DD;            /* warm hairline */
+    --line-strong: #16191F;     /* emphatic Swiss rule (kept = existing meaning) */
+    --hairline-strong: #D6D2C8; /* stronger hairline used by inputs / node boxes */
+    --safety: #FF4D2E;
+  }
+
+  /* ── Dark theme (graphite). Toggled via .dark on <html> by ThemeToggle. ──── */
+  .dark {
+    /* shadcn HSL tokens — dark */
+    --background: 222 18% 6%;
+    --foreground: 45 20% 95%;
+    --card: 222 16% 10%;
+    --card-foreground: 45 20% 95%;
+    --popover: 222 16% 10%;
+    --popover-foreground: 45 20% 95%;
+    --primary: 45 20% 95%;
+    --primary-foreground: 222 18% 8%;
+    --secondary: 222 12% 16%;
+    --secondary-foreground: 45 20% 95%;
+    --muted: 222 12% 16%;
+    --muted-foreground: 217 10% 65%;
+    --accent: 222 12% 16%;
+    --accent-foreground: 45 20% 95%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 222 12% 18%;
+    --input: 222 12% 18%;
+    --ring: 9 100% 60%;
+    --sidebar-background: 222 16% 10%;
+    --sidebar-foreground: 45 20% 95%;
+    --sidebar-primary: 9 100% 60%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 222 12% 16%;
+    --sidebar-accent-foreground: 45 20% 95%;
+    --sidebar-border: 222 12% 18%;
+    --sidebar-ring: 9 100% 60%;
+
+    /* Lab palette — dark (graphite) */
+    --paper: #0D0F13;
+    --surface: #14171D;
+    --panel: #1A1E25;
+    --ink: #F4F3EF;
+    --ink-muted: #A2AAB6;
+    --ink-faint: #6A727E;
+    --line: #262B33;
+    --line-strong: #F4F3EF;
+    --hairline-strong: #333A44;
+    --safety: #FF5A3C;
   }
 }
 
@@ -69,15 +131,37 @@
     background: rgba(255, 77, 46, 0.18);
     color: #16191f;
   }
+
+  /* Visible keyboard focus — brand orange ring, never removed for mouse users. */
+  :where(a, button, input, textarea, select, summary, [tabindex]:not([tabindex='-1'])):focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
 }
 
 @layer components {
+  /* Editorial display — Fraunces serif, mixed-case. The journal voice. */
   .font-display {
+    font-family: 'Fraunces', 'Sora', serif;
+    font-optical-sizing: auto;
+    letter-spacing: -0.018em;
+  }
+
+  /* Geometric sans, kept for the rare spot that still wants it (logo, nav). */
+  .font-grotesk {
     font-family: 'Sora', sans-serif;
   }
 
   .font-mono-tech {
     font-family: 'IBM Plex Mono', monospace;
+  }
+
+  /* Italic Fraunces for editorial pull-quotes / emphasis spans */
+  .font-editorial-italic {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-optical-sizing: auto;
   }
 
   /* Swiss micro-label: uppercase mono with wide tracking */
@@ -150,5 +234,80 @@
 
   .will-change-opacity {
     will-change: opacity;
+  }
+}
+
+/* ── Cinematic utilities (SpaceX-fused refresh) ───────────────────────────── */
+@layer components {
+  /* Editorial display headline for hero / mission panels — Fraunces serif,
+     mixed-case, high-contrast. (Was uppercase Sora; restyled for the journal look.) */
+  .cine-head {
+    font-family: 'Fraunces', serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    letter-spacing: -0.022em;
+    line-height: 1.02;
+  }
+
+  /* hairline used by node boxes / inputs (slightly stronger than --line) */
+  .border-hairline-strong {
+    border-color: var(--hairline-strong);
+  }
+
+  /* Editorial drop-cap — Fraunces initial for the lede paragraph of a section */
+  .dropcap::first-letter {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    float: left;
+    font-size: 3.5em;
+    line-height: 0.74;
+    padding-right: 0.09em;
+    padding-top: 0.05em;
+    color: var(--ink);
+  }
+}
+
+/* traveling pulse dot along the agent-loop connectors */
+@keyframes travel {
+  0% {
+    left: 0;
+    opacity: 0;
+  }
+  8% {
+    opacity: 1;
+  }
+  92% {
+    opacity: 1;
+  }
+  100% {
+    left: 100%;
+    opacity: 0;
+  }
+}
+
+/* hero slow zoom-in on load */
+@keyframes slowzoom {
+  to {
+    transform: scale(1);
+  }
+}
+
+/* scroll-cue line pulse */
+@keyframes cue {
+  0%,
+  100% {
+    transform: scaleY(0.4);
+    opacity: 0.4;
+  }
+  50% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-zoom {
+    animation: none !important;
+    transform: none !important;
   }
 }

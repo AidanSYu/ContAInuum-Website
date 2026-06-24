@@ -1,0 +1,44 @@
+<!-- @dsCard group="Components" name="Surfaces & cards" subtitle="Surface · panel · bordered · shadow-lab" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Cards</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Inter:wght@400;500&family=IBM+Plex+Mono:wght@500&display=swap');
+*{box-sizing:border-box}
+body{margin:0;background:#FBFAF8;color:#16191F;font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;padding:36px}
+.lab-label{font-family:'IBM Plex Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.22em;color:#9AA1AC;margin:0 0 22px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:880px}
+.display{font-family:'Sora',sans-serif}
+.muted{color:#586172;font-size:13px;line-height:1.6}
+.tick{font-family:'IBM Plex Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.15em;color:#9AA1AC;margin-bottom:14px}
+.c{padding:22px;border-radius:6px}
+.surface{background:#fff;border:1px solid #E6E3DD}
+.panel{background:#F3F2ED;border:1px solid #E6E3DD}
+.shadow{background:#fff;border:1px solid #E6E3DD;box-shadow:0 1px 0 0 rgb(22 25 31 / .04), 0 14px 40px -24px rgb(22 25 31 / .25)}
+h3{margin:0 0 8px;font-size:16px;font-weight:600}
+</style>
+</head>
+<body>
+<p class="lab-label">contAInuum / components — surfaces</p>
+<div class="grid">
+  <div class="c surface">
+    <div class="tick">SURFACE</div>
+    <h3 class="display">Surface card</h3>
+    <p class="muted">White surface on paper with a warm hairline border. The default container.</p>
+  </div>
+  <div class="c panel">
+    <div class="tick">PANEL</div>
+    <h3 class="display">Inset panel</h3>
+    <p class="muted">Muted recessed panel for grouped or secondary content.</p>
+  </div>
+  <div class="c shadow">
+    <div class="tick">ELEVATED</div>
+    <h3 class="display">Shadow / lab</h3>
+    <p class="muted">Subtle lift via the shadow-lab token for modals and popovers.</p>
+  </div>
+</div>
+</body>
+</html>

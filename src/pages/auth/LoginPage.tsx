@@ -34,7 +34,7 @@ export function LoginPage() {
 
   return (
     <div className="border border-line bg-surface p-8 shadow-lab">
-      <h1 className="font-display text-2xl font-bold tracking-tight text-ink">Welcome back</h1>
+      <h1 className="font-display text-2xl font-extrabold uppercase leading-tight tracking-tight text-ink">Welcome back</h1>
       <p className="mt-1 text-sm text-ink-muted">Sign in to your contAInuum account.</p>
 
       <form onSubmit={onSubmit} className="mt-6 space-y-4" noValidate>

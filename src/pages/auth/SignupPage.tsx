@@ -67,7 +67,7 @@ export function SignupPage() {
 
   return (
     <div className="border border-line bg-surface p-8 shadow-lab">
-      <h1 className="font-display text-2xl font-bold tracking-tight text-ink">Start your free trial</h1>
+      <h1 className="font-display text-2xl font-extrabold uppercase leading-tight tracking-tight text-ink">Start your free trial</h1>
       <p className="mt-1 text-sm text-ink-muted">
         14 days free{plan ? <> on the <span className="text-safety capitalize">{plan}</span> plan</> : ''}. No
         charge to start.
@@ -100,7 +100,10 @@ export function SignupPage() {
         <Link to="/login" className="text-safety hover:underline">Sign in</Link>
       </p>
       <p className="mt-4 text-center text-xs text-ink-faint">
-        By continuing you agree to our terms. Payments are processed securely by Stripe.
+        By continuing you agree to our{' '}
+        <Link to="/terms" className="hover:text-ink hover:underline">Terms</Link> and{' '}
+        <Link to="/privacy" className="hover:text-ink hover:underline">Privacy Policy</Link>. Payments
+        are processed securely by Stripe.
       </p>
     </div>
   );

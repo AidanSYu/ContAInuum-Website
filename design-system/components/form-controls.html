@@ -1,0 +1,54 @@
+<!-- @dsCard group="Components" name="Form controls" subtitle="Input · textarea · label · checkbox · error" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Form controls</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap');
+*{box-sizing:border-box}
+body{margin:0;background:#FBFAF8;color:#16191F;font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;padding:36px}
+.lab-label{font-family:'IBM Plex Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.22em;color:#9AA1AC;margin:0 0 22px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;max-width:760px}
+label{display:block;font-size:13px;color:#586172;margin-bottom:8px;font-weight:500}
+.inp{width:100%;background:#fff;border:1px solid #E6E3DD;border-radius:4px;padding:10px 12px;font-size:14px;color:#16191F;font-family:inherit}
+.inp:focus{outline:none;border-color:#FF4D2E;box-shadow:0 0 0 3px rgba(255,77,46,.15)}
+.inp.err{border-color:#FF4D2E}
+.errmsg{color:#FF4D2E;font-size:12px;margin-top:6px}
+.focus{border-color:#FF4D2E;box-shadow:0 0 0 3px rgba(255,77,46,.15)}
+textarea.inp{min-height:96px;resize:none}
+.check{display:flex;align-items:center;gap:10px;font-size:14px;color:#16191F}
+.box{width:18px;height:18px;border:1px solid #16191F;border-radius:3px;display:inline-flex;align-items:center;justify-content:center;background:#FF4D2E;color:#fff;font-size:12px}
+.box.empty{background:#fff;color:transparent}
+</style>
+</head>
+<body>
+<p class="lab-label">contAInuum / components — forms</p>
+<div class="grid">
+  <div>
+    <label>Email</label>
+    <input class="inp" value="research@lab.io" />
+  </div>
+  <div>
+    <label>Password</label>
+    <input class="inp focus" type="password" value="········" />
+  </div>
+  <div>
+    <label>Full name</label>
+    <input class="inp err" value="" placeholder="Jane Doe" />
+    <div class="errmsg">Name is required</div>
+  </div>
+  <div>
+    <label>Organization</label>
+    <input class="inp" placeholder="Optional" />
+  </div>
+  <div style="grid-column:1/3">
+    <label>Message</label>
+    <textarea class="inp" placeholder="Tell us what you're building…"></textarea>
+  </div>
+  <div class="check"><span class="box">✓</span> Email me product updates</div>
+  <div class="check"><span class="box empty">✓</span> Enable two-factor auth</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!-- @dsCard group="Marketing" name="Feature grid" subtitle="Platform capabilities — hairline grid" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Feature grid</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Inter:wght@400;500&family=IBM+Plex+Mono:wght@500&display=swap');
+*{box-sizing:border-box}
+body{margin:0;background:#FBFAF8;color:#16191F;font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;padding:40px}
+.eyebrow{font-family:'IBM Plex Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.2em;color:#FF4D2E;margin:0}
+h2{font-family:'Sora',sans-serif;font-weight:700;font-size:30px;letter-spacing:-.02em;margin:12px 0 28px;max-width:520px}
+.grid{display:grid;grid-template-columns:1fr 1fr;border:1px solid #E6E3DD;background:#E6E3DD;gap:1px;border-radius:8px;overflow:hidden;max-width:840px}
+.cell{background:#FBFAF8;padding:26px}
+.ic{width:30px;height:30px;border:1.5px solid #FF4D2E;border-radius:6px;display:flex;align-items:center;justify-content:center;color:#FF4D2E;font-size:15px}
+h3{font-family:'Sora',sans-serif;font-weight:600;font-size:17px;margin:16px 0 6px}
+p{color:#586172;font-size:14px;line-height:1.6;margin:0}
+</style>
+</head>
+<body>
+<p class="eyebrow">THE PLATFORM</p>
+<h2>Everything ATLAS needs to run itself.</h2>
+<div class="grid">
+  <div class="cell"><div class="ic">◆</div><h3>Autonomous agents</h3><p>ATLAS agents plan, run, and iterate on research workflows end-to-end.</p></div>
+  <div class="cell"><div class="ic">⎇</div><h3>Reproducible runs</h3><p>Every run is versioned and traceable. Branch, replay, and compare with full lineage.</p></div>
+  <div class="cell"><div class="ic">▥</div><h3>Managed compute</h3><p>Elastic compute pools provisioned for you. Scale without ops work.</p></div>
+  <div class="cell"><div class="ic">⛨</div><h3>Secure by default</h3><p>Row-level isolation, encrypted secrets, and audited access.</p></div>
+</div>
+</body>
+</html>

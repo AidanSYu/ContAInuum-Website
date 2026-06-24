@@ -49,26 +49,32 @@ module.exports = {
           ring: "hsl(var(--sidebar-ring))",
         },
 
-        /* ── Lab Instrument palette (light / Swiss) ───────────────────────── */
+        /* ── Lab Instrument palette — now theme-able via CSS variables ────── */
         // `void` / `void-lifted` / `text-*` are kept as names for backward
-        // compatibility but now point at the light paper palette.
-        void: "#FBFAF8",          // page "paper"
-        "void-lifted": "#FFFFFF", // raised surface
-        paper: "#FBFAF8",
-        surface: "#FFFFFF",
-        panel: "#F3F2ED",         // inset / muted panel
+        // compatibility but now resolve through the theme variables (light/dark).
+        void: "var(--paper)",          // page "paper"
+        "void-lifted": "var(--surface)", // raised surface
+        paper: "var(--paper)",
+        surface: "var(--surface)",
+        panel: "var(--panel)",         // inset / muted panel
         ink: {
-          DEFAULT: "#16191F",     // primary text / strong rules
-          muted: "#586172",       // secondary text
-          faint: "#9AA1AC",       // tertiary / mono labels
+          DEFAULT: "var(--ink)",       // primary text / strong rules
+          muted: "var(--ink-muted)",   // secondary text
+          faint: "var(--ink-faint)",   // tertiary / mono labels
         },
         line: {
-          DEFAULT: "#E6E3DD",     // warm hairline
-          strong: "#16191F",      // emphatic Swiss rule
+          DEFAULT: "var(--line)",      // warm hairline
+          strong: "var(--line-strong)",// emphatic Swiss rule
+          hair: "var(--hairline-strong)", // stronger hairline (inputs / node boxes)
         },
-        safety: "#FF4D2E",        // brand accent (orange) — used sparingly
-        "text-primary": "#16191F",
-        "text-secondary": "#586172",
+        safety: "var(--safety)",       // brand accent (orange) — used sparingly
+        "text-primary": "var(--ink)",
+        "text-secondary": "var(--ink-muted)",
+      },
+      spacing: {
+        // fractional steps used by the cinematic refresh (0.25rem cadence)
+        "4.5": "1.125rem",
+        "5.5": "1.375rem",
       },
       borderRadius: {
         xl: "calc(var(--radius) + 4px)",
@@ -80,6 +86,7 @@ module.exports = {
       boxShadow: {
         xs: "0 1px 2px 0 rgb(0 0 0 / 0.05)",
         lab: "0 1px 0 0 rgb(22 25 31 / 0.04), 0 14px 40px -24px rgb(22 25 31 / 0.25)",
+        "lab-lg": "0 60px 130px -45px rgb(0 0 0 / 0.85)",
       },
       keyframes: {
         "accordion-down": {
@@ -98,12 +105,26 @@ module.exports = {
           "0%,100%": { opacity: "1" },
           "50%": { opacity: "0.25" },
         },
+        travel: {
+          "0%": { left: "0", opacity: "0" },
+          "8%": { opacity: "1" },
+          "92%": { opacity: "1" },
+          "100%": { left: "100%", opacity: "0" },
+        },
+        slowzoom: { to: { transform: "scale(1)" } },
+        cue: {
+          "0%,100%": { transform: "scaleY(0.4)", opacity: "0.4" },
+          "50%": { transform: "scaleY(1)", opacity: "1" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         "caret-blink": "caret-blink 1.25s ease-out infinite",
         "pulse-tick": "pulse-tick 2.4s ease-in-out infinite",
+        travel: "travel 3.4s linear infinite",
+        slowzoom: "slowzoom 24s ease-out forwards",
+        cue: "cue 2s ease-in-out infinite",
       },
     },
   },

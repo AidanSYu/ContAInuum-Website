@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
+import { useSearchParams } from 'react-router-dom';
 import { toast } from 'sonner';
 import { Mail, MapPin } from 'lucide-react';
 import { Input } from '@/components/ui/input';
@@ -11,10 +12,41 @@ import { Button } from '@/components/ui/button';
 import { Turnstile } from '@/components/Turnstile';
 import { submitContact } from '@/lib/api';
 import { contactSchema, type ContactInput } from '@/lib/validation';
+import { Seo } from '@/components/Seo';
 
 const turnstileEnabled = Boolean(import.meta.env.VITE_TURNSTILE_SITE_KEY);
 
+/** Tailors the page copy + a starter message to where the visitor came from. */
+const TOPICS: Record<string, { eyebrow: string; heading: string; blurb: string; starter: string }> = {
+  demo: {
+    eyebrow: 'BOOK A DEMO',
+    heading: 'See ATLAS on your bench.',
+    blurb: 'Tell us about your lab and what you run, and we’ll set up a walkthrough on instruments like yours.',
+    starter: 'I’d like a demo of ATLAS. Our lab works on … and we run the following instruments / ELN: …',
+  },
+  enterprise: {
+    eyebrow: 'INSTITUTE / ENTERPRISE',
+    heading: 'Let’s scope your deployment.',
+    blurb: 'Multi-lab, governance, SSO, dedicated compute — tell us your requirements and we’ll design a plan.',
+    starter: 'We’re interested in an Institute deployment. We have … labs / sites and need …',
+  },
+  security: {
+    eyebrow: 'SECURITY',
+    heading: 'Security & compliance questions.',
+    blurb: 'Ask for our security details, or share the controls and terms your evaluation needs.',
+    starter: 'For our security review we need details on … (e.g. data residency, DPA, SSO, audit logs).',
+  },
+  general: {
+    eyebrow: 'CONTACT',
+    heading: 'Let’s talk.',
+    blurb: 'Whether you’re evaluating ATLAS for your team or need an Enterprise plan, tell us what you’re building and we’ll get back within two business days.',
+    starter: '',
+  },
+};
+
 export function ContactPage() {
+  const [params] = useSearchParams();
+  const topic = TOPICS[params.get('topic') ?? 'general'] ?? TOPICS.general;
   const [turnstileToken, setTurnstileToken] = useState('');
 
   const {
@@ -24,7 +56,7 @@ export function ContactPage() {
     formState: { errors },
   } = useForm<ContactInput>({
     resolver: zodResolver(contactSchema),
-    defaultValues: { name: '', email: '', organization: '', message: '', company_website: '' },
+    defaultValues: { name: '', email: '', organization: '', message: topic.starter, company_website: '' },
   });
 
   const mutation = useMutation({
@@ -49,18 +81,19 @@ export function ContactPage() {
 
   return (
     <div className="px-[5vw] pb-28 pt-32 lg:px-8 lg:pt-40">
+      <Seo
+        title="Contact — contAInuum"
+        description="Talk to the contAInuum team about retrofitting your lab with ATLAS. Book a demo or ask about an Institute plan."
+        path="/contact"
+      />
       <div className="mx-auto grid max-w-6xl border border-line bg-surface shadow-lab lg:grid-cols-2">
         {/* Left — copy + details */}
         <div className="border-b border-line p-8 sm:p-12 lg:border-b-0 lg:border-r">
-          <p className="lab-label text-safety">CONTACT</p>
+          <p className="lab-label text-safety">{topic.eyebrow}</p>
           <h1 className="mt-4 font-display text-5xl font-bold tracking-tight text-ink">
-            Let’s talk.
+            {topic.heading}
           </h1>
-          <p className="mt-5 max-w-md text-lg text-ink-muted">
-            Whether you’re evaluating ATLAS for your team or need an Enterprise
-            plan, tell us what you’re building and we’ll get back within two
-            business days.
-          </p>
+          <p className="mt-5 max-w-md text-lg text-ink-muted">{topic.blurb}</p>
 
           <div className="mt-10 space-y-px border-t border-line">
             <div className="flex items-center gap-3 border-b border-line py-4 text-ink-muted">

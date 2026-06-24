@@ -1,0 +1,43 @@
+<!-- @dsCard group="Components" name="Status badges" subtitle="Subscription states + lab pills" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Badges</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=IBM+Plex+Mono:wght@500&display=swap');
+*{box-sizing:border-box}
+body{margin:0;background:#FBFAF8;color:#16191F;font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;padding:36px}
+.lab-label{font-family:'IBM Plex Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.22em;color:#9AA1AC;margin:0 0 8px}
+.cap{font-family:'IBM Plex Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:#9AA1AC;margin:24px 0 12px}
+.row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.badge{display:inline-flex;align-items:center;gap:7px;border:1px solid;border-radius:999px;padding:4px 11px;font-family:'IBM Plex Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.08em}
+.dot{width:6px;height:6px;border-radius:999px;background:currentColor}
+.trial{border-color:rgba(255,77,46,.4);background:rgba(255,77,46,.08);color:#d83a1d}
+.active{border-color:rgba(16,160,90,.4);background:rgba(16,160,90,.08);color:#0f8f50}
+.due{border-color:rgba(200,140,0,.4);background:rgba(200,140,0,.1);color:#b07a00}
+.neutral{border-color:#E6E3DD;background:#F3F2ED;color:#586172}
+.pill{font-family:'IBM Plex Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.15em;color:#fff;background:#FF4D2E;padding:3px 8px;border-radius:3px}
+</style>
+</head>
+<body>
+<p class="lab-label">contAInuum / components — badges</p>
+
+<div class="cap">Subscription status</div>
+<div class="row">
+  <span class="badge trial"><span class="dot"></span>Trial · 12d left</span>
+  <span class="badge active"><span class="dot"></span>Active</span>
+  <span class="badge due"><span class="dot"></span>Past due</span>
+  <span class="badge neutral"><span class="dot"></span>Canceled</span>
+  <span class="badge neutral"><span class="dot"></span>No subscription</span>
+</div>
+
+<div class="cap">Marketing pills</div>
+<div class="row">
+  <span class="pill">Most popular</span>
+  <span class="pill">Your pick</span>
+  <span class="pill" style="background:#16191F">14-day free trial</span>
+</div>
+</body>
+</html>

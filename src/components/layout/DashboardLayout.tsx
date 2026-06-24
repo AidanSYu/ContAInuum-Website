@@ -9,6 +9,8 @@ import {
   Menu,
 } from 'lucide-react';
 import { Logo } from './Logo';
+import { ThemeToggle } from './ThemeToggle';
+import { TrialBanner } from '@/components/app/TrialBanner';
 import { useAuth } from '@/lib/auth';
 import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
@@ -109,15 +111,19 @@ export function DashboardLayout() {
           <div className="lg:hidden">
             <Logo className="text-base" to="/app" />
           </div>
-          <Link
-            to="/"
-            className="ml-auto font-mono-tech text-[11px] uppercase tracking-[0.15em] text-ink-muted hover:text-ink"
-          >
-            View site ↗
-          </Link>
+          <div className="ml-auto flex items-center gap-4">
+            <ThemeToggle />
+            <Link
+              to="/"
+              className="font-mono-tech text-[11px] uppercase tracking-[0.15em] text-ink-muted hover:text-ink"
+            >
+              View site ↗
+            </Link>
+          </div>
         </header>
 
         <main className="mx-auto max-w-6xl px-4 py-8 lg:px-8 lg:py-12">
+          <TrialBanner />
           <Outlet />
         </main>
       </div>

@@ -1,0 +1,38 @@
+<!-- @dsCard group="Marketing" name="Hero" subtitle="Landing hero with blueprint grid" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Hero</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@700;800&family=Inter:wght@400;500&family=IBM+Plex+Mono:wght@500&display=swap');
+*{box-sizing:border-box}
+body{margin:0;color:#16191F;font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.hero{position:relative;padding:72px 48px 80px;text-align:center;overflow:hidden;background:
+  linear-gradient(to right, rgba(22,25,31,.045) 1px, transparent 1px) 0 0/64px 64px,
+  linear-gradient(to bottom, rgba(22,25,31,.045) 1px, transparent 1px) 0 0/64px 64px, #FBFAF8;}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;border:1px solid #E6E3DD;background:#fff;border-radius:999px;padding:6px 14px;font-family:'IBM Plex Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.18em;color:#586172}
+.eyebrow .dot{width:6px;height:6px;border-radius:999px;background:#FF4D2E}
+h1{font-family:'Sora',sans-serif;font-weight:800;font-size:56px;line-height:1.02;letter-spacing:-.03em;margin:26px auto 0;max-width:720px}
+.sub{color:#586172;font-size:18px;line-height:1.6;max-width:600px;margin:20px auto 0}
+.cta{display:flex;gap:14px;justify-content:center;margin-top:34px}
+.btn{display:inline-flex;align-items:center;gap:8px;border:1px solid transparent;border-radius:4px;font-size:15px;font-weight:500;padding:12px 24px;cursor:pointer;font-family:inherit}
+.safety{background:#FF4D2E;color:#fff}
+.outline{background:transparent;border-color:#16191F;color:#16191F}
+.fine{font-family:'IBM Plex Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.15em;color:#9AA1AC;margin-top:20px}
+</style>
+</head>
+<body>
+<div class="hero">
+  <span class="eyebrow"><span class="dot"></span>Autonomous Labs — now in trial</span>
+  <h1>Run autonomous research at scale.</h1>
+  <p class="sub">contAInuum gives your team the ATLAS platform — autonomous agents, managed compute, and reproducible runs — secure from the first request.</p>
+  <div class="cta">
+    <button class="btn safety">Start free trial →</button>
+    <button class="btn outline">View pricing</button>
+  </div>
+  <p class="fine">14-day trial · no card required to start · cancel anytime</p>
+</div>
+</body>
+</html>

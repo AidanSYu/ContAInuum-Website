@@ -1,0 +1,49 @@
+<!-- @dsCard group="Components" name="Buttons" subtitle="Primary / safety / outline / ghost · sizes · states" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Buttons</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap');
+*{box-sizing:border-box}
+body{margin:0;background:#FBFAF8;color:#16191F;font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;padding:36px}
+.lab-label{font-family:'IBM Plex Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.22em;color:#9AA1AC;margin:0 0 8px}
+.row{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:18px 0}
+.cap{font-family:'IBM Plex Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:#9AA1AC;width:100%;margin-bottom:-6px}
+.btn{display:inline-flex;align-items:center;gap:8px;border:1px solid transparent;border-radius:4px;font-size:14px;font-weight:500;padding:9px 18px;cursor:pointer;font-family:inherit;transition:.15s}
+.btn-ink{background:#16191F;color:#FBFAF8}
+.btn-safety{background:#FF4D2E;color:#fff}
+.btn-outline{background:transparent;border-color:#16191F;color:#16191F}
+.btn-ghost{background:transparent;color:#586172}
+.btn-sm{padding:6px 13px;font-size:13px}
+.btn-lg{padding:12px 24px;font-size:15px}
+.btn:disabled,.btn[aria-disabled]{opacity:.45;cursor:not-allowed}
+.arr{font-size:15px}
+</style>
+</head>
+<body>
+<p class="lab-label">contAInuum / components — buttons</p>
+
+<div class="row"><span class="cap">Variants</span>
+  <button class="btn btn-safety">Start free trial <span class="arr">→</span></button>
+  <button class="btn btn-ink">Create account</button>
+  <button class="btn btn-outline">View pricing</button>
+  <button class="btn btn-ghost">Sign in</button>
+</div>
+
+<div class="row"><span class="cap">Sizes</span>
+  <button class="btn btn-safety btn-sm">Small</button>
+  <button class="btn btn-safety">Default</button>
+  <button class="btn btn-safety btn-lg">Large</button>
+</div>
+
+<div class="row"><span class="cap">States</span>
+  <button class="btn btn-safety">Default</button>
+  <button class="btn btn-safety" style="background:#e64526">Hover</button>
+  <button class="btn btn-safety" disabled>Disabled</button>
+  <button class="btn btn-ink" disabled>Saving…</button>
+</div>
+</body>
+</html>

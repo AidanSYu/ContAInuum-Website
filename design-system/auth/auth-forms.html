@@ -1,0 +1,57 @@
+<!-- @dsCard group="Auth" name="Auth forms" subtitle="Sign in + create account cards" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Auth</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@700&family=Inter:wght@400;500&family=IBM+Plex+Mono:wght@500&display=swap');
+*{box-sizing:border-box}
+body{margin:0;background:#FBFAF8;color:#16191F;font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;padding:40px}
+.lab-label{font-family:'IBM Plex Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.22em;color:#9AA1AC;margin:0 0 24px}
+.wrap{display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:760px}
+.card{background:#fff;border:1px solid #E6E3DD;border-radius:10px;padding:26px}
+.logo{font-family:'Sora',sans-serif;font-weight:700;font-size:20px;text-align:center;margin-bottom:18px}
+.logo b{color:#FF4D2E}
+h1{font-family:'Sora',sans-serif;font-weight:700;font-size:21px;margin:0 0 4px}
+.muted{color:#586172;font-size:13px;margin:0 0 18px}
+label{display:block;font-size:13px;color:#586172;margin:0 0 7px}
+.inp{width:100%;background:#fff;border:1px solid #E6E3DD;border-radius:4px;padding:10px 12px;font-size:14px;font-family:inherit;margin-bottom:14px}
+.btn{width:100%;border:none;border-radius:4px;font-size:14px;font-weight:500;padding:11px;cursor:pointer;font-family:inherit;background:#FF4D2E;color:#fff}
+.alt{text-align:center;font-size:13px;color:#586172;margin:16px 0 0}
+.alt a{color:#FF4D2E;text-decoration:none}
+.fp{display:flex;justify-content:space-between;align-items:center;margin:0 0 7px}
+.fp a{font-size:12px;color:#586172;text-decoration:none}
+</style>
+</head>
+<body>
+<p class="lab-label">contAInuum / auth — forms</p>
+<div class="wrap">
+  <div class="card">
+    <div class="logo">cont<b>AI</b>nuum</div>
+    <h1>Welcome back</h1>
+    <p class="muted">Sign in to your contAInuum account.</p>
+    <label>Email</label>
+    <input class="inp" value="research@lab.io" />
+    <div class="fp"><label style="margin:0">Password</label><a>Forgot?</a></div>
+    <input class="inp" type="password" value="········" />
+    <button class="btn">Sign in</button>
+    <p class="alt">Don't have an account? <a>Start free trial</a></p>
+  </div>
+  <div class="card">
+    <div class="logo">cont<b>AI</b>nuum</div>
+    <h1>Start your free trial</h1>
+    <p class="muted">14 days free on the <span style="color:#FF4D2E">Pro</span> plan. No charge to start.</p>
+    <label>Full name</label>
+    <input class="inp" value="Jane Doe" />
+    <label>Email</label>
+    <input class="inp" value="jane@lab.io" />
+    <label>Password</label>
+    <input class="inp" type="password" value="········" />
+    <button class="btn">Create account</button>
+    <p class="alt">Already have an account? <a>Sign in</a></p>
+  </div>
+</div>
+</body>
+</html>

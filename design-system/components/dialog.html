@@ -1,0 +1,42 @@
+<!-- @dsCard group="Components" name="Dialog" subtitle="Modal — create project" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Dialog</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Inter:wght@400;500&family=IBM+Plex+Mono:wght@500&display=swap');
+*{box-sizing:border-box}
+body{margin:0;background:#FBFAF8;-webkit-font-smoothing:antialiased;font-family:'Inter',system-ui,sans-serif;color:#16191F}
+.stage{min-height:420px;display:flex;align-items:center;justify-content:center;padding:36px;background:
+  linear-gradient(to right, rgba(22,25,31,.045) 1px, transparent 1px) 0 0/64px 64px,
+  linear-gradient(to bottom, rgba(22,25,31,.045) 1px, transparent 1px) 0 0/64px 64px, #FBFAF8;}
+.scrim{position:absolute;inset:0;background:rgba(22,25,31,.28)}
+.modal{position:relative;width:420px;background:#fff;border:1px solid #E6E3DD;border-radius:8px;padding:24px;box-shadow:0 1px 0 0 rgb(22 25 31 / .04), 0 24px 60px -24px rgb(22 25 31 / .4)}
+.display{font-family:'Sora',sans-serif}
+h2{margin:0 0 6px;font-size:19px;font-weight:700}
+.muted{color:#586172;font-size:13px;line-height:1.6;margin:0 0 18px}
+.inp{width:100%;background:#fff;border:1px solid #E6E3DD;border-radius:4px;padding:10px 12px;font-size:14px;font-family:inherit}
+.inp:focus{outline:none;border-color:#FF4D2E}
+.foot{display:flex;justify-content:flex-end;gap:10px;margin-top:20px}
+.btn{border:1px solid transparent;border-radius:4px;font-size:14px;font-weight:500;padding:9px 18px;cursor:pointer;font-family:inherit}
+.ghost{background:transparent;color:#586172}
+.safety{background:#FF4D2E;color:#fff}
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="scrim"></div>
+  <div class="modal">
+    <h2 class="display">Create a project</h2>
+    <p class="muted">Give your ATLAS project a name to get started.</p>
+    <input class="inp" value="RNA folding sweep" />
+    <div class="foot">
+      <button class="btn ghost">Cancel</button>
+      <button class="btn safety">Create project</button>
+    </div>
+  </div>
+</div>
+</body>
+</html>

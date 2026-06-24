@@ -1,0 +1,74 @@
+<!-- @dsCard group="Marketing" name="Pricing cards" subtitle="Starter / Pro (featured) / Enterprise" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Pricing</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap');
+*{box-sizing:border-box}
+body{margin:0;background:#FBFAF8;color:#16191F;font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;padding:40px}
+.lab-label{font-family:'IBM Plex Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.22em;color:#9AA1AC;margin:0 0 24px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:900px;align-items:start}
+.card{position:relative;background:#fff;border:1px solid #E6E3DD;border-radius:10px;padding:26px;display:flex;flex-direction:column}
+.card.feat{border-color:#FF4D2E;box-shadow:0 0 0 1px #FF4D2E, 0 18px 50px -28px rgba(255,77,46,.5)}
+.tag{position:absolute;top:-11px;left:24px;background:#FF4D2E;color:#fff;font-family:'IBM Plex Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.18em;padding:4px 10px;border-radius:999px}
+h3{font-family:'Sora',sans-serif;font-weight:600;font-size:19px;margin:0}
+.desc{color:#586172;font-size:13px;line-height:1.5;margin:8px 0 18px;min-height:38px}
+.price{display:flex;align-items:baseline;gap:4px}
+.amt{font-family:'Sora',sans-serif;font-weight:800;font-size:38px}
+.per{color:#586172;font-size:13px}
+.trial{font-family:'IBM Plex Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:#FF4D2E;margin:6px 0 0}
+ul{list-style:none;padding:0;margin:18px 0 22px;flex:1}
+li{display:flex;gap:8px;font-size:13px;color:#586172;margin-bottom:10px}
+li b{color:#FF4D2E}
+.btn{border:1px solid transparent;border-radius:4px;font-size:14px;font-weight:500;padding:10px;cursor:pointer;font-family:inherit;width:100%}
+.safety{background:#FF4D2E;color:#fff}
+.ink{background:#16191F;color:#FBFAF8}
+</style>
+</head>
+<body>
+<p class="lab-label">contAInuum / marketing — pricing</p>
+<div class="grid">
+  <div class="card">
+    <h3>Starter</h3>
+    <p class="desc">For individuals exploring autonomous research workflows.</p>
+    <div class="price"><span class="amt">$49</span><span class="per">/month</span></div>
+    <p class="trial">14-day free trial</p>
+    <ul>
+      <li><b>✓</b> 1 active ATLAS project</li>
+      <li><b>✓</b> Up to 100 agent runs / mo</li>
+      <li><b>✓</b> Community support</li>
+    </ul>
+    <button class="btn ink">Start free trial</button>
+  </div>
+  <div class="card feat">
+    <span class="tag">Most popular</span>
+    <h3>Pro</h3>
+    <p class="desc">For teams running ATLAS in production.</p>
+    <div class="price"><span class="amt">$249</span><span class="per">/month</span></div>
+    <p class="trial">14-day free trial</p>
+    <ul>
+      <li><b>✓</b> 10 active ATLAS projects</li>
+      <li><b>✓</b> Up to 5,000 agent runs / mo</li>
+      <li><b>✓</b> Priority support & compute</li>
+      <li><b>✓</b> Run history & exports</li>
+    </ul>
+    <button class="btn safety">Start free trial</button>
+  </div>
+  <div class="card">
+    <h3>Enterprise</h3>
+    <p class="desc">Dedicated capacity, SSO, and a named success engineer.</p>
+    <div class="price"><span class="amt">Custom</span></div>
+    <ul>
+      <li><b>✓</b> Unlimited projects & runs</li>
+      <li><b>✓</b> Dedicated compute</li>
+      <li><b>✓</b> SSO / SAML</li>
+      <li><b>✓</b> SLA & named engineer</li>
+    </ul>
+    <button class="btn ink">Contact sales</button>
+  </div>
+</div>
+</body>
+</html>

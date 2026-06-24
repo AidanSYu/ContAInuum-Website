@@ -82,7 +82,8 @@ async function syncSubscription(sub: Stripe.Subscription): Promise<void> {
   }
 
   // Resolve the plan from the subscription's price.
-  const priceId = sub.items.data[0]?.price?.id ?? null;
+  const item = sub.items.data[0];
+  const priceId = item?.price?.id ?? null;
   let planId = sub.metadata?.plan_id ?? null;
   if (!planId && priceId) {
     const { data: plan } = await admin
@@ -102,7 +103,9 @@ async function syncSubscription(sub: Stripe.Subscription): Promise<void> {
     stripe_subscription_id: sub.id,
     stripe_customer_id: customerId,
     status: sub.status,
-    current_period_end: toIso(sub.current_period_end),
+    // Basil API (2025-08-27): period bounds live on the subscription item,
+    // not the top-level subscription.
+    current_period_end: toIso(item?.current_period_end),
     trial_end: toIso(sub.trial_end),
     cancel_at_period_end: sub.cancel_at_period_end ?? false,
   };

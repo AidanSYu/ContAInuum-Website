@@ -1,20 +1,32 @@
 import { Outlet } from 'react-router-dom';
 import { GrainOverlay, BlueprintGrid } from '@/components/effects';
+import { AuthAside } from '@/components/auth/AuthAside';
 import { Logo } from './Logo';
+import { ThemeToggle } from './ThemeToggle';
 
-/** Centered shell for auth pages (login, signup, password reset). */
+/** Two-column shell for auth pages: form on the left, cinematic aside on the right. */
 export function AuthLayout() {
   return (
-    <div className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-paper px-6 py-12 text-ink">
+    <div className="relative grid min-h-screen bg-paper text-ink lg:grid-cols-2">
       <GrainOverlay />
-      <BlueprintGrid />
-      <div className="relative z-10 w-full max-w-sm">
-        <div className="mb-8 flex flex-col items-center gap-2">
-          <Logo className="text-2xl" />
-          <span className="lab-label">SECURE ACCESS / ATLAS</span>
+
+      {/* Left — brand + form */}
+      <div className="relative flex flex-col items-center justify-center overflow-hidden px-6 py-12">
+        <BlueprintGrid />
+        <div className="absolute right-5 top-5 z-20">
+          <ThemeToggle />
         </div>
-        <Outlet />
+        <div className="relative z-10 w-full max-w-sm">
+          <div className="mb-8 flex flex-col items-center gap-2">
+            <Logo className="text-2xl" />
+            <span className="lab-label">SECURE ACCESS / ATLAS</span>
+          </div>
+          <Outlet />
+        </div>
       </div>
+
+      {/* Right — cinematic aside (hidden below lg) */}
+      <AuthAside />
     </div>
   );
 }

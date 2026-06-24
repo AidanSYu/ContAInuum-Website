@@ -7,7 +7,7 @@ export function Logo({ className, to = '/' }: { className?: string; to?: string 
     <Link
       to={to}
       className={cn(
-        'font-display font-bold tracking-tight text-text-primary',
+        'font-grotesk font-bold tracking-tight text-text-primary',
         'transition-opacity hover:opacity-80',
         className,
       )}

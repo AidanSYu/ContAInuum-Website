@@ -1,0 +1,47 @@
+# Supabase local-dev config. Brings up a stack (`supabase start`) that mirrors
+# this repo's migrations + Edge Functions so the integration tests in
+# supabase/tests/ can hit it. Values are mostly CLI defaults, kept explicit for
+# clarity. If your CLI version rejects a field, run `supabase init` and re-apply
+# the [auth.email] and [functions.*] overrides below.
+project_id = "containuum"
+
+[api]
+enabled = true
+port = 54321
+schemas = ["public", "graphql_public"]
+extra_search_path = ["public", "extensions"]
+max_rows = 1000
+
+[db]
+port = 54322
+shadow_port = 54320
+major_version = 15
+
+[studio]
+enabled = true
+port = 54323
+
+[auth]
+enabled = true
+site_url = "http://localhost:5173"
+additional_redirect_urls = ["http://localhost:5173"]
+jwt_expiry = 3600
+
+# Local dev: don't require email confirmation, so test users can sign in
+# immediately. Production keeps this ON (see BACKEND.md §3).
+[auth.email]
+enable_signup = true
+enable_confirmations = false
+
+# Serve Edge Functions from supabase/functions at /functions/v1/<name>.
+[edge_runtime]
+enabled = true
+
+# Public endpoints invoked WITHOUT a user JWT — mirror the deploy flags in
+# BACKEND.md: the confirm link is a plain browser GET, and Stripe (not a signed
+# in user) calls the webhook.
+[functions.newsletter-confirm]
+verify_jwt = false
+
+[functions.stripe-webhook]
+verify_jwt = false

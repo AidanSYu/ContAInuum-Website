@@ -1,0 +1,40 @@
+<!-- @dsCard group="Marketing" name="Site header" subtitle="Logo · nav · auth CTAs" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Header</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@700&family=Inter:wght@400;500&family=IBM+Plex+Mono:wght@500&display=swap');
+*{box-sizing:border-box}
+body{margin:0;background:#FBFAF8;color:#16191F;font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;padding:28px}
+.lab-label{font-family:'IBM Plex Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.22em;color:#9AA1AC;margin:0 0 18px}
+.hdr{background:rgba(251,250,248,.8);backdrop-filter:blur(12px);border:1px solid #E6E3DD;border-radius:8px;display:flex;align-items:center;justify-content:space-between;height:64px;padding:0 22px}
+.brand{display:flex;align-items:center;gap:12px}
+.logo{font-family:'Sora',sans-serif;font-weight:700;font-size:18px;letter-spacing:-.02em}
+.logo b{color:#FF4D2E;font-weight:700}
+.slash{font-family:'IBM Plex Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.2em;color:#9AA1AC}
+nav{display:flex;gap:34px}
+nav a{font-family:'IBM Plex Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.18em;color:#586172;text-decoration:none}
+.cta{display:flex;gap:8px}
+.btn{border:1px solid transparent;border-radius:4px;font-size:13px;font-weight:500;padding:7px 15px;font-family:inherit;cursor:pointer}
+.ghost{background:transparent;color:#586172}
+.safety{background:#FF4D2E;color:#fff}
+</style>
+</head>
+<body>
+<p class="lab-label">contAInuum / marketing — header</p>
+<div class="hdr">
+  <div class="brand">
+    <span class="logo">cont<b>AI</b>nuum</span>
+    <span class="slash">/ ATLAS</span>
+  </div>
+  <nav><a>Platform</a><a>Pricing</a><a>Contact</a></nav>
+  <div class="cta">
+    <button class="btn ghost">Sign in</button>
+    <button class="btn safety">Start free trial</button>
+  </div>
+</div>
+</body>
+</html>
