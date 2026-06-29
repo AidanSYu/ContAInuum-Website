@@ -23,8 +23,9 @@ const NAV = [
   { to: '/app', label: 'Overview', icon: LayoutDashboard, end: true },
   { to: '/app/projects', label: 'Projects', icon: FolderKanban, end: false },
   { to: '/app/billing', label: 'Billing', icon: CreditCard, end: false },
-  // Escrow is available to every authenticated user (not subscription-gated).
-  { to: '/app/escrow', label: 'Escrow', icon: Landmark, end: false },
+  // Escrow powers design-partner pilot engagements — surfaced as "Engagement".
+  // Available to every authenticated user (not subscription-gated).
+  { to: '/app/escrow', label: 'Engagement', icon: Landmark, end: false },
   { to: '/app/settings', label: 'Settings', icon: Settings, end: false },
 ];
 

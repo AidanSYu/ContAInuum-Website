@@ -42,3 +42,28 @@ export function agreementBadgeVariant(status: EscrowAgreement['status']): BadgeV
 export function milestoneBadgeVariant(status: EscrowMilestone['status']): BadgeVariant {
   return MILESTONE_BADGE[status];
 }
+
+/** Settled (released or refunded) milestones out of the total — for a progress read. */
+export function milestoneProgress(
+  milestones: Pick<EscrowMilestone, 'status'>[],
+): { done: number; total: number } {
+  const total = milestones.length;
+  const done = milestones.filter((m) => m.status === 'released' || m.status === 'refunded').length;
+  return { done, total };
+}
+
+/** Customer-facing next-action copy for an engagement, keyed by agreement status. */
+export function engagementStatusCopy(status: EscrowAgreement['status']): string {
+  switch (status) {
+    case 'draft':
+      return 'We’re still scoping this engagement with you — no action needed yet.';
+    case 'pending':
+      return 'Your engagement is ready to fund. Funding locks in your milestones and starts the work.';
+    case 'funded':
+      return 'Work is underway. We’ll mark each milestone here as it’s completed.';
+    case 'completed':
+      return 'All milestones are settled. Thank you for being a design partner.';
+    case 'canceled':
+      return 'This engagement was canceled. Reach out if you’d like to restart it.';
+  }
+}

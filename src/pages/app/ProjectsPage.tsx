@@ -11,6 +11,7 @@ import {
   hasAccess,
   type Project,
 } from '@/lib/api';
+import { flags } from '@/lib/flags';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import {
@@ -98,8 +99,17 @@ export function ProjectsPage() {
         <div className="flex items-center gap-3 border border-safety/30 bg-safety/[0.05] px-5 py-4 text-sm text-ink-muted">
           <Lock className="h-4 w-4 shrink-0 text-safety" />
           <span>
-            Start a trial to create projects.{' '}
-            <Link to="/app/billing" className="text-safety hover:underline">Choose a plan →</Link>
+            {flags.selfServeBilling ? (
+              <>
+                Start a trial to create projects.{' '}
+                <Link to="/app/billing" className="text-safety hover:underline">Choose a plan →</Link>
+              </>
+            ) : (
+              <>
+                Project access unlocks once your pilot engagement is set up.{' '}
+                <Link to="/app/escrow" className="text-safety hover:underline">View your engagement →</Link>
+              </>
+            )}
           </span>
         </div>
       )}

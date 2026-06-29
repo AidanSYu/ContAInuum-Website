@@ -42,11 +42,11 @@ export function EscrowListPage() {
   return (
     <div className="space-y-8">
       <div className="border-b border-line pb-6">
-        <p className="lab-label text-safety">ESCROW</p>
-        <h1 className="mt-2 font-display text-3xl font-bold tracking-tight text-ink">Escrow</h1>
+        <p className="lab-label text-safety">ENGAGEMENT</p>
+        <h1 className="mt-2 font-display text-3xl font-bold tracking-tight text-ink">Your engagement</h1>
         <p className="mt-1 text-ink-muted">
-          Your milestone-based escrow agreements. Fund an agreement to hold payment securely
-          until each milestone is released.
+          Your design-partner pilot, funded by milestone. Payment is held securely and released
+          to us only as each milestone is completed.
         </p>
       </div>
 
@@ -87,9 +87,11 @@ export function EscrowListPage() {
       ) : (
         <div className="border border-dashed border-line px-6 py-16 text-center">
           <Landmark className="mx-auto h-10 w-10 text-ink-faint" strokeWidth={1.3} />
-          <p className="mt-4 font-display text-lg text-ink">No escrow agreements yet</p>
-          <p className="mt-1 text-sm text-ink-muted">
-            Agreements are set up for you by our team. They’ll appear here once created.
+          <p className="mt-4 font-display text-lg text-ink">Your pilot engagement isn’t set up yet</p>
+          <p className="mx-auto mt-1 max-w-md text-sm text-ink-muted">
+            Once your onboarding call is done, our team scopes your milestones and your engagement
+            appears here to fund. Questions in the meantime?{' '}
+            <Link to="/contact?topic=partner" className="text-safety hover:underline">Get in touch</Link>.
           </p>
         </div>
       )}

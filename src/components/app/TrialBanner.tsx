@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
 import { AlertTriangle, Clock, Sparkles } from 'lucide-react';
 import { getMySubscription, hasAccess, trialDaysLeft } from '@/lib/api';
+import { flags } from '@/lib/flags';
 import { cn } from '@/lib/utils';
 
 /* =============================================================================
@@ -45,8 +46,11 @@ export function TrialBanner() {
   const { data: sub, isLoading } = useQuery({ queryKey: ['subscription'], queryFn: getMySubscription });
   if (isLoading) return null;
 
-  // No subscription at all → invite to start the trial.
+  // No subscription at all → only nudge toward self-serve when it's enabled.
+  // In the design-partner phase, the Overview engagement panel carries the
+  // messaging instead, so this stays silent.
   if (!sub) {
+    if (!flags.selfServeBilling) return null;
     return (
       <Banner tone="info" icon={Sparkles} cta={{ to: '/app/billing', label: 'Choose a plan' }}>
         Start your free trial to run your first campaign — 14 days, cancel anytime.
@@ -87,6 +91,7 @@ export function TrialBanner() {
 
   // Any non-access status that isn't trialing (canceled, expired, unpaid, paused).
   if (!hasAccess(sub)) {
+    if (!flags.selfServeBilling) return null;
     return (
       <Banner tone="warn" icon={AlertTriangle} cta={{ to: '/app/billing', label: 'Choose a plan' }}>
         Your subscription is inactive. Pick a plan to resume running campaigns with ATLAS.

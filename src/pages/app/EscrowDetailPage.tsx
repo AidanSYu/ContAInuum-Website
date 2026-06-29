@@ -19,6 +19,8 @@ import {
   formatMoney,
   agreementBadgeVariant,
   milestoneBadgeVariant,
+  milestoneProgress,
+  engagementStatusCopy,
 } from '@/pages/app/escrow/format';
 
 export function EscrowDetailPage() {
@@ -57,7 +59,7 @@ export function EscrowDetailPage() {
           to="/app/escrow"
           className="inline-flex items-center gap-2 text-sm text-ink-muted hover:text-ink"
         >
-          <ArrowLeft className="h-4 w-4" /> Back to escrow
+          <ArrowLeft className="h-4 w-4" /> Back to your engagement
         </Link>
         <div className="border border-dashed border-line px-6 py-16 text-center">
           <p className="font-display text-lg text-ink">Agreement not found</p>
@@ -73,6 +75,8 @@ export function EscrowDetailPage() {
   // The customer can fund once the admin finalizes the agreement to 'pending'.
   // A 'draft' is still being edited and create-escrow-payment rejects it (409).
   const canFund = agreement.status === 'pending';
+  const { done, total } = milestoneProgress(milestones);
+  const pct = total ? Math.round((done / total) * 100) : 0;
 
   return (
     <div className="space-y-8">
@@ -81,13 +85,13 @@ export function EscrowDetailPage() {
           to="/app/escrow"
           className="inline-flex items-center gap-2 text-sm text-ink-muted hover:text-ink"
         >
-          <ArrowLeft className="h-4 w-4" /> Back to escrow
+          <ArrowLeft className="h-4 w-4" /> Back to your engagement
         </Link>
       </div>
 
       <div className="flex flex-wrap items-end justify-between gap-4 border-b border-line pb-6">
         <div>
-          <p className="lab-label text-safety">ESCROW AGREEMENT</p>
+          <p className="lab-label text-safety">PILOT ENGAGEMENT</p>
           <h1 className="mt-2 font-display text-3xl font-bold tracking-tight text-ink">
             {agreement.title}
           </h1>
@@ -109,10 +113,26 @@ export function EscrowDetailPage() {
               disabled={funding}
               className="bg-safety text-white hover:bg-safety/90"
             >
-              {funding ? 'Redirecting…' : 'Fund escrow'}
+              {funding ? 'Redirecting…' : 'Fund engagement'}
             </Button>
           )}
         </div>
+      </div>
+
+      {/* Engagement status + milestone progress */}
+      <div className="rounded-lg border border-line bg-surface p-5">
+        <p className="text-sm text-ink-muted">{engagementStatusCopy(agreement.status)}</p>
+        {total > 0 && (
+          <div className="mt-4">
+            <div className="flex items-center justify-between font-mono-tech text-[11px] uppercase tracking-[0.14em] text-ink-faint">
+              <span>Milestone progress</span>
+              <span>{done} of {total} settled</span>
+            </div>
+            <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-line">
+              <div className="h-full rounded-full bg-safety transition-all" style={{ width: `${pct}%` }} />
+            </div>
+          </div>
+        )}
       </div>
 
       <div>

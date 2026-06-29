@@ -15,6 +15,15 @@ export const flags = {
    * Turn on only for sales demos / screenshots — never in customer-facing prod.
    */
   showDemoMetrics: on(import.meta.env.VITE_SHOW_DEMO_METRICS),
+
+  /**
+   * Show the self-serve subscription plan picker + Stripe checkout inside the
+   * app (Billing page picker, trial-banner "choose a plan" nudges, the Overview
+   * "activate access" prompt). OFF for the design-partner phase: access is
+   * provisioned through pilot engagements (/app/escrow), not self-serve checkout.
+   * The checkout code stays wired — flip this to "true" to re-open self-serve.
+   */
+  selfServeBilling: on(import.meta.env.VITE_SELF_SERVE_BILLING),
 } as const;
 
 export type Flags = typeof flags;

@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { toast } from 'sonner';
-import { Check, ExternalLink } from 'lucide-react';
+import { ArrowRight, Check, ExternalLink } from 'lucide-react';
 import {
   listPlans,
   planFeatures,
@@ -11,11 +11,13 @@ import {
   startCheckout,
   openBillingPortal,
   trialDaysLeft,
+  listMyAgreements,
   type Plan,
 } from '@/lib/api';
 import { Button } from '@/components/ui/button';
 import { SubscriptionBadge } from '@/components/app/SubscriptionBadge';
 import { PENDING_PLAN_KEY } from '@/pages/auth/SignupPage';
+import { flags } from '@/lib/flags';
 import { cn } from '@/lib/utils';
 
 function priceLabel(plan: Plan) {
@@ -31,6 +33,7 @@ export function BillingPage() {
 
   const { data: plans } = useQuery({ queryKey: ['plans'], queryFn: listPlans });
   const { data: sub, refetch } = useQuery({ queryKey: ['subscription'], queryFn: getMySubscription });
+  const { data: agreements } = useQuery({ queryKey: ['agreements'], queryFn: listMyAgreements });
 
   // Handle Stripe redirect outcomes.
   useEffect(() => {
@@ -54,6 +57,8 @@ export function BillingPage() {
   }, [params, setParams, refetch]);
 
   const access = hasAccess(sub ?? null);
+  const hasEngagement = (agreements?.length ?? 0) > 0;
+  const primaryAgreementId = agreements?.[0]?.id;
 
   const handleStart = async (plan: Plan) => {
     if (plan.amount_cents === 0) {
@@ -124,15 +129,32 @@ export function BillingPage() {
             Payment methods, invoices, and cancellation are handled securely in the Stripe billing portal.
           </p>
         </div>
-      ) : (
+      ) : flags.selfServeBilling ? (
         <p className="text-ink-muted">
           {sub ? 'Your subscription is inactive.' : 'You don’t have an active subscription yet.'} Choose a plan
           to start your free trial.
         </p>
+      ) : (
+        <div className="border border-line bg-surface p-6">
+          <p className="lab-label text-safety">Design-partner pilot</p>
+          <h2 className="mt-2 font-display text-xl font-semibold text-ink">
+            Billing is managed through your engagement
+          </h2>
+          <p className="mt-2 max-w-xl text-sm text-ink-muted">
+            {hasEngagement
+              ? 'Your pilot is funded by milestone — no subscription required. View and fund your engagement, and track milestone status, under Your Engagement.'
+              : 'Your access is provisioned through the contAInuum design-partner program. Once your onboarding call is done, your engagement and milestones appear under Your Engagement.'}
+          </p>
+          <Button asChild className="mt-5 bg-safety text-white hover:bg-safety/90">
+            <Link to={primaryAgreementId ? `/app/escrow/${primaryAgreementId}` : '/app/escrow'}>
+              View your engagement <ArrowRight className="ml-2 h-4 w-4" />
+            </Link>
+          </Button>
+        </div>
       )}
 
-      {/* Plan selection (shown when no active access, or to switch via checkout) */}
-      {!access && (
+      {/* Self-serve plan selection — only when self-serve billing is enabled. */}
+      {!access && flags.selfServeBilling && (
         <div className="grid gap-px border border-line bg-line md:grid-cols-3">
           {plans?.map((plan) => {
             const suggested = pendingPlan === plan.id;
