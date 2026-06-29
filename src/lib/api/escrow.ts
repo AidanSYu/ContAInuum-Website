@@ -87,6 +87,34 @@ export async function startEscrowCheckout(agreementId: string): Promise<string> 
 
 // --- Admin (escrow-admin edge function; RLS lets admins read all) ---
 
+/** A customer the admin can assign an agreement to (email lives in auth.users). */
+export interface AdminUser {
+  id: string;
+  email: string;
+  full_name: string | null;
+}
+
+/** Admin-only: search customers by email or name to assign an agreement. */
+export async function findUsers(query: string): Promise<AdminUser[]> {
+  const trimmed = query.trim();
+  if (trimmed.length < 2) return [];
+  const { users } = await authedPost<{ users: AdminUser[] }>('escrow-admin', {
+    action: 'find_users',
+    query: trimmed,
+  });
+  return users;
+}
+
+/** Admin-only: resolve a set of user ids to email/name (to label agreements). */
+export async function resolveUsers(ids: string[]): Promise<AdminUser[]> {
+  if (ids.length === 0) return [];
+  const { users } = await authedPost<{ users: AdminUser[] }>('escrow-admin', {
+    action: 'find_users',
+    ids,
+  });
+  return users;
+}
+
 /**
  * Every escrow agreement. The `is_admin` RLS policy returns all rows for
  * admins; for non-admins this is equivalent to {@link listMyAgreements}.

@@ -1,16 +1,19 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
-import { Plus, Trash2, ShieldCheck } from 'lucide-react';
+import { Plus, Trash2, ShieldCheck, X } from 'lucide-react';
 import {
   listAllAgreements,
   getAgreement,
   createAgreement,
   releaseMilestone,
   refundMilestone,
+  findUsers,
+  resolveUsers,
   type EscrowAgreement,
   type EscrowMilestone,
   type CreateAgreementInput,
+  type AdminUser,
 } from '@/lib/api';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -45,7 +48,7 @@ export function AdminEscrowPage() {
   const qc = useQueryClient();
   const [open, setOpen] = useState(false);
 
-  const [userId, setUserId] = useState('');
+  const [customer, setCustomer] = useState<AdminUser | null>(null);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [currency, setCurrency] = useState('usd');
@@ -56,8 +59,24 @@ export function AdminEscrowPage() {
     queryFn: listAllAgreements,
   });
 
+  // Resolve customer emails for the listed agreements (admin-only lookup).
+  const customerIds = useMemo(
+    () => [...new Set((agreements ?? []).map((a) => a.user_id))],
+    [agreements],
+  );
+  const { data: customerUsers } = useQuery({
+    queryKey: ['admin-user-map', customerIds],
+    queryFn: () => resolveUsers(customerIds),
+    enabled: customerIds.length > 0,
+  });
+  const emailById = useMemo(() => {
+    const m = new Map<string, string>();
+    for (const u of customerUsers ?? []) m.set(u.id, u.email);
+    return m;
+  }, [customerUsers]);
+
   const resetForm = () => {
-    setUserId('');
+    setCustomer(null);
     setTitle('');
     setDescription('');
     setCurrency('usd');
@@ -67,7 +86,7 @@ export function AdminEscrowPage() {
   const createMut = useMutation({
     mutationFn: () => {
       const input: CreateAgreementInput = {
-        user_id: userId.trim(),
+        user_id: customer?.id ?? '',
         title: title.trim(),
         currency: currency.trim().toLowerCase() || 'usd',
         milestones: milestones.map((m, i) => ({
@@ -99,7 +118,7 @@ export function AdminEscrowPage() {
   const milestonesValid = milestones.every(
     (m) => m.title.trim() && Number.isFinite(dollarsToCents(m.amount)) && dollarsToCents(m.amount) > 0,
   );
-  const canCreate = !!userId.trim() && !!title.trim() && milestones.length > 0 && milestonesValid;
+  const canCreate = !!customer && !!title.trim() && milestones.length > 0 && milestonesValid;
 
   const updateMilestone = (idx: number, patch: Partial<DraftMilestone>) =>
     setMilestones((prev) => prev.map((m, i) => (i === idx ? { ...m, ...patch } : m)));
@@ -139,12 +158,8 @@ export function AdminEscrowPage() {
 
             <div className="space-y-4">
               <div className="space-y-1.5">
-                <label className="lab-label">Customer user ID</label>
-                <Input
-                  placeholder="UUID of the customer profile"
-                  value={userId}
-                  onChange={(e) => setUserId(e.target.value)}
-                />
+                <label className="lab-label">Customer</label>
+                <CustomerPicker value={customer} onChange={setCustomer} />
               </div>
               <div className="space-y-1.5">
                 <label className="lab-label">Title</label>
@@ -242,7 +257,7 @@ export function AdminEscrowPage() {
       ) : agreements?.length ? (
         <div className="space-y-6">
           {agreements.map((a) => (
-            <AgreementCard key={a.id} agreement={a} />
+            <AgreementCard key={a.id} agreement={a} customerEmail={emailById.get(a.user_id)} />
           ))}
         </div>
       ) : (
@@ -259,11 +274,95 @@ export function AdminEscrowPage() {
 }
 
 /**
+ * Search-and-select a customer by email or name to assign an agreement to.
+ * Backed by the admin-only find_users endpoint (emails live in auth.users).
+ */
+function CustomerPicker({
+  value,
+  onChange,
+}: {
+  value: AdminUser | null;
+  onChange: (u: AdminUser | null) => void;
+}) {
+  const [q, setQ] = useState('');
+  const [debounced, setDebounced] = useState('');
+
+  useEffect(() => {
+    const t = setTimeout(() => setDebounced(q.trim()), 250);
+    return () => clearTimeout(t);
+  }, [q]);
+
+  const { data: results, isFetching } = useQuery({
+    queryKey: ['admin-user-search', debounced],
+    queryFn: () => findUsers(debounced),
+    enabled: debounced.length >= 2 && !value,
+  });
+
+  if (value) {
+    return (
+      <div className="flex items-center justify-between rounded-md border border-line bg-panel px-3 py-2">
+        <div className="min-w-0">
+          <p className="truncate text-sm text-ink">{value.full_name || value.email}</p>
+          {value.full_name && (
+            <p className="truncate font-mono-tech text-[11px] text-ink-faint">{value.email}</p>
+          )}
+        </div>
+        <button
+          type="button"
+          onClick={() => onChange(null)}
+          className="ml-2 shrink-0 text-ink-faint transition-colors hover:text-safety"
+          aria-label="Clear customer"
+        >
+          <X className="h-4 w-4" />
+        </button>
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-1.5">
+      <Input
+        placeholder="Search by email or name…"
+        value={q}
+        onChange={(e) => setQ(e.target.value)}
+      />
+      {debounced.length >= 2 && (
+        <div className="max-h-44 overflow-y-auto rounded-md border border-line">
+          {isFetching ? (
+            <p className="px-3 py-2 text-sm text-ink-faint">Searching…</p>
+          ) : results?.length ? (
+            results.map((u) => (
+              <button
+                key={u.id}
+                type="button"
+                onClick={() => onChange(u)}
+                className="flex w-full flex-col items-start gap-0.5 border-b border-line px-3 py-2 text-left transition-colors last:border-b-0 hover:bg-panel"
+              >
+                <span className="text-sm text-ink">{u.full_name || '—'}</span>
+                <span className="font-mono-tech text-[11px] text-ink-faint">{u.email}</span>
+              </button>
+            ))
+          ) : (
+            <p className="px-3 py-2 text-sm text-ink-faint">No matches.</p>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
+/**
  * One agreement plus its milestones (loaded via getAgreement, which RLS lets
  * admins read for any user) with release/refund controls. Mutations invalidate
  * both this agreement and the admin list so statuses refresh everywhere.
  */
-function AgreementCard({ agreement }: { agreement: EscrowAgreement }) {
+function AgreementCard({
+  agreement,
+  customerEmail,
+}: {
+  agreement: EscrowAgreement;
+  customerEmail?: string;
+}) {
   const qc = useQueryClient();
 
   const { data: full, isLoading } = useQuery({
@@ -305,8 +404,8 @@ function AgreementCard({ agreement }: { agreement: EscrowAgreement }) {
         <div>
           <p className="font-medium text-ink">{agreement.title}</p>
           <p className="font-mono-tech text-[11px] text-ink-faint">
-            {formatMoney(agreement.total_amount_cents, agreement.currency)} · user{' '}
-            {agreement.user_id}
+            {formatMoney(agreement.total_amount_cents, agreement.currency)} ·{' '}
+            {customerEmail ?? `user ${agreement.user_id}`}
           </p>
         </div>
         <Badge variant={agreementBadgeVariant(agreement.status)} className="capitalize">

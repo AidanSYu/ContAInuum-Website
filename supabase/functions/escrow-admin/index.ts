@@ -12,7 +12,7 @@
 // Secrets: STRIPE_SECRET_KEY (+ auto-injected SUPABASE_*).
 
 import { corsHeaders, json } from '../_shared/cors.ts';
-import { adminClient, getUser, stripe } from '../_shared/stripe.ts';
+import { adminClient, getUser, stripe, SITE_URL } from '../_shared/stripe.ts';
 
 const AGREEMENT_COLS =
   'id, user_id, title, description, currency, total_amount_cents, status, created_by, stripe_checkout_session_id, stripe_payment_intent_id, created_at';
@@ -51,6 +51,8 @@ Deno.serve(async (req) => {
         return await releaseMilestone(admin, body, req);
       case 'refund_milestone':
         return await refundMilestone(admin, body, req);
+      case 'find_users':
+        return await findUsers(admin, body, req);
       default:
         return json({ error: 'Unknown action' }, 400, req);
     }
@@ -165,6 +167,26 @@ async function createAgreement(
     return json({ error: 'Unexpected error' }, 500, req);
   }
 
+  // Best-effort: tell the customer their engagement is ready to fund. A
+  // notification failure must NOT roll back the already-committed agreement.
+  try {
+    const email = await getUserEmail(admin, customerId);
+    if (email) {
+      const link = `${SITE_URL}/app/escrow/${agreement.id}`;
+      await sendCustomerEmail(
+        email,
+        'Your contAInuum pilot engagement is ready to fund',
+        `<p>Your design-partner pilot engagement <strong>${escapeHtml(title)}</strong> is ready.</p>
+         <p>Funding it locks in your milestones and starts the work. Review the milestones and fund
+         securely here:</p>
+         <p><a href="${link}">View your engagement</a></p>
+         <p>Questions? Just reply to this email.</p>`,
+      );
+    }
+  } catch (e) {
+    console.error('engagement-created notification failed:', e);
+  }
+
   return json({ agreement, milestones: insertedMilestones }, 201, req);
 }
 
@@ -204,6 +226,25 @@ async function releaseMilestone(
   }
 
   const refreshed = await maybeCompleteAgreement(admin, agreement.id);
+
+  // Best-effort: notify the customer a milestone was completed.
+  try {
+    const email = await getUserEmail(admin, agreement.user_id);
+    if (email) {
+      const link = `${SITE_URL}/app/escrow/${agreement.id}`;
+      await sendCustomerEmail(
+        email,
+        'A milestone on your contAInuum engagement was completed',
+        `<p>We’ve marked the milestone <strong>${escapeHtml(milestone.title)}</strong> as completed on
+         your engagement <strong>${escapeHtml(agreement.title)}</strong>.</p>
+         <p>See the latest status here:</p>
+         <p><a href="${link}">View your engagement</a></p>`,
+      );
+    }
+  } catch (e) {
+    console.error('milestone-released notification failed:', e);
+  }
+
   return json({ milestone: updated, agreement: refreshed }, 200, req);
 }
 
@@ -271,6 +312,80 @@ async function refundMilestone(
     200,
     req,
   );
+}
+
+// ── customer email notifications (best-effort; never block the mutation) ─────
+function escapeHtml(s: string): string {
+  const map: Record<string, string> = {
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
+  };
+  return s.replace(/[&<>"']/g, (c) => map[c]);
+}
+
+/** The customer's email from auth.users (service_role only), or null. */
+async function getUserEmail(admin: Admin, userId: string): Promise<string | null> {
+  const { data, error } = await admin.auth.admin.getUserById(userId);
+  if (error || !data.user?.email) return null;
+  return data.user.email;
+}
+
+/** Send a transactional email via Resend. No-ops (logs) if email isn't configured. */
+async function sendCustomerEmail(to: string, subject: string, html: string): Promise<void> {
+  const apiKey = Deno.env.get('RESEND_API_KEY');
+  const from = Deno.env.get('EMAIL_FROM');
+  if (!apiKey || !from) {
+    console.log('[dev] would email', to, '—', subject);
+    return;
+  }
+  const res = await fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ from, to, subject, html }),
+  });
+  if (!res.ok) {
+    console.error('Resend email failed:', res.status, await res.text().catch(() => ''));
+  }
+}
+
+// ── find_users (admin lookup for assigning / labeling agreements) ───────────
+// Two modes: { query } searches by email or full name (min 2 chars); { ids }
+// resolves a set of user ids to email/name (to label the agreement list).
+// Emails live in auth.users, readable only by service_role — never the client.
+async function findUsers(
+  admin: Admin,
+  body: Record<string, unknown> | null,
+  req: Request,
+): Promise<Response> {
+  const query = String(body?.query ?? '').trim().toLowerCase();
+  const ids = Array.isArray(body?.ids) ? (body!.ids as unknown[]).map((x) => String(x)) : [];
+  const byIds = ids.length > 0;
+  if (!byIds && query.length < 2) return json({ users: [] }, 200, req);
+
+  // service_role reads auth.users via the admin API. perPage bounds the scan —
+  // ample for the design-partner cohort; paginate if the user base grows large.
+  const { data, error } = await admin.auth.admin.listUsers({ page: 1, perPage: 200 });
+  if (error) {
+    console.error('listUsers failed:', error);
+    return json({ error: 'Unexpected error' }, 500, req);
+  }
+
+  // full_name from profiles, for matching and display labels.
+  const { data: profs } = await admin.from('profiles').select('id, full_name');
+  const nameById = new Map<string, string>();
+  for (const p of profs ?? []) nameById.set(p.id, (p as { full_name: string | null }).full_name ?? '');
+
+  const idSet = new Set(ids);
+  const matches = data.users
+    .filter((u) => {
+      if (byIds) return idSet.has(u.id);
+      const email = (u.email ?? '').toLowerCase();
+      const name = (nameById.get(u.id) ?? '').toLowerCase();
+      return email.includes(query) || name.includes(query);
+    })
+    .slice(0, 20)
+    .map((u) => ({ id: u.id, email: u.email ?? '', full_name: nameById.get(u.id) || null }));
+
+  return json({ users: matches }, 200, req);
 }
 
 // ── helpers ─────────────────────────────────────────────────────────────────

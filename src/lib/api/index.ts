@@ -26,9 +26,12 @@ export {
   createAgreement,
   releaseMilestone,
   refundMilestone,
+  findUsers,
+  resolveUsers,
   type EscrowAgreement,
   type EscrowMilestone,
   type AgreementWithMilestones,
   type NewMilestoneInput,
   type CreateAgreementInput,
+  type AdminUser,
 } from './escrow';
