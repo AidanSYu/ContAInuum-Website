@@ -1,5 +1,6 @@
-import { LegalDoc, LegalSection, LegalTemplateNotice, Placeholder } from '@/components/marketing/LegalDoc';
+import { LegalDoc, LegalSection, LegalTemplateNotice, Placeholder, Fact } from '@/components/marketing/LegalDoc';
 import { Seo } from '@/components/Seo';
+import { legal } from '@/config/legal';
 
 export function PrivacyPage() {
   return (
@@ -10,11 +11,11 @@ export function PrivacyPage() {
         path="/privacy"
       />
 
-      <LegalDoc kicker="LEGAL" title="Privacy Policy" lastUpdated="[EFFECTIVE DATE]">
+      <LegalDoc kicker="LEGAL" title="Privacy Policy" lastUpdated={legal.effectiveDate ?? '[EFFECTIVE DATE]'}>
         <LegalTemplateNotice />
 
         <p>
-          This Privacy Policy explains what information <Placeholder>[LEGAL ENTITY NAME]</Placeholder>{' '}
+          This Privacy Policy explains what information <Fact value={legal.entityName} placeholder="[LEGAL ENTITY NAME]" />{' '}
           ("contAInuum", "we", "us") collects, how we use it, and the choices you have. It applies to
           our marketing website, the account/dashboard area, and the ATLAS platform (together, the
           "Service"). It is written to describe how the Service actually handles data today.
@@ -109,7 +110,7 @@ export function PrivacyPage() {
               delivery (contact notifications and newsletter double opt-in).
             </li>
             <li>
-              <strong className="text-ink"><Placeholder>[HOSTING/CDN PROVIDER — e.g. Vercel or Cloudflare]</Placeholder></strong>{' '}
+              <strong className="text-ink"><Fact value={legal.hostingProvider} placeholder="[HOSTING/CDN PROVIDER — e.g. Vercel or Cloudflare]" /></strong>{' '}
               — website and application hosting and content delivery.
             </li>
           </ul>
@@ -128,8 +129,12 @@ export function PrivacyPage() {
             required by law. Contact-form submissions are retained for support and anti-abuse purposes
             and then deleted on a periodic basis. Newsletter records are retained until you
             unsubscribe. Billing records are retained as required for tax and accounting purposes.{' '}
-            <Placeholder>[RETENTION PERIODS]</Placeholder> — set concrete retention windows with
-            counsel.
+            {legal.retentionPeriods ?? (
+              <>
+                <Placeholder>[RETENTION PERIODS]</Placeholder> — set concrete retention windows with
+                counsel.
+              </>
+            )}
           </p>
         </LegalSection>
 
@@ -199,8 +204,9 @@ export function PrivacyPage() {
           <p>
             Privacy questions or requests can be sent to{' '}
             <a href="mailto:hello@containuum.io" className="text-safety hover:underline">hello@containuum.io</a>.
-            The data controller is <Placeholder>[LEGAL ENTITY NAME]</Placeholder>, located at{' '}
-            <Placeholder>[REGISTERED ADDRESS]</Placeholder>. <Placeholder>[DPO / EU REPRESENTATIVE, IF REQUIRED]</Placeholder>.
+            The data controller is <Fact value={legal.entityName} placeholder="[LEGAL ENTITY NAME]" />, located at{' '}
+            <Fact value={legal.registeredAddress} placeholder="[REGISTERED ADDRESS]" />.{' '}
+            <Fact value={legal.dpoOrEuRepresentative} placeholder="[DPO / EU REPRESENTATIVE, IF REQUIRED]" />.
           </p>
         </LegalSection>
       </LegalDoc>

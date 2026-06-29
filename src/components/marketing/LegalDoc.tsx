@@ -90,3 +90,12 @@ export function Placeholder({ children }: { children: ReactNode }) {
     </code>
   );
 }
+
+/**
+ * Render a filled-in legal fact (from src/config/legal.ts), or fall back to the
+ * visible [PLACEHOLDER] marker when it hasn't been provided yet — so unfilled
+ * blanks stay obvious and the "review required" banner stays accurate.
+ */
+export function Fact({ value, placeholder }: { value: string | null; placeholder: string }) {
+  return value ? <>{value}</> : <Placeholder>{placeholder}</Placeholder>;
+}

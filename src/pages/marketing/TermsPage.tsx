@@ -1,5 +1,6 @@
-import { LegalDoc, LegalSection, LegalTemplateNotice, Placeholder } from '@/components/marketing/LegalDoc';
+import { LegalDoc, LegalSection, LegalTemplateNotice, Placeholder, Fact } from '@/components/marketing/LegalDoc';
 import { Seo } from '@/components/Seo';
+import { legal } from '@/config/legal';
 
 export function TermsPage() {
   return (
@@ -10,13 +11,13 @@ export function TermsPage() {
         path="/terms"
       />
 
-      <LegalDoc kicker="LEGAL" title="Terms of Service" lastUpdated="[EFFECTIVE DATE]">
+      <LegalDoc kicker="LEGAL" title="Terms of Service" lastUpdated={legal.effectiveDate ?? '[EFFECTIVE DATE]'}>
         <LegalTemplateNotice />
 
         <p>
           These Terms of Service ("Terms") govern your access to and use of the websites, account
           dashboard, ATLAS platform, and related services (collectively, the "Service") offered by{' '}
-          <Placeholder>[LEGAL ENTITY NAME]</Placeholder> ("contAInuum", "we", "us"). By creating an
+          <Fact value={legal.entityName} placeholder="[LEGAL ENTITY NAME]" /> ("contAInuum", "we", "us"). By creating an
           account or using the Service, you agree to these Terms. If you are agreeing on behalf of an
           organization, you represent that you are authorized to bind it.
         </p>
@@ -147,7 +148,7 @@ export function TermsPage() {
             contAInuum will not be liable for any indirect, incidental, special, consequential, or
             punitive damages, or for lost profits, data, or goodwill. Our total aggregate liability
             arising out of or relating to the Service is limited to the amounts you paid to us for the
-            Service in the <Placeholder>[CAP PERIOD — e.g. 12 months]</Placeholder> preceding the event
+            Service in the <Fact value={legal.liabilityCapPeriod} placeholder="[CAP PERIOD — e.g. 12 months]" /> preceding the event
             giving rise to the claim. Some jurisdictions do not allow certain limitations; in those
             cases, the limitations apply to the fullest extent permitted.
           </p>
@@ -175,8 +176,8 @@ export function TermsPage() {
         <LegalSection n="14" heading="Governing law & disputes">
           <p>
             <Placeholder>[REVIEW WITH COUNSEL]</Placeholder> These Terms are governed by the laws of{' '}
-            <Placeholder>[JURISDICTION]</Placeholder>, without regard to its conflict-of-laws rules.
-            The courts located in <Placeholder>[VENUE]</Placeholder> will have exclusive jurisdiction,
+            <Fact value={legal.governingLaw} placeholder="[JURISDICTION]" />, without regard to its conflict-of-laws rules.
+            The courts located in <Fact value={legal.venue} placeholder="[VENUE]" /> will have exclusive jurisdiction,
             unless a mandatory arbitration or alternative dispute-resolution mechanism is adopted
             (<Placeholder>[ARBITRATION CLAUSE — REVIEW WITH COUNSEL]</Placeholder>).
           </p>
@@ -194,8 +195,8 @@ export function TermsPage() {
           <p>
             Questions about these Terms can be sent to{' '}
             <a href="mailto:hello@containuum.io" className="text-safety hover:underline">hello@containuum.io</a>.
-            The contracting entity is <Placeholder>[LEGAL ENTITY NAME]</Placeholder>,{' '}
-            <Placeholder>[REGISTERED ADDRESS]</Placeholder>.
+            The contracting entity is <Fact value={legal.entityName} placeholder="[LEGAL ENTITY NAME]" />,{' '}
+            <Fact value={legal.registeredAddress} placeholder="[REGISTERED ADDRESS]" />.
           </p>
         </LegalSection>
       </LegalDoc>
