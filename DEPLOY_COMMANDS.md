@@ -15,7 +15,7 @@ supabase login
 supabase link --project-ref <YOUR-PROJECT-REF>
 ```
 
-## 1. Database — apply migrations 0001 → 0008
+## 1. Database — apply migrations 0001 → 0009
 
 ```bash
 supabase db push
@@ -23,7 +23,7 @@ supabase db push
 supabase gen types typescript --linked > src/lib/database.types.ts
 ```
 Non-CLI alternative: paste `supabase/PROVISION_ALL.sql` into Studio → SQL Editor
-(idempotent, spans 0001 → 0008).
+(idempotent, spans 0001 → 0009).
 
 ## 2. Edge Function secrets
 
