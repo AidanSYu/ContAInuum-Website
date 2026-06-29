@@ -1,10 +1,11 @@
 # ContAInuum — Go-Live Runbook (Phase 1: configuration)
 
 This is the **config/ops** checklist to make the already-built code live. All the
-*code* for auth, subscription billing, and escrow exists on branch
-`feat/payments-auth-escrow` and passes build + tests. The steps below are the
-parts that need **your** Supabase/Stripe/Cloudflare accounts — they can't be done
-from the codebase.
+*code* for auth, subscription billing, and escrow is merged into the `redesign`
+branch and passes build + lint + tests (`main` is intentionally left untouched).
+The steps below are the parts that need **your** Supabase/Stripe/Cloudflare
+accounts — they can't be done from the codebase. For a condensed copy-paste
+version of steps 1–9, see [`DEPLOY_COMMANDS.md`](DEPLOY_COMMANDS.md).
 
 Do them roughly in order. Anything marked **⚠️** is a common silent-failure trap.
 
@@ -18,19 +19,21 @@ Do them roughly in order. Anything marked **⚠️** is a common silent-failure 
 
 ---
 
-## 1. Database — apply all migrations (0001 → 0007)
+## 1. Database — apply all migrations (0001 → 0009)
 
 Option A (preferred, versioned):
 ```bash
-supabase db push      # applies migrations 0001..0007 in order
+supabase db push      # applies migrations 0001..0009 in order
 ```
 Option B (one paste): open `supabase/PROVISION_ALL.sql` and run it in
-**Supabase Studio → SQL Editor**. It's idempotent and now spans 0001 → 0007.
+**Supabase Studio → SQL Editor**. It's idempotent and now spans 0001 → 0009.
 
-What 0005–0007 add (built in Phases 0/2/3):
+What 0005–0009 add (built in Phases 0/2/3):
 - **0005** — `has_active_subscription()` + projects INSERT/UPDATE gated on it; `REVOKE UPDATE/INSERT (role)` on `profiles` (no more self-made admins).
 - **0006** — `processed_stripe_events` idempotency ledger + `subscriptions.last_event_at` ordering watermark.
 - **0007** — escrow: `escrow_agreements`, `escrow_milestones`, `is_admin()`, RLS (clients read-only, service_role is the sole writer).
+- **0008** — bounded `past_due` grace: `subscriptions.past_due_since` column + `has_active_subscription()` denies a `past_due` sub after 7 days (see §10).
+- **0009** — `contact_messages.topic` column so partner/pilot/demo/enterprise/security submissions can be triaged apart from generic messages.
 
 ⚠️ After applying, **regenerate the typed schema** so future codegen stays in sync (the hand-written types are correct but should be reconciled):
 ```bash

@@ -1,5 +1,11 @@
 # contAInuum — Backend & Security Guide
 
+> ⚠️ **For go-live, follow [`GO_LIVE_RUNBOOK.md`](GO_LIVE_RUNBOOK.md) (and the
+> copy-paste [`DEPLOY_COMMANDS.md`](DEPLOY_COMMANDS.md)), which supersede this
+> file.** This guide predates the escrow feature and the current plan catalog
+> (Solo/Lab/Institute) — some plan names and migration counts here are stale. It
+> remains useful as a conceptual overview of the security model.
+
 This site is a static React/Vite frontend with a **Supabase** backend
 (Postgres + Auth + Edge Functions). The browser only ever uses the public
 `anon` key; all data access is gated by **Row Level Security (RLS)** in the
