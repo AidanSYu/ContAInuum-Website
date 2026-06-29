@@ -150,7 +150,7 @@ Submit the contact form → a row appears in **Table Editor → contact_messages
 | Honeypot spam trap | `company_website` field |
 | Raw IPs never stored | `sha256()` → `ip_hash` |
 | Ownership can't be forged | `user_id default auth.uid()` + `with check` |
-| Security headers (CSP/HSTS/etc.) | `vercel.json` + `public/_headers` |
+| Security headers (CSP/HSTS/etc.) | `vercel.json` (single source; Vercel host) |
 | Secrets gitignored | `.env*` in `.gitignore` |
 
 ### Recommended next hardening steps

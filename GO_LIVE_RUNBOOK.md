@@ -132,10 +132,14 @@ VITE_SUPABASE_URL=https://YOUR-REF.supabase.co
 VITE_SUPABASE_ANON_KEY=your-anon-publishable-key
 VITE_TURNSTILE_SITE_KEY=your-turnstile-SITE-key   # blank = captcha off (dev)
 ```
-⚠️ Confirm the `.env.local` currently in the repo (it has a real project ref) was
-never committed/pushed; if it was, **rotate** the anon key. Pick **one** deploy
-target (Vercel *or* Cloudflare Pages) and dedupe the CSP that's currently
-hand-duplicated across `vercel.json` and `public/_headers`.
+✅ `.env.local` was verified **never committed** — it's in `.gitignore`, `git
+ls-files` tracks only `.env.example`, and `git log --all -- .env.local` is empty
+on every branch. The Supabase anon key is public-by-design (RLS-protected), so
+**no rotation is needed**.
+
+✅ Security headers are now defined in **`vercel.json` only** (Vercel is the
+linked deploy target); the duplicated `public/_headers` was removed. If you ever
+add a Cloudflare Pages deployment, re-create its headers from `vercel.json`.
 
 ---
 
@@ -172,8 +176,8 @@ Escrow:
 ---
 
 ## 10. Known follow-ups (not blockers, but decide before scale)
-- **`past_due` grace is unbounded** — `has_active_subscription()` and `hasAccess()` treat `past_due` as full access with no time limit. Decide a grace window (e.g. 7 days) and bound it. *Product decision — left for you.*
-- **Legal pages** — `/terms` and `/privacy` are accurate drafts with a "review with counsel" banner and `[PLACEHOLDERS]`. Fill the placeholders and have counsel review before launch.
+- ✅ **`past_due` grace is now bounded to 7 days** — `has_active_subscription()` (migration `0008_past_due_grace.sql`) and `hasAccess()` grant a `past_due` sub access only for `PAST_DUE_GRACE_DAYS` (7) after the unpaid period lapsed, keyed off a new `subscriptions.past_due_since` column the webhook stamps. Access-denial only; Stripe's dunning stays authoritative. To change the window, edit `PAST_DUE_GRACE_DAYS` in `src/lib/api/subscriptions.ts` **and** the `interval '7 days'` in the migration (they must match).
+- **Legal pages** — `/terms` and `/privacy` are accurate drafts with a "review with counsel" banner and `[PLACEHOLDERS]`. Fill the placeholders and have counsel review before launch. ⏳ *Still needs your company facts (legal entity name, registered address, governing-law jurisdiction, venue, DPO, retention periods, liability-cap period, effective date) — see the launch checklist.*
 - **Escrow is escrow-*like*** (you hold your own customers' funds with a refund obligation), **not** neutral third-party custody. Treat captured-but-unreleased funds as deferred revenue / a liability and state refund terms in the engagement contract.
-- **Overview demo data** — the dashboard Overview still shows hardcoded sample metrics; replace or feature-flag before customers see it.
+- ✅ **Overview demo data is now feature-flagged** — the dashboard Overview only renders the sample handoff alert + stat cards when `VITE_SHOW_DEMO_METRICS=true`; customers see an honest "No active campaigns yet" empty state otherwise.
 - **BACKEND.md drift** — the old runbook references deactivated `starter/pro` plans; this file supersedes it for go-live.

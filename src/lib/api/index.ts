@@ -13,6 +13,8 @@ export {
   getMySubscription,
   hasAccess,
   trialDaysLeft,
+  pastDueGraceDaysLeft,
+  PAST_DUE_GRACE_DAYS,
   type Subscription,
 } from './subscriptions';
 export { startCheckout, openBillingPortal } from './billing';

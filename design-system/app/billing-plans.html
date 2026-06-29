@@ -1,0 +1,48 @@
+<!-- @dsCard group="Dashboard" name="Billing — current plan" subtitle="Active subscription summary + portal" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Billing</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@700;800&family=Inter:wght@400;500&family=IBM+Plex+Mono:wght@500&display=swap');
+*{box-sizing:border-box}
+body{margin:0;background:#FBFAF8;color:#16191F;font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;padding:36px}
+.head{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:1px solid #E6E3DD;padding-bottom:18px;margin-bottom:20px;max-width:760px}
+.tick{font-family:'IBM Plex Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.2em;color:#FF4D2E;margin:0 0 6px}
+h1{font-family:'Sora',sans-serif;font-weight:700;font-size:24px;margin:0 0 3px}
+.muted{color:#586172;font-size:14px;margin:0}
+.badge{display:inline-flex;align-items:center;gap:7px;border:1px solid rgba(255,77,46,.4);background:rgba(255,77,46,.08);color:#d83a1d;border-radius:999px;padding:4px 11px;font-family:'IBM Plex Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.08em}
+.dot{width:6px;height:6px;border-radius:999px;background:currentColor}
+.card{background:#fff;border:1px solid #E6E3DD;border-radius:10px;padding:24px;max-width:760px}
+.crow{display:flex;justify-content:space-between;align-items:center;gap:16px}
+.kl{font-family:'IBM Plex Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.2em;color:#9AA1AC;margin:0}
+.plan{font-family:'Sora',sans-serif;font-weight:800;font-size:26px;margin:6px 0 0;text-transform:capitalize}
+.trial{color:#FF4D2E;font-size:13px;margin:6px 0 0}
+.btn{border:none;border-radius:4px;font-size:14px;font-weight:500;padding:10px 18px;background:#FF4D2E;color:#fff;cursor:pointer;font-family:inherit;white-space:nowrap}
+.note{font-family:'IBM Plex Mono',monospace;font-size:11px;color:#9AA1AC;margin:18px 0 0;border-top:1px solid #E6E3DD;padding-top:14px}
+</style>
+</head>
+<body>
+<div class="head">
+  <div>
+    <p class="tick">BILLING</p>
+    <h1>Billing</h1>
+    <p class="muted">Manage your subscription and payment details.</p>
+  </div>
+  <span class="badge"><span class="dot"></span>Trial · 12d left</span>
+</div>
+<div class="card">
+  <div class="crow">
+    <div>
+      <p class="kl">Current plan</p>
+      <p class="plan">Pro</p>
+      <p class="trial">12 days left in trial · renews 07/04/2026</p>
+    </div>
+    <button class="btn">Manage billing ↗</button>
+  </div>
+  <p class="note">Payment methods, invoices, and cancellation are handled securely in the Stripe billing portal.</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!-- @dsCard group="Dashboard" name="Projects list" subtitle="ATLAS projects table + locked state" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Projects list</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@700&family=Inter:wght@400;500&family=IBM+Plex+Mono:wght@500&display=swap');
+*{box-sizing:border-box}
+body{margin:0;background:#FBFAF8;color:#16191F;font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;padding:36px}
+.head{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:1px solid #E6E3DD;padding-bottom:18px;margin-bottom:18px;max-width:760px}
+.tick{font-family:'IBM Plex Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.2em;color:#FF4D2E;margin:0 0 6px}
+h1{font-family:'Sora',sans-serif;font-weight:700;font-size:24px;margin:0 0 3px}
+.muted{color:#586172;font-size:14px;margin:0}
+.btn{border:none;border-radius:4px;font-size:13px;font-weight:500;padding:9px 16px;background:#FF4D2E;color:#fff;cursor:pointer;font-family:inherit}
+.list{border:1px solid #E6E3DD;border-radius:8px;overflow:hidden;max-width:760px}
+.row{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;background:#fff;border-bottom:1px solid #E6E3DD}
+.row:last-child{border-bottom:none}
+.l{display:flex;align-items:center;gap:12px}
+.fk{color:#16191F;font-size:18px}
+.t{font-size:14px;font-weight:500}
+.d{font-family:'IBM Plex Mono',monospace;font-size:11px;color:#9AA1AC;margin-top:2px}
+.del{color:#9AA1AC;font-size:16px}
+</style>
+</head>
+<body>
+<div class="head">
+  <div>
+    <p class="tick">PROJECTS</p>
+    <h1>Projects</h1>
+    <p class="muted">Your ATLAS projects and agent runs.</p>
+  </div>
+  <button class="btn">+ New project</button>
+</div>
+<div class="list">
+  <div class="row"><div class="l"><span class="fk">▤</span><div><div class="t">RNA folding sweep</div><div class="d">Created 06/18/2026</div></div></div><span class="del">🗑</span></div>
+  <div class="row"><div class="l"><span class="fk">▤</span><div><div class="t">Catalyst screening — batch 7</div><div class="d">Created 06/12/2026</div></div></div><span class="del">🗑</span></div>
+  <div class="row"><div class="l"><span class="fk">▤</span><div><div class="t">Protein binding affinity</div><div class="d">Created 06/03/2026</div></div></div><span class="del">🗑</span></div>
+</div>
+</body>
+</html>

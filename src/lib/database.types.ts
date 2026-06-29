@@ -187,6 +187,7 @@ export type Database = {
           cancel_at_period_end: boolean;
           trial_reminded_at: string | null;
           last_event_at: string | null;
+          past_due_since: string | null;
           created_at: string;
           updated_at: string;
         };
@@ -210,6 +211,7 @@ export type Database = {
           cancel_at_period_end?: boolean;
           trial_reminded_at?: string | null;
           last_event_at?: string | null;
+          past_due_since?: string | null;
           created_at?: string;
           updated_at?: string;
         };
@@ -231,6 +233,7 @@ export type Database = {
           cancel_at_period_end?: boolean;
           trial_reminded_at?: string | null;
           last_event_at?: string | null;
+          past_due_since?: string | null;
           updated_at?: string;
         };
         Relationships: [];

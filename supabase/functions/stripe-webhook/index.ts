@@ -149,7 +149,7 @@ async function syncSubscription(sub: Stripe.Subscription, eventCreated: number):
   const eventAtIso = new Date(eventCreated * 1000).toISOString();
   const { data: existing } = await admin
     .from('subscriptions')
-    .select('last_event_at')
+    .select('last_event_at, past_due_since')
     .eq('user_id', userId)
     .maybeSingle();
   if (existing?.last_event_at && new Date(existing.last_event_at) > new Date(eventAtIso)) {
@@ -175,6 +175,14 @@ async function syncSubscription(sub: Stripe.Subscription, eventCreated: number):
   const toIso = (unix: number | null | undefined) =>
     unix ? new Date(unix * 1000).toISOString() : null;
 
+  // Grace anchor for the bounded past_due window (see has_active_subscription /
+  // PAST_DUE_GRACE_DAYS). Stamp the FIRST time we see past_due and preserve it
+  // across subsequent past_due events; clear it once the sub leaves past_due.
+  // The watermark guard above means we only get here for events newer than the
+  // stored state, so the earliest past_due event wins the timestamp.
+  const pastDueSince =
+    sub.status === 'past_due' ? (existing?.past_due_since ?? eventAtIso) : null;
+
   const row = {
     user_id: userId,
     plan_id: planId,
@@ -186,6 +194,8 @@ async function syncSubscription(sub: Stripe.Subscription, eventCreated: number):
     current_period_end: toIso(item?.current_period_end),
     trial_end: toIso(sub.trial_end),
     cancel_at_period_end: sub.cancel_at_period_end ?? false,
+    // When the subscription entered past_due (null unless currently past_due).
+    past_due_since: pastDueSince,
     // Ordering watermark: the event that produced this state.
     last_event_at: eventAtIso,
   };

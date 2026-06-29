@@ -1,0 +1,48 @@
+<!-- @dsCard group="Dashboard" name="Overview stat cards" subtitle="Projects + subscription + trial banner" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Stat cards</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@700;800&family=Inter:wght@400;500&family=IBM+Plex+Mono:wght@500&display=swap');
+*{box-sizing:border-box}
+body{margin:0;background:#FBFAF8;color:#16191F;font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;padding:36px}
+.lab-label{font-family:'IBM Plex Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.22em;color:#9AA1AC;margin:0 0 18px}
+.banner{display:flex;align-items:center;justify-content:space-between;gap:16px;border:1px solid rgba(255,77,46,.4);background:rgba(255,77,46,.05);border-radius:10px;padding:18px 22px;max-width:760px;margin-bottom:20px}
+.banner h2{font-family:'Sora',sans-serif;font-weight:600;font-size:16px;margin:0 0 2px}
+.banner p{color:#586172;font-size:13px;margin:0}
+.btn{border:none;border-radius:4px;font-size:13px;font-weight:500;padding:9px 16px;background:#FF4D2E;color:#fff;cursor:pointer;font-family:inherit;white-space:nowrap}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;max-width:760px}
+.card{background:#fff;border:1px solid #E6E3DD;border-radius:10px;padding:22px}
+.crow{display:flex;justify-content:space-between;align-items:center;color:#9AA1AC}
+.ic{color:#FF4D2E;font-size:18px}
+.num{font-family:'Sora',sans-serif;font-weight:800;font-size:40px;margin:18px 0 2px}
+.num.sm{font-size:24px;text-transform:capitalize}
+.cap{color:#586172;font-size:13px;margin:0}
+</style>
+</head>
+<body>
+<p class="lab-label">contAInuum / dashboard — overview</p>
+<div class="banner">
+  <div>
+    <h2>Activate your ATLAS access</h2>
+    <p>Start your free trial to spin up projects and run autonomous agents.</p>
+  </div>
+  <button class="btn">Choose a plan →</button>
+</div>
+<div class="grid">
+  <div class="card">
+    <div class="crow"><span class="ic">▤</span><span>→</span></div>
+    <div class="num">3</div>
+    <p class="cap">Active projects</p>
+  </div>
+  <div class="card">
+    <div class="crow"><span class="ic">▭</span><span>→</span></div>
+    <div class="num sm">Pro</div>
+    <p class="cap">Current subscription</p>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!-- @dsCard group="Dashboard" name="Dashboard shell" subtitle="Sidebar nav + top bar + content" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Dashboard shell</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap');
+*{box-sizing:border-box}
+body{margin:0;background:#FBFAF8;color:#16191F;font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;padding:28px}
+.app{display:grid;grid-template-columns:220px 1fr;border:1px solid #E6E3DD;border-radius:10px;overflow:hidden;min-height:380px;background:#fff}
+.side{background:#fff;border-right:1px solid #E6E3DD;display:flex;flex-direction:column}
+.brand{height:56px;display:flex;align-items:center;padding:0 18px;font-family:'Sora',sans-serif;font-weight:700;font-size:16px}
+.brand b{color:#FF4D2E}
+.nav{padding:10px;flex:1}
+.item{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:6px;font-size:14px;color:#586172;margin-bottom:2px}
+.item.active{background:#F3F2ED;color:#16191F;font-weight:500}
+.item .i{width:16px;text-align:center;color:#9AA1AC}
+.item.active .i{color:#FF4D2E}
+.foot{border-top:1px solid #E6E3DD;padding:12px}
+.email{font-size:12px;color:#9AA1AC;padding:0 6px 8px}
+.signout{font-size:14px;color:#586172;padding:8px 6px}
+.main{display:flex;flex-direction:column}
+.top{height:56px;border-bottom:1px solid #E6E3DD;display:flex;align-items:center;justify-content:flex-end;padding:0 22px}
+.view{font-family:'IBM Plex Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.15em;color:#586172}
+.body{padding:26px}
+h1{font-family:'Sora',sans-serif;font-weight:700;font-size:24px;margin:0 0 4px}
+.muted{color:#586172;font-size:14px;margin:0}
+.tick{font-family:'IBM Plex Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.2em;color:#FF4D2E;margin:0 0 8px}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="side">
+    <div class="brand">cont<b>AI</b>nuum</div>
+    <div class="nav">
+      <div class="item active"><span class="i">▦</span>Overview</div>
+      <div class="item"><span class="i">▤</span>Projects</div>
+      <div class="item"><span class="i">▭</span>Billing</div>
+      <div class="item"><span class="i">⚙</span>Settings</div>
+    </div>
+    <div class="foot">
+      <div class="email">jane@lab.io</div>
+      <div class="signout">↳ Sign out</div>
+    </div>
+  </div>
+  <div class="main">
+    <div class="top"><span class="view">View site ↗</span></div>
+    <div class="body">
+      <p class="tick">OVERVIEW</p>
+      <h1>Welcome back, Jane</h1>
+      <p class="muted">Here's what's happening in your lab.</p>
+    </div>
+  </div>
+</div>
+</body>
+</html>
