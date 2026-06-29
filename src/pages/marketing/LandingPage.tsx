@@ -132,12 +132,12 @@ export function LandingPage() {
               </h2>
               <div className="lg:col-span-4 lg:pb-3">
                 <p className="max-w-[40ch] text-[clamp(15px,1.1vw,18px)] leading-relaxed text-ink-muted">
-                  Retrofit your lab in an afternoon. Start a 14-day free trial — no rebuild, no
-                  amnesia, cancel anytime.
+                  We work with a small cohort of design-partner labs — no rip-and-replace, no
+                  amnesia. Apply to run ATLAS on the instruments you already have.
                 </p>
                 <div className="mt-7 flex flex-wrap gap-3.5">
-                  <InkButton href="/signup" variant="solid">
-                    Start free trial →
+                  <InkButton href="/contact?topic=partner" variant="solid">
+                    Apply for access →
                   </InkButton>
                   <InkButton href="/contact?topic=demo" variant="outline">
                     Book a demo

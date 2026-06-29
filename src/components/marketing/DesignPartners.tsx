@@ -56,7 +56,7 @@ export function DesignPartners() {
               </div>
             ))}
             <a
-              href="/contact?topic=demo"
+              href="/contact?topic=partner"
               className="group flex h-24 flex-col items-center justify-center gap-1 bg-paper transition-colors hover:bg-panel"
             >
               <span className="font-display text-sm font-semibold text-ink">Your lab here?</span>

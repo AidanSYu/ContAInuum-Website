@@ -119,8 +119,8 @@ function Cell({ v }: { v: string }) {
 
 function PlanCard({ tier, featured }: { tier: PricingTier; featured: boolean }) {
   const isEnterprise = tier.amountCents === 0;
-  const href = isEnterprise ? '/contact?topic=enterprise' : `/signup?plan=${tier.id}`;
-  const cta = isEnterprise ? 'Contact sales' : 'Start free trial';
+  const href = isEnterprise ? '/contact?topic=enterprise' : '/contact?topic=partner';
+  const cta = isEnterprise ? 'Talk to us' : 'Apply for access';
   return (
     <div
       className={cn(
@@ -141,8 +141,8 @@ function PlanCard({ tier, featured }: { tier: PricingTier; featured: boolean }) 
         </span>
         {!isEnterprise && <span className="text-sm text-ink-muted">/{tier.interval}</span>}
       </div>
-      <p className={cn('mt-2 font-mono-tech text-[10px] uppercase tracking-[0.12em] text-safety', (isEnterprise || tier.trialDays <= 0) && 'invisible')}>
-        {tier.trialDays}-day free trial
+      <p className={cn('mt-2 font-mono-tech text-[10px] uppercase tracking-[0.12em] text-ink-faint', isEnterprise && 'invisible')}>
+        Indicative — pilots scoped individually
       </p>
       <ul className="my-6 flex-1 space-y-3">
         {tier.features.map((f) => (
@@ -177,7 +177,7 @@ export function PricingPage() {
     <>
       <Seo
         title="Pricing — contAInuum"
-        description="Simple plans to retrofit your lab with ATLAS. Every plan starts with a 14-day free trial. Cancel anytime — your knowledge graph exports with you."
+        description="Indicative plans for retrofitting your lab with ATLAS. We’re onboarding a limited cohort of design-partner labs — apply for access and we’ll scope a pilot for your bench."
         path="/pricing"
       />
 
@@ -195,11 +195,11 @@ export function PricingPage() {
             not for a rebuild.
           </h1>
           <p className="mx-auto mt-5 max-w-[36rem] text-lg text-white/80">
-            Every plan starts with a 14-day free trial and runs on the instruments you already have.
-            Cancel anytime — your knowledge graph exports with you.
+            We’re onboarding a limited cohort of design-partner labs. The tiers below are indicative —
+            pilots are scoped individually and run on the instruments you already have.
           </p>
           <p className="mx-auto mt-4 font-mono-tech text-[11px] uppercase tracking-[0.16em] text-white/45">
-            Prefer annual billing? We offer ~20% off — just ask.
+            Apply for access and we’ll scope an early-partner pilot for your lab.
           </p>
         </div>
       </section>
@@ -256,8 +256,8 @@ export function PricingPage() {
         <div className="mx-auto grid max-w-7xl grid-cols-2 gap-px border border-line bg-line lg:grid-cols-4">
           {[
             ['Runs on your instruments', 'No rip-and-replace. ATLAS retrofits the workcell you already operate.'],
-            ['No charge during the trial', '14 days free. A card is collected at checkout; cancel before it ends and you’re not billed.'],
-            ['Cancel anytime', 'Manage or cancel from the in-app billing portal — no emails, no friction.'],
+            ['Scoped & milestone-funded', 'Pilots are fixed-scope. You fund milestones as they’re agreed — not a subscription up front.'],
+            ['Hands-on onboarding', 'We set ATLAS up with your team and stay close through the pilot.'],
             ['No lock-in', 'Your knowledge graph and run history export with you if you leave.'],
           ].map(([h, p]) => (
             <div key={h} className="bg-surface px-6 py-7">
@@ -278,14 +278,14 @@ export function PricingPage() {
             The next campaign starts where the last one left off.
           </h2>
           <p className="mx-auto mt-4.5 max-w-[34rem] leading-relaxed text-white/70">
-            Pick a plan when a campaign earns it. Until then, the trial is free and runs on the lab you already have.
+            We onboard a few labs at a time. Apply for the design-partner program and we’ll scope a pilot for your bench.
           </p>
           <div className="mt-9 flex flex-wrap justify-center gap-3.5">
-            <a href="/signup" className="inline-flex items-center gap-2 rounded-[2px] border border-white bg-white px-7 py-3.5 text-[12.5px] font-semibold uppercase tracking-[0.2em] text-[#0D0F13] transition-colors hover:bg-transparent hover:text-white">
-              Start free trial <ArrowRight className="h-4 w-4" />
+            <a href="/contact?topic=partner" className="inline-flex items-center gap-2 rounded-[2px] border border-white bg-white px-7 py-3.5 text-[12.5px] font-semibold uppercase tracking-[0.2em] text-[#0D0F13] transition-colors hover:bg-transparent hover:text-white">
+              Apply for access <ArrowRight className="h-4 w-4" />
             </a>
-            <a href="/" className="inline-flex items-center gap-2 rounded-[2px] border border-white/50 px-7 py-3.5 text-[12.5px] font-semibold uppercase tracking-[0.2em] text-white transition-colors hover:bg-white hover:text-[#0D0F13]">
-              Back to overview
+            <a href="/contact?topic=demo" className="inline-flex items-center gap-2 rounded-[2px] border border-white/50 px-7 py-3.5 text-[12.5px] font-semibold uppercase tracking-[0.2em] text-white transition-colors hover:bg-white hover:text-[#0D0F13]">
+              Book a demo
             </a>
           </div>
         </div>

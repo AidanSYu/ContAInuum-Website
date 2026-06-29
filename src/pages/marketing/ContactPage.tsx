@@ -18,6 +18,14 @@ const turnstileEnabled = Boolean(import.meta.env.VITE_TURNSTILE_SITE_KEY);
 
 /** Tailors the page copy + a starter message to where the visitor came from. */
 const TOPICS: Record<string, { eyebrow: string; heading: string; blurb: string; starter: string }> = {
+  partner: {
+    eyebrow: 'DESIGN PARTNER PROGRAM',
+    heading: 'Apply for access.',
+    blurb:
+      'We onboard a small cohort of design-partner labs — chemistry, materials, and biology teams who run ATLAS on their own instruments and shape the product with us. Tell us about your lab and we’ll be in touch within two business days.',
+    starter:
+      'Our lab works on … and we run the following instruments / ELN: …\nWe’d like to join the design-partner program because …\nTeam size: …',
+  },
   demo: {
     eyebrow: 'BOOK A DEMO',
     heading: 'See ATLAS on your bench.',

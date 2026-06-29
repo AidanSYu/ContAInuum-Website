@@ -8,7 +8,7 @@ const COLS = [
     links: [
       { label: 'Platform', href: '/#platform' },
       { label: 'Pricing', href: '/pricing' },
-      { label: 'Start free trial', href: '/signup' },
+      { label: 'Apply for access', href: '/contact?topic=partner' },
     ],
   },
   {

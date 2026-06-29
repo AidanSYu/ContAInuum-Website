@@ -105,8 +105,8 @@ export function CommandMenu() {
         </CommandGroup>
         <CommandSeparator />
         <CommandGroup heading="Actions">
-          <CommandItem onSelect={go('/signup')}>
-            <Rocket /> Start free trial
+          <CommandItem onSelect={go('/contact?topic=partner')}>
+            <Rocket /> Apply for access
           </CommandItem>
           <CommandItem onSelect={go('/login')}>
             <LogIn /> Sign in

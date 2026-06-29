@@ -71,8 +71,8 @@ export function PricingCards() {
               <span className="font-display text-4xl font-bold text-ink">{formatPrice(plan)}</span>
               {!isEnterprise && <span className="text-sm text-ink-muted">/{plan.interval}</span>}
             </div>
-            {!isEnterprise && plan.trial_days > 0 && (
-              <p className="mt-1 lab-label text-safety">{plan.trial_days}-DAY FREE TRIAL</p>
+            {!isEnterprise && (
+              <p className="mt-1 lab-label text-ink-faint">Indicative — pilots scoped</p>
             )}
 
             <div className="my-6 h-px bg-line" />
@@ -88,9 +88,7 @@ export function PricingCards() {
 
             <Button
               onClick={() =>
-                isEnterprise
-                  ? navigate('/contact?topic=enterprise')
-                  : navigate(`/signup?plan=${plan.id}`)
+                navigate(isEnterprise ? '/contact?topic=enterprise' : '/contact?topic=partner')
               }
               className={cn(
                 'mt-8 w-full',
@@ -99,7 +97,7 @@ export function PricingCards() {
                   : 'bg-ink text-paper hover:bg-ink/90',
               )}
             >
-              {isEnterprise ? 'Contact sales' : 'Start free trial'}
+              {isEnterprise ? 'Talk to us' : 'Apply for access'}
             </Button>
           </div>
         );

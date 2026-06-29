@@ -94,8 +94,8 @@ export function CinematicHero() {
               touches.
             </p>
             <div className="mt-8 flex flex-wrap gap-3.5">
-              <InkButton href="/signup" variant="solid">
-                Start free trial <ArrowRight className="h-4 w-4" />
+              <InkButton href="/contact?topic=partner" variant="solid">
+                Apply for access <ArrowRight className="h-4 w-4" />
               </InkButton>
               <InkButton href="#platform" variant="outline">
                 See the platform

@@ -48,7 +48,7 @@ export function SignupPage() {
       // If email confirmation is OFF, a session exists immediately → go to app.
       const { data } = await supabase.auth.getSession();
       if (data.session) {
-        navigate('/app/billing', { replace: true });
+        navigate('/app', { replace: true });
         return;
       }
       // Otherwise prompt the user to confirm via email.
@@ -66,7 +66,7 @@ export function SignupPage() {
         <p className="mt-2 text-sm text-ink-muted">
           We sent a confirmation link to{' '}
           <span className="text-ink">{submittedEmail}</span>. Click it to
-          activate your account, then sign in to start your trial.
+          activate your account, then sign in to access your pilot.
         </p>
         <Button asChild className="mt-6 w-full bg-safety text-white hover:bg-safety/90">
           <Link to="/login">Back to sign in</Link>
@@ -77,10 +77,11 @@ export function SignupPage() {
 
   return (
     <div className="border border-line bg-surface p-8 shadow-lab">
-      <h1 className="font-display text-2xl font-extrabold uppercase leading-tight tracking-tight text-ink">Start your free trial</h1>
+      <h1 className="font-display text-2xl font-extrabold uppercase leading-tight tracking-tight text-ink">Create your account</h1>
       <p className="mt-1 text-sm text-ink-muted">
-        14 days free{plan ? <> on the <span className="text-safety capitalize">{plan}</span> plan</> : ''}. No
-        charge to start.
+        Set up your contAInuum account to access your design-partner pilot.{' '}
+        Not a partner yet?{' '}
+        <Link to="/contact?topic=partner" className="text-safety hover:underline">Apply for access</Link>.
       </p>
 
       <form onSubmit={onSubmit} className="mt-6 space-y-4" noValidate>

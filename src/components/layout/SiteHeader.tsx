@@ -112,7 +112,7 @@ export function SiteHeader() {
                 <Link to="/login">Sign in</Link>
               </Button>
               <Button asChild size="sm" className="bg-safety text-white hover:bg-safety/90">
-                <Link to="/signup">Start free trial</Link>
+                <Link to="/contact?topic=partner">Apply for access</Link>
               </Button>
             </>
           )}
@@ -151,7 +151,7 @@ export function SiteHeader() {
                     <Link to="/login">Sign in</Link>
                   </Button>
                   <Button asChild className="bg-safety text-white hover:bg-safety/90" onClick={() => setOpen(false)}>
-                    <Link to="/signup">Start free trial</Link>
+                    <Link to="/contact?topic=partner">Apply for access</Link>
                   </Button>
                 </>
               )}
