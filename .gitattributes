@@ -1,0 +1,17 @@
+# Normalize line endings: store text as LF in the repo, check out native on
+# each OS. Stops the "LF will be replaced by CRLF" warnings on Windows and keeps
+# diffs stable across contributors and CI (Vercel builds on Linux).
+* text=auto eol=lf
+
+# Binary assets — never normalize or diff as text.
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.gif   binary
+*.ico   binary
+*.webp  binary
+*.woff  binary
+*.woff2 binary
+*.ttf   binary
+*.otf   binary
+*.pdf   binary

@@ -1,3 +1,9 @@
+/* eslint-disable react-hooks/refs --
+   Intentional imperative-animation pattern: a requestAnimationFrame loop mutates
+   node positions in `nodesRef.current` in place (a force-directed physics sim)
+   and a useReducer tick drives the re-render that reads those live positions
+   during render. Lifting positions into state would re-run the sim every frame
+   through React and defeat the optimization. */
 import { useEffect, useMemo, useReducer, useRef, useState } from 'react';
 import { Reveal } from '@/lib/scroll-fx';
 import { cn } from '@/lib/utils';
@@ -97,8 +103,8 @@ function step(nodes: SimNode[], adj: Map<string, Set<string>>, alpha: number): n
     for (let j = i + 1; j < nodes.length; j++) {
       const a = nodes[i];
       const b = nodes[j];
-      let dx = a.x - b.x;
-      let dy = a.y - b.y;
+      const dx = a.x - b.x;
+      const dy = a.y - b.y;
       let d2 = dx * dx + dy * dy;
       if (d2 < 1) d2 = 1;
       const f = (REPULSE / d2) * alpha;
