@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
@@ -5,14 +6,18 @@ import { toast } from 'sonner';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
+import { Turnstile } from '@/components/Turnstile';
 import { useAuth } from '@/lib/auth';
 import { loginSchema, type LoginInput } from '@/lib/validation';
+
+const turnstileEnabled = Boolean(import.meta.env.VITE_TURNSTILE_SITE_KEY);
 
 export function LoginPage() {
   const { signInWithPassword } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const from = (location.state as { from?: string } | null)?.from ?? '/app';
+  const [captchaToken, setCaptchaToken] = useState('');
 
   const {
     register,
@@ -24,8 +29,14 @@ export function LoginPage() {
   });
 
   const onSubmit = handleSubmit(async (values) => {
+    if (turnstileEnabled && !captchaToken) {
+      toast.error('Please complete the verification challenge.');
+      return;
+    }
     try {
-      await signInWithPassword(values.email, values.password);
+      await (captchaToken
+        ? signInWithPassword(values.email, values.password, captchaToken)
+        : signInWithPassword(values.email, values.password));
       navigate(from, { replace: true });
     } catch (err) {
       toast.error(err instanceof Error ? err.message : 'Could not sign in.');
@@ -53,6 +64,8 @@ export function LoginPage() {
           <Input id="password" type="password" autoComplete="current-password" {...register('password')} aria-invalid={Boolean(errors.password)} />
           {errors.password && <p className="mt-1.5 text-xs text-safety">{errors.password.message}</p>}
         </div>
+
+        {turnstileEnabled && <Turnstile onToken={setCaptchaToken} className="pt-1" />}
 
         <Button type="submit" disabled={isSubmitting} className="w-full bg-safety text-white hover:bg-safety/90">
           {isSubmitting ? 'Signing in…' : 'Sign in'}

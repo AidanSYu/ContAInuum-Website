@@ -6,9 +6,12 @@ import { toast } from 'sonner';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
+import { Turnstile } from '@/components/Turnstile';
 import { useAuth } from '@/lib/auth';
 import { supabase } from '@/lib/supabase';
 import { resetPasswordSchema, type ResetPasswordInput } from '@/lib/validation';
+
+const turnstileEnabled = Boolean(import.meta.env.VITE_TURNSTILE_SITE_KEY);
 
 /**
  * Reached from the password-reset email link. Supabase's detectSessionInUrl
@@ -20,6 +23,7 @@ export function ResetPasswordPage() {
   const navigate = useNavigate();
   const [ready, setReady] = useState(false);
   const [validSession, setValidSession] = useState(false);
+  const [captchaToken, setCaptchaToken] = useState('');
 
   useEffect(() => {
     // The recovery link may still be exchanging tokens; wait for the event or
@@ -57,6 +61,10 @@ export function ResetPasswordPage() {
   });
 
   const onSubmit = handleSubmit(async (values) => {
+    if (turnstileEnabled && !captchaToken) {
+      toast.error('Please complete the verification challenge.');
+      return;
+    }
     try {
       await updatePassword(values.password);
       toast.success('Password updated. You’re signed in.');
@@ -104,6 +112,8 @@ export function ResetPasswordPage() {
           <Input id="confirm" type="password" autoComplete="new-password" {...register('confirm')} aria-invalid={Boolean(errors.confirm)} />
           {errors.confirm && <p className="mt-1.5 text-xs text-safety">{errors.confirm.message}</p>}
         </div>
+        {turnstileEnabled && <Turnstile onToken={setCaptchaToken} className="pt-1" />}
+
         <Button type="submit" disabled={isSubmitting} className="w-full bg-safety text-white hover:bg-safety/90">
           {isSubmitting ? 'Updating…' : 'Update password'}
         </Button>

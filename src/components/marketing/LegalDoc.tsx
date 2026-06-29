@@ -57,17 +57,36 @@ export function LegalSection({ n, heading, children }: { n: string; heading: str
   );
 }
 
-/** Prominent, honest banner: this is a template, not finished legal advice. */
+/**
+ * Prominent, honest banner: this content is a DRAFT generated from how the
+ * product actually behaves. It is NOT legal advice and must be reviewed by
+ * qualified counsel (and have placeholders filled) before launch.
+ */
 export function LegalTemplateNotice() {
   return (
-    <div className="rounded-lg border border-safety/40 bg-safety/[0.06] p-5">
-      <p className="font-mono-tech text-[10px] uppercase tracking-[0.16em] text-safety">Template — review required</p>
+    <div className="rounded-lg border border-safety/50 bg-safety/[0.07] p-5">
+      <p className="font-mono-tech text-[10px] uppercase tracking-[0.16em] text-safety">
+        Draft — not legal advice — review required
+      </p>
       <p className="mt-2 text-sm leading-relaxed text-ink-muted">
-        This document is a starting template provided for completeness of the site. It has not been
-        reviewed by legal counsel and is not a substitute for advice tailored to contAInuum's
-        jurisdiction(s) and data-processing arrangements. Have a qualified attorney review and adapt
-        it before relying on it.
+        This document is a <strong className="text-ink">DRAFT</strong> generated from contAInuum's
+        actual product behavior. It is <strong className="text-ink">not legal advice</strong> and has
+        not been reviewed by counsel. It must be reviewed and adapted by a qualified attorney for
+        contAInuum's jurisdiction(s) and data-processing arrangements before launch. Items in{' '}
+        <code className="font-mono-tech text-[12px] text-safety">[BRACKETS]</code> are placeholders the
+        owner must complete; clauses marked{' '}
+        <code className="font-mono-tech text-[12px] text-safety">[REVIEW WITH COUNSEL]</code> involve
+        legal judgment a non-lawyer should not finalize.
       </p>
     </div>
+  );
+}
+
+/** Inline helper to render a placeholder token consistently within prose. */
+export function Placeholder({ children }: { children: ReactNode }) {
+  return (
+    <code className="rounded bg-safety/10 px-1 py-0.5 font-mono-tech text-[12px] text-safety">
+      {children}
+    </code>
   );
 }

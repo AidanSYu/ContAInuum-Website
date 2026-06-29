@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
 import {
   LayoutDashboard,
   FolderKanban,
@@ -7,10 +8,13 @@ import {
   Settings,
   LogOut,
   Menu,
+  Landmark,
+  ShieldCheck,
 } from 'lucide-react';
 import { Logo } from './Logo';
 import { ThemeToggle } from './ThemeToggle';
 import { TrialBanner } from '@/components/app/TrialBanner';
+import { getMyProfile } from '@/lib/api/profiles';
 import { useAuth } from '@/lib/auth';
 import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
@@ -19,6 +23,8 @@ const NAV = [
   { to: '/app', label: 'Overview', icon: LayoutDashboard, end: true },
   { to: '/app/projects', label: 'Projects', icon: FolderKanban, end: false },
   { to: '/app/billing', label: 'Billing', icon: CreditCard, end: false },
+  // Escrow is available to every authenticated user (not subscription-gated).
+  { to: '/app/escrow', label: 'Escrow', icon: Landmark, end: false },
   { to: '/app/settings', label: 'Settings', icon: Settings, end: false },
 ];
 
@@ -27,6 +33,15 @@ export function DashboardLayout() {
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
+
+  // Shared ['profile'] cache key with RequireAdmin / SettingsPage (no extra fetch).
+  const { data: profile } = useQuery({ queryKey: ['profile'], queryFn: getMyProfile });
+  const isAdmin = profile?.role === 'admin';
+  // The conditional Admin link is cosmetic; RequireAdmin + the edge-function
+  // is_admin gate enforce real access.
+  const nav = isAdmin
+    ? [...NAV, { to: '/app/admin/escrow', label: 'Admin', icon: ShieldCheck, end: false }]
+    : NAV;
 
   const handleSignOut = async () => {
     try {
@@ -43,7 +58,7 @@ export function DashboardLayout() {
         <Logo className="text-base" to="/app" />
       </div>
       <nav className="flex-1 space-y-1 px-3 py-4">
-        {NAV.map(({ to, label, icon: Icon, end }) => (
+        {nav.map(({ to, label, icon: Icon, end }) => (
           <NavLink
             key={to}
             to={to}

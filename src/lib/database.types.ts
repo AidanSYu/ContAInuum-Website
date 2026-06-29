@@ -185,6 +185,8 @@ export type Database = {
           current_period_end: string | null;
           trial_end: string | null;
           cancel_at_period_end: boolean;
+          trial_reminded_at: string | null;
+          last_event_at: string | null;
           created_at: string;
           updated_at: string;
         };
@@ -206,6 +208,8 @@ export type Database = {
           current_period_end?: string | null;
           trial_end?: string | null;
           cancel_at_period_end?: boolean;
+          trial_reminded_at?: string | null;
+          last_event_at?: string | null;
           created_at?: string;
           updated_at?: string;
         };
@@ -225,13 +229,94 @@ export type Database = {
           current_period_end?: string | null;
           trial_end?: string | null;
           cancel_at_period_end?: boolean;
+          trial_reminded_at?: string | null;
+          last_event_at?: string | null;
           updated_at?: string;
+        };
+        Relationships: [];
+      };
+      escrow_agreements: {
+        Row: {
+          id: string;
+          user_id: string;
+          title: string;
+          description: string | null;
+          currency: string;
+          total_amount_cents: number;
+          status: 'draft' | 'pending' | 'funded' | 'completed' | 'canceled';
+          stripe_payment_intent_id: string | null;
+          stripe_checkout_session_id: string | null;
+          created_by: string | null;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          user_id: string;
+          title: string;
+          description?: string | null;
+          currency?: string;
+          total_amount_cents: number;
+          status?: 'draft' | 'pending' | 'funded' | 'completed' | 'canceled';
+          stripe_payment_intent_id?: string | null;
+          stripe_checkout_session_id?: string | null;
+          created_by?: string | null;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          title?: string;
+          description?: string | null;
+          currency?: string;
+          total_amount_cents?: number;
+          status?: 'draft' | 'pending' | 'funded' | 'completed' | 'canceled';
+          stripe_payment_intent_id?: string | null;
+          stripe_checkout_session_id?: string | null;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
+      escrow_milestones: {
+        Row: {
+          id: string;
+          agreement_id: string;
+          title: string;
+          amount_cents: number;
+          status: 'pending' | 'funded' | 'released' | 'refunded';
+          sort_order: number;
+          released_at: string | null;
+          refunded_at: string | null;
+          stripe_refund_id: string | null;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          agreement_id: string;
+          title: string;
+          amount_cents: number;
+          status?: 'pending' | 'funded' | 'released' | 'refunded';
+          sort_order?: number;
+          released_at?: string | null;
+          refunded_at?: string | null;
+          stripe_refund_id?: string | null;
+          created_at?: string;
+        };
+        Update: {
+          title?: string;
+          amount_cents?: number;
+          status?: 'pending' | 'funded' | 'released' | 'refunded';
+          sort_order?: number;
+          released_at?: string | null;
+          refunded_at?: string | null;
+          stripe_refund_id?: string | null;
         };
         Relationships: [];
       };
     };
     Views: { [_ in never]: never };
-    Functions: { [_ in never]: never };
+    Functions: {
+      is_admin: { Args: { uid: string }; Returns: boolean };
+    };
     Enums: { [_ in never]: never };
     CompositeTypes: { [_ in never]: never };
   };

@@ -26,7 +26,14 @@ export async function createProject(input: ProjectInput): Promise<Project> {
     .insert({ title: payload.title, data: payload.data })
     .select()
     .single();
-  if (error) throw error;
+  if (error) {
+    // Supabase/PostgREST RLS rejection (code 42501) — most likely a lapsed sub
+    // hitting the has_active_subscription gate added in 0005.
+    if (error.code === '42501' || /row-level security/i.test(error.message)) {
+      throw new Error('An active subscription is required to create projects. Visit Billing to start your plan.');
+    }
+    throw error;
+  }
   return data;
 }
 

@@ -9,12 +9,12 @@ import { corsHeaders, json } from '../_shared/cors.ts';
 import { adminClient, getUser, stripe, SITE_URL } from '../_shared/stripe.ts';
 
 Deno.serve(async (req) => {
-  if (req.method === 'OPTIONS') return new Response('ok', { headers: corsHeaders });
-  if (req.method !== 'POST') return json({ error: 'Method not allowed' }, 405);
+  if (req.method === 'OPTIONS') return new Response('ok', { headers: corsHeaders(req) });
+  if (req.method !== 'POST') return json({ error: 'Method not allowed' }, 405, req);
 
   try {
     const user = await getUser(req);
-    if (!user) return json({ error: 'Not authenticated' }, 401);
+    if (!user) return json({ error: 'Not authenticated' }, 401, req);
 
     const { data: profile } = await adminClient()
       .from('profiles')
@@ -23,7 +23,7 @@ Deno.serve(async (req) => {
       .maybeSingle();
 
     if (!profile?.stripe_customer_id) {
-      return json({ error: 'No billing account yet. Start a subscription first.' }, 400);
+      return json({ error: 'No billing account yet. Start a subscription first.' }, 400, req);
     }
 
     const session = await stripe.billingPortal.sessions.create({
@@ -31,9 +31,9 @@ Deno.serve(async (req) => {
       return_url: `${SITE_URL}/app/billing`,
     });
 
-    return json({ url: session.url });
+    return json({ url: session.url }, 200, req);
   } catch (e) {
     console.error('create-portal-session error:', e);
-    return json({ error: 'Unexpected error' }, 500);
+    return json({ error: 'Unexpected error' }, 500, req);
   }
 });

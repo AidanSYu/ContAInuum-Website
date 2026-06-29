@@ -7,12 +7,16 @@ import { MailCheck } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
+import { Turnstile } from '@/components/Turnstile';
 import { useAuth } from '@/lib/auth';
 import { forgotPasswordSchema, type ForgotPasswordInput } from '@/lib/validation';
+
+const turnstileEnabled = Boolean(import.meta.env.VITE_TURNSTILE_SITE_KEY);
 
 export function ForgotPasswordPage() {
   const { requestPasswordReset } = useAuth();
   const [sent, setSent] = useState(false);
+  const [captchaToken, setCaptchaToken] = useState('');
 
   const {
     register,
@@ -24,8 +28,14 @@ export function ForgotPasswordPage() {
   });
 
   const onSubmit = handleSubmit(async (values) => {
+    if (turnstileEnabled && !captchaToken) {
+      toast.error('Please complete the verification challenge.');
+      return;
+    }
     try {
-      await requestPasswordReset(values.email);
+      await (captchaToken
+        ? requestPasswordReset(values.email, captchaToken)
+        : requestPasswordReset(values.email));
       setSent(true);
     } catch (err) {
       toast.error(err instanceof Error ? err.message : 'Could not send reset email.');
@@ -60,6 +70,8 @@ export function ForgotPasswordPage() {
           <Input id="email" type="email" autoComplete="email" {...register('email')} aria-invalid={Boolean(errors.email)} />
           {errors.email && <p className="mt-1.5 text-xs text-safety">{errors.email.message}</p>}
         </div>
+        {turnstileEnabled && <Turnstile onToken={setCaptchaToken} className="pt-1" />}
+
         <Button type="submit" disabled={isSubmitting} className="w-full bg-safety text-white hover:bg-safety/90">
           {isSubmitting ? 'Sending…' : 'Send reset link'}
         </Button>

@@ -9,16 +9,16 @@ import { corsHeaders, json } from '../_shared/cors.ts';
 import { adminClient, ensureStripeCustomer, getUser, stripe, SITE_URL } from '../_shared/stripe.ts';
 
 Deno.serve(async (req) => {
-  if (req.method === 'OPTIONS') return new Response('ok', { headers: corsHeaders });
-  if (req.method !== 'POST') return json({ error: 'Method not allowed' }, 405);
+  if (req.method === 'OPTIONS') return new Response('ok', { headers: corsHeaders(req) });
+  if (req.method !== 'POST') return json({ error: 'Method not allowed' }, 405, req);
 
   try {
     const user = await getUser(req);
-    if (!user) return json({ error: 'Not authenticated' }, 401);
+    if (!user) return json({ error: 'Not authenticated' }, 401, req);
 
     const body = await req.json().catch(() => null);
     const planId = String(body?.plan_id ?? '').trim();
-    if (!planId) return json({ error: 'Missing plan_id' }, 400);
+    if (!planId) return json({ error: 'Missing plan_id' }, 400, req);
 
     // Look up the plan server-side — never trust a price id from the client.
     const admin = adminClient();
@@ -28,9 +28,9 @@ Deno.serve(async (req) => {
       .eq('id', planId)
       .maybeSingle();
 
-    if (planErr || !plan || !plan.is_active) return json({ error: 'Unknown plan' }, 400);
+    if (planErr || !plan || !plan.is_active) return json({ error: 'Unknown plan' }, 400, req);
     if (!plan.stripe_price_id) {
-      return json({ error: 'This plan is not purchasable yet. Please contact us.' }, 400);
+      return json({ error: 'This plan is not purchasable yet. Please contact us.' }, 400, req);
     }
 
     const customerId = await ensureStripeCustomer(user.id, user.email);
@@ -51,10 +51,10 @@ Deno.serve(async (req) => {
       cancel_url: `${SITE_URL}/app/billing?checkout=cancel`,
     });
 
-    if (!session.url) return json({ error: 'Could not create checkout session' }, 500);
-    return json({ url: session.url });
+    if (!session.url) return json({ error: 'Could not create checkout session' }, 500, req);
+    return json({ url: session.url }, 200, req);
   } catch (e) {
     console.error('create-checkout-session error:', e);
-    return json({ error: 'Unexpected error' }, 500);
+    return json({ error: 'Unexpected error' }, 500, req);
   }
 });

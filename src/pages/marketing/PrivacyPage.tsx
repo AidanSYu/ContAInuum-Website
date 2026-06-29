@@ -1,4 +1,4 @@
-import { LegalDoc, LegalSection, LegalTemplateNotice } from '@/components/marketing/LegalDoc';
+import { LegalDoc, LegalSection, LegalTemplateNotice, Placeholder } from '@/components/marketing/LegalDoc';
 import { Seo } from '@/components/Seo';
 
 export function PrivacyPage() {
@@ -10,98 +10,197 @@ export function PrivacyPage() {
         path="/privacy"
       />
 
-      <LegalDoc kicker="LEGAL" title="Privacy Policy" lastUpdated="June 23, 2026">
+      <LegalDoc kicker="LEGAL" title="Privacy Policy" lastUpdated="[EFFECTIVE DATE]">
         <LegalTemplateNotice />
 
         <p>
-          This Privacy Policy explains what information contAInuum collects, how we use it, and the
-          choices you have. It applies to our websites and the ATLAS platform (the "Service").
+          This Privacy Policy explains what information <Placeholder>[LEGAL ENTITY NAME]</Placeholder>{' '}
+          ("contAInuum", "we", "us") collects, how we use it, and the choices you have. It applies to
+          our marketing website, the account/dashboard area, and the ATLAS platform (together, the
+          "Service"). It is written to describe how the Service actually handles data today.
         </p>
 
         <LegalSection n="1" heading="Information we collect">
           <p>
-            <strong className="text-ink">Account information</strong> — name, email, and organization you
-            provide at sign-up.{' '}
-            <strong className="text-ink">Lab content</strong> — the campaigns, protocols, traces, and
-            results you create or connect.{' '}
-            <strong className="text-ink">Billing information</strong> — handled by Stripe; we store
-            subscription status and a customer reference, not full card numbers.{' '}
-            <strong className="text-ink">Usage data</strong> — logs and analytics needed to operate and
-            secure the Service.
+            <strong className="text-ink">Account information.</strong> When you create an account we
+            store your email address and the full name you provide at sign-up. Email is held in our
+            authentication system; your name is stored in your profile record. We also store a role
+            flag used for access control.
+          </p>
+          <p>
+            <strong className="text-ink">Billing information.</strong> Payments are processed by
+            Stripe. We do <strong className="text-ink">not</strong> receive or store your full card
+            number or other card details — those are handled directly by Stripe. We store only a
+            Stripe customer reference, your subscription status and plan, trial/period end dates, and
+            whether a cancellation is scheduled. Stripe collects billing address and payment details
+            at checkout under its own privacy policy.
+          </p>
+          <p>
+            <strong className="text-ink">Contact form.</strong> When you submit the contact form we
+            store the name, email, optional organization, and message you provide. For anti-abuse
+            purposes we also store a one-way <strong className="text-ink">SHA-256 hash of your IP
+            address</strong> — never the raw IP. Submissions are screened with Cloudflare Turnstile to
+            block automated abuse.
+          </p>
+          <p>
+            <strong className="text-ink">Newsletter / waitlist.</strong> If you subscribe, we store
+            your email address, the source of the sign-up, and your confirmation status. We use{' '}
+            <strong className="text-ink">double opt-in</strong>: a confirmation email is sent and your
+            subscription is only activated after you click the link. You can unsubscribe at any time.
+          </p>
+          <p>
+            <strong className="text-ink">Authentication &amp; session data.</strong> We use cookies
+            and similar local storage to keep you signed in and to maintain your session securely.
+            These are necessary for the account area to function.
+          </p>
+          <p>
+            <strong className="text-ink">Lab content.</strong> The campaigns, protocols, traces,
+            results, and knowledge graph you create or connect within ATLAS are processed to provide
+            the Service to your account. <Placeholder>[REVIEW WITH COUNSEL]</Placeholder> — confirm the
+            scope of lab-content processing and any feature-specific data flows before launch.
+          </p>
+          <p>
+            <strong className="text-ink">Operational logs.</strong> We process server and security
+            logs needed to operate, debug, and protect the Service.
           </p>
         </LegalSection>
 
         <LegalSection n="2" heading="How we use information">
           <p>
-            We use information to provide and secure the Service, process payments, respond to support
-            requests, and improve features. Where we use lab content to improve models or
-            recommendations, we do so to benefit your account; cross-customer learning, where offered, is
-            opt-in and privacy-preserving (e.g., aggregated or differentially private), and never exposes
-            one customer's data to another.
+            We use information to: create and secure your account; provide the Service and its
+            features; process payments and manage subscriptions through Stripe; respond to contact and
+            support requests; send transactional and (with consent) newsletter email; prevent abuse
+            and fraud; and operate, debug, and improve the Service. We do not sell your personal data
+            or your lab content, and we do not use the contents of your contact message for any
+            purpose other than responding to and securing that communication.
           </p>
         </LegalSection>
 
-        <LegalSection n="3" heading="Legal bases & your control">
+        <LegalSection n="3" heading="Legal bases">
           <p>
-            We process personal data to perform our contract with you, to comply with legal obligations,
-            and for legitimate interests such as security. You retain ownership of your lab content and
-            can export it, including your knowledge graph, at any time. We do not sell your personal data
-            or your lab content.
+            Where applicable law (such as the GDPR) requires a legal basis, we rely on: performance of
+            our contract with you (providing the Service and billing); your consent (newsletter
+            email); our legitimate interests (securing the Service, preventing abuse, and basic
+            operational analytics); and compliance with legal obligations. <Placeholder>[REVIEW WITH COUNSEL]</Placeholder>{' '}
+            — confirm the legal bases and consent mechanics for your target jurisdictions.
           </p>
         </LegalSection>
 
-        <LegalSection n="4" heading="Sharing & processors">
+        <LegalSection n="4" heading="Subprocessors & sharing">
           <p>
-            We share data with service providers who process it on our behalf under contract — for
-            example, Stripe (payments), Supabase (database and authentication), and email/anti-abuse
-            providers. We require these processors to protect your data and use it only to provide their
-            service to us.
+            We share data with a small set of service providers who process it on our behalf, under
+            contract, only to deliver their service to us:
           </p>
-        </LegalSection>
-
-        <LegalSection n="5" heading="Security">
+          <ul className="ml-5 list-disc space-y-1.5">
+            <li>
+              <strong className="text-ink">Supabase</strong> — database, authentication, and edge
+              functions (stores account, contact, newsletter, and subscription records).
+            </li>
+            <li>
+              <strong className="text-ink">Stripe</strong> — payment processing and subscription
+              billing (handles card data; we never store it).
+            </li>
+            <li>
+              <strong className="text-ink">Cloudflare</strong> — Turnstile bot mitigation on public
+              forms (and edge delivery, where used).
+            </li>
+            <li>
+              <strong className="text-ink">Resend</strong> — transactional and confirmation email
+              delivery (contact notifications and newsletter double opt-in).
+            </li>
+            <li>
+              <strong className="text-ink"><Placeholder>[HOSTING/CDN PROVIDER — e.g. Vercel or Cloudflare]</Placeholder></strong>{' '}
+              — website and application hosting and content delivery.
+            </li>
+          </ul>
           <p>
-            We use industry-standard measures — encryption in transit, access controls, and tenant
-            isolation — to protect your data. No system is perfectly secure, but we work to reduce risk
-            and to notify you of incidents as required by law. See our{' '}
-            <a href="/security" className="text-safety hover:underline">Security page</a> for more.
+            We may also disclose information where required by law or to protect the rights, safety,
+            and security of users and the Service. We do not sell your data. A current list of
+            subprocessors is also summarized on our{' '}
+            <a href="/security" className="text-safety hover:underline">Security page</a>.
           </p>
         </LegalSection>
 
-        <LegalSection n="6" heading="Data retention">
+        <LegalSection n="5" heading="Data retention">
           <p>
             We retain account and lab content while your account is active and for a reasonable period
-            afterward so you can export it, then delete or anonymize it unless a longer period is required
-            by law. You can request deletion at any time.
+            afterward so you can export it, then delete or anonymize it unless a longer period is
+            required by law. Contact-form submissions are retained for support and anti-abuse purposes
+            and then deleted on a periodic basis. Newsletter records are retained until you
+            unsubscribe. Billing records are retained as required for tax and accounting purposes.{' '}
+            <Placeholder>[RETENTION PERIODS]</Placeholder> — set concrete retention windows with
+            counsel.
+          </p>
+        </LegalSection>
+
+        <LegalSection n="6" heading="Security">
+          <p>
+            We use measures such as encryption in transit (TLS), database row-level security and
+            tenant isolation, hardened authentication, and least-privilege access for our processors.
+            Card data is held by Stripe, not in our application. No system is perfectly secure, but we
+            work to reduce risk and to notify you of incidents as required by law. See our{' '}
+            <a href="/security" className="text-safety hover:underline">Security page</a> for more.
           </p>
         </LegalSection>
 
         <LegalSection n="7" heading="International transfers">
           <p>
-            We may process data in countries other than your own. Where required, we use appropriate
-            safeguards (such as standard contractual clauses) for international transfers.
+            Our processors may store and process data in countries other than your own (for example,
+            in the United States and the European Union). Where required, we rely on appropriate
+            safeguards such as standard contractual clauses. <Placeholder>[REVIEW WITH COUNSEL]</Placeholder>{' '}
+            — confirm hosting/processing regions and transfer mechanisms for your subprocessors.
           </p>
         </LegalSection>
 
-        <LegalSection n="8" heading="Your rights">
+        <LegalSection n="8" heading="Your rights & choices">
           <p>
-            Depending on where you live, you may have rights to access, correct, export, or delete your
-            personal data, and to object to or restrict certain processing. To exercise these rights,
-            contact us using the details below.
+            Depending on where you live, you may have rights to access, correct, export, delete, or
+            restrict the processing of your personal data, and to object to certain processing or
+            withdraw consent. In practice:
           </p>
-        </LegalSection>
-
-        <LegalSection n="9" heading="Changes to this policy">
+          <ul className="ml-5 list-disc space-y-1.5">
+            <li>
+              <strong className="text-ink">Access &amp; export.</strong> You can export your lab
+              content, including your knowledge graph, from within the Service, and you may request a
+              copy of the account data we hold.
+            </li>
+            <li>
+              <strong className="text-ink">Deletion.</strong> You can request deletion of your account
+              and associated personal data.
+            </li>
+            <li>
+              <strong className="text-ink">Newsletter.</strong> You can withdraw consent and
+              unsubscribe at any time.
+            </li>
+          </ul>
           <p>
-            We may update this policy from time to time. Material changes will be communicated through the
-            Service or by email.
+            To exercise any of these rights, contact us using the details below. We will respond
+            within the timeframes required by applicable law.
           </p>
         </LegalSection>
 
-        <LegalSection n="10" heading="Contact">
+        <LegalSection n="9" heading="Children's privacy">
+          <p>
+            The Service is intended for use by professionals and organizations and is not directed to
+            children. We do not knowingly collect personal data from children.{' '}
+            <Placeholder>[REVIEW WITH COUNSEL]</Placeholder> — confirm the applicable minimum-age
+            statement for your jurisdictions.
+          </p>
+        </LegalSection>
+
+        <LegalSection n="10" heading="Changes to this policy">
+          <p>
+            We may update this policy from time to time. Material changes will be communicated through
+            the Service or by email, and the "Last updated" date above will change.
+          </p>
+        </LegalSection>
+
+        <LegalSection n="11" heading="Contact">
           <p>
             Privacy questions or requests can be sent to{' '}
             <a href="mailto:hello@containuum.io" className="text-safety hover:underline">hello@containuum.io</a>.
+            The data controller is <Placeholder>[LEGAL ENTITY NAME]</Placeholder>, located at{' '}
+            <Placeholder>[REGISTERED ADDRESS]</Placeholder>. <Placeholder>[DPO / EU REPRESENTATIVE, IF REQUIRED]</Placeholder>.
           </p>
         </LegalSection>
       </LegalDoc>

@@ -32,15 +32,22 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       session,
       user: session?.user ?? null,
       loading,
-      async signInWithPassword(email, password) {
-        const { error } = await supabase.auth.signInWithPassword({ email, password });
+      async signInWithPassword(email, password, captchaToken) {
+        const { error } = await supabase.auth.signInWithPassword({
+          email,
+          password,
+          ...(captchaToken ? { options: { captchaToken } } : {}),
+        });
         if (error) throw error;
       },
-      async signUp(email, password, fullName) {
+      async signUp(email, password, fullName, captchaToken) {
         const { error } = await supabase.auth.signUp({
           email,
           password,
-          options: { data: { full_name: fullName ?? '' } },
+          options: {
+            data: { full_name: fullName ?? '' },
+            ...(captchaToken ? { captchaToken } : {}),
+          },
         });
         if (error) throw error;
       },
@@ -48,9 +55,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         const { error } = await supabase.auth.signOut();
         if (error) throw error;
       },
-      async requestPasswordReset(email) {
+      async requestPasswordReset(email, captchaToken) {
         const { error } = await supabase.auth.resetPasswordForEmail(email, {
           redirectTo: `${window.location.origin}/reset-password`,
+          ...(captchaToken ? { captchaToken } : {}),
         });
         if (error) throw error;
       },

@@ -3,6 +3,8 @@ import { Routes, Route } from 'react-router-dom';
 
 import { MarketingLayout, AuthLayout, DashboardLayout } from '@/components/layout';
 import { RequireAuth } from '@/components/auth/RequireAuth';
+import { RequireActiveSubscription } from '@/components/auth/RequireActiveSubscription';
+import { RequireAdmin } from '@/components/auth/RequireAdmin';
 import { Spinner } from '@/components/ui/spinner';
 
 /* Route-level code splitting — each page (and its heavy deps like recharts and
@@ -61,6 +63,15 @@ const BillingPage = lazy(() =>
 const SettingsPage = lazy(() =>
   import('@/pages/app/SettingsPage').then((m) => ({ default: m.SettingsPage })),
 );
+const EscrowListPage = lazy(() =>
+  import('@/pages/app/EscrowListPage').then((m) => ({ default: m.EscrowListPage })),
+);
+const EscrowDetailPage = lazy(() =>
+  import('@/pages/app/EscrowDetailPage').then((m) => ({ default: m.EscrowDetailPage })),
+);
+const AdminEscrowPage = lazy(() =>
+  import('@/pages/app/admin/AdminEscrowPage').then((m) => ({ default: m.AdminEscrowPage })),
+);
 
 const NotFoundPage = lazy(() =>
   import('@/pages/NotFoundPage').then((m) => ({ default: m.NotFoundPage })),
@@ -106,9 +117,18 @@ function App() {
         <Route element={<RequireAuth />}>
           <Route path="app" element={<DashboardLayout />}>
             <Route index element={<OverviewPage />} />
-            <Route path="projects" element={<ProjectsPage />} />
+            <Route element={<RequireActiveSubscription />}>
+              <Route path="projects" element={<ProjectsPage />} />
+            </Route>
             <Route path="billing" element={<BillingPage />} />
             <Route path="settings" element={<SettingsPage />} />
+            {/* Escrow is independent of the SaaS subscription, so it is NOT
+                wrapped in RequireActiveSubscription. */}
+            <Route path="escrow" element={<EscrowListPage />} />
+            <Route path="escrow/:id" element={<EscrowDetailPage />} />
+            <Route element={<RequireAdmin />}>
+              <Route path="admin/escrow" element={<AdminEscrowPage />} />
+            </Route>
           </Route>
         </Route>
 

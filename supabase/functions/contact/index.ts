@@ -18,12 +18,12 @@ import {
 } from '../_shared/cors.ts';
 
 Deno.serve(async (req) => {
-  if (req.method === 'OPTIONS') return new Response('ok', { headers: corsHeaders });
-  if (req.method !== 'POST') return json({ error: 'Method not allowed' }, 405);
+  if (req.method === 'OPTIONS') return new Response('ok', { headers: corsHeaders(req) });
+  if (req.method !== 'POST') return json({ error: 'Method not allowed' }, 405, req);
 
   try {
     const body = await req.json().catch(() => null);
-    if (!body || typeof body !== 'object') return json({ error: 'Invalid body' }, 400);
+    if (!body || typeof body !== 'object') return json({ error: 'Invalid body' }, 400, req);
 
     const name = String(body.name ?? '').trim();
     const email = String(body.email ?? '').trim().toLowerCase();
@@ -33,17 +33,17 @@ Deno.serve(async (req) => {
     const token = String(body.turnstileToken ?? '');
 
     // Bot caught by honeypot — pretend success, store nothing.
-    if (honeypot) return json({ ok: true });
+    if (honeypot) return json({ ok: true }, 200, req);
 
     // Server-side validation (mirrors the client Zod schema).
-    if (!name || name.length > 200) return json({ error: 'Invalid name' }, 400);
-    if (!isValidEmail(email)) return json({ error: 'Invalid email' }, 400);
-    if (organization.length > 200) return json({ error: 'Organization is too long' }, 400);
-    if (!message || message.length > 5000) return json({ error: 'Invalid message' }, 400);
+    if (!name || name.length > 200) return json({ error: 'Invalid name' }, 400, req);
+    if (!isValidEmail(email)) return json({ error: 'Invalid email' }, 400, req);
+    if (organization.length > 200) return json({ error: 'Organization is too long' }, 400, req);
+    if (!message || message.length > 5000) return json({ error: 'Invalid message' }, 400, req);
 
     const ip = clientIp(req);
     if (!(await verifyTurnstile(token, ip))) {
-      return json({ error: 'Verification failed. Please try again.' }, 400);
+      return json({ error: 'Verification failed. Please try again.' }, 400, req);
     }
 
     const supabase = createClient(
@@ -62,7 +62,7 @@ Deno.serve(async (req) => {
 
     if (error) {
       console.error('insert contact_messages failed:', error);
-      return json({ error: 'Could not save your message.' }, 500);
+      return json({ error: 'Could not save your message.' }, 500, req);
     }
 
     // Best-effort email notification (no-op unless Resend is configured).
@@ -70,10 +70,10 @@ Deno.serve(async (req) => {
       console.error('notify failed:', e),
     );
 
-    return json({ ok: true });
+    return json({ ok: true }, 200, req);
   } catch (e) {
     console.error('contact function error:', e);
-    return json({ error: 'Unexpected error' }, 500);
+    return json({ error: 'Unexpected error' }, 500, req);
   }
 });
 

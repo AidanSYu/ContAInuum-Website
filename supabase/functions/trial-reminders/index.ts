@@ -17,13 +17,13 @@ import { adminClient, SITE_URL } from '../_shared/stripe.ts';
 const REMIND_WITHIN_DAYS = 3;
 
 Deno.serve(async (req) => {
-  if (req.method === 'OPTIONS') return new Response('ok', { headers: corsHeaders });
-  if (req.method !== 'POST') return json({ error: 'Method not allowed' }, 405);
+  if (req.method === 'OPTIONS') return new Response('ok', { headers: corsHeaders(req) });
+  if (req.method !== 'POST') return json({ error: 'Method not allowed' }, 405, req);
 
   // Only the scheduler may invoke this — never a browser.
   const secret = Deno.env.get('CRON_SECRET');
   if (!secret || req.headers.get('x-cron-secret') !== secret) {
-    return json({ error: 'Forbidden' }, 403);
+    return json({ error: 'Forbidden' }, 403, req);
   }
 
   try {
@@ -42,7 +42,7 @@ Deno.serve(async (req) => {
 
     if (error) {
       console.error('trial-reminders query failed:', error);
-      return json({ error: 'Query failed' }, 500);
+      return json({ error: 'Query failed' }, 500, req);
     }
 
     let sent = 0;
@@ -65,10 +65,10 @@ Deno.serve(async (req) => {
       sent++;
     }
 
-    return json({ ok: true, scanned: subs?.length ?? 0, sent });
+    return json({ ok: true, scanned: subs?.length ?? 0, sent }, 200, req);
   } catch (e) {
     console.error('trial-reminders error:', e);
-    return json({ error: 'Unexpected error' }, 500);
+    return json({ error: 'Unexpected error' }, 500, req);
   }
 });
 

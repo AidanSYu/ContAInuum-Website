@@ -13,23 +13,23 @@ import {
 } from '../_shared/cors.ts';
 
 Deno.serve(async (req) => {
-  if (req.method === 'OPTIONS') return new Response('ok', { headers: corsHeaders });
-  if (req.method !== 'POST') return json({ error: 'Method not allowed' }, 405);
+  if (req.method === 'OPTIONS') return new Response('ok', { headers: corsHeaders(req) });
+  if (req.method !== 'POST') return json({ error: 'Method not allowed' }, 405, req);
 
   try {
     const body = await req.json().catch(() => null);
-    if (!body || typeof body !== 'object') return json({ error: 'Invalid body' }, 400);
+    if (!body || typeof body !== 'object') return json({ error: 'Invalid body' }, 400, req);
 
     const email = String(body.email ?? '').trim().toLowerCase();
     const source = String(body.source ?? '').trim() || null;
     const honeypot = String(body.company_website ?? '');
     const token = String(body.turnstileToken ?? '');
 
-    if (honeypot) return json({ ok: true });
-    if (!isValidEmail(email)) return json({ error: 'Invalid email' }, 400);
+    if (honeypot) return json({ ok: true }, 200, req);
+    if (!isValidEmail(email)) return json({ error: 'Invalid email' }, 400, req);
 
     if (!(await verifyTurnstile(token, clientIp(req)))) {
-      return json({ error: 'Verification failed. Please try again.' }, 400);
+      return json({ error: 'Verification failed. Please try again.' }, 400, req);
     }
 
     const supabase = createClient(
@@ -50,20 +50,20 @@ Deno.serve(async (req) => {
 
     if (error || !data) {
       console.error('upsert subscribers failed:', error);
-      return json({ error: 'Could not subscribe.' }, 500);
+      return json({ error: 'Could not subscribe.' }, 500, req);
     }
 
     // Already confirmed — nothing more to do.
-    if (data.status === 'confirmed') return json({ ok: true, alreadyConfirmed: true });
+    if (data.status === 'confirmed') return json({ ok: true, alreadyConfirmed: true }, 200, req);
 
     await sendConfirmation(email, data.confirm_token as string).catch((e) =>
       console.error('confirmation email failed:', e),
     );
 
-    return json({ ok: true });
+    return json({ ok: true }, 200, req);
   } catch (e) {
     console.error('newsletter-subscribe error:', e);
-    return json({ error: 'Unexpected error' }, 500);
+    return json({ error: 'Unexpected error' }, 500, req);
   }
 });
 

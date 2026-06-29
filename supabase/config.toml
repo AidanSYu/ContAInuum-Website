@@ -45,3 +45,8 @@ verify_jwt = false
 
 [functions.stripe-webhook]
 verify_jwt = false
+
+# Invoked by a scheduler (cron), not a signed-in user. Protected by its own
+# CRON_SECRET header check, so the platform JWT gate is turned off.
+[functions.trial-reminders]
+verify_jwt = false

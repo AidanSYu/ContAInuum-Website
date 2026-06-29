@@ -7,6 +7,7 @@ import { MailCheck } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
+import { Turnstile } from '@/components/Turnstile';
 import { useAuth } from '@/lib/auth';
 import { supabase } from '@/lib/supabase';
 import { signupSchema, type SignupInput } from '@/lib/validation';
@@ -14,12 +15,15 @@ import { signupSchema, type SignupInput } from '@/lib/validation';
 /** localStorage key the billing page reads to resume a plan chosen pre-signup. */
 export const PENDING_PLAN_KEY = 'containuum.pendingPlan';
 
+const turnstileEnabled = Boolean(import.meta.env.VITE_TURNSTILE_SITE_KEY);
+
 export function SignupPage() {
   const { signUp } = useAuth();
   const navigate = useNavigate();
   const [params] = useSearchParams();
   const plan = params.get('plan');
   const [submittedEmail, setSubmittedEmail] = useState<string | null>(null);
+  const [captchaToken, setCaptchaToken] = useState('');
 
   const {
     register,
@@ -31,8 +35,14 @@ export function SignupPage() {
   });
 
   const onSubmit = handleSubmit(async (values) => {
+    if (turnstileEnabled && !captchaToken) {
+      toast.error('Please complete the verification challenge.');
+      return;
+    }
     try {
-      await signUp(values.email, values.password, values.fullName);
+      await (captchaToken
+        ? signUp(values.email, values.password, values.fullName, captchaToken)
+        : signUp(values.email, values.password, values.fullName));
       if (plan) localStorage.setItem(PENDING_PLAN_KEY, plan);
 
       // If email confirmation is OFF, a session exists immediately → go to app.
@@ -89,6 +99,8 @@ export function SignupPage() {
           <Input id="password" type="password" autoComplete="new-password" {...register('password')} aria-invalid={Boolean(errors.password)} />
           {errors.password && <p className="mt-1.5 text-xs text-safety">{errors.password.message}</p>}
         </div>
+
+        {turnstileEnabled && <Turnstile onToken={setCaptchaToken} className="pt-1" />}
 
         <Button type="submit" disabled={isSubmitting} className="w-full bg-safety text-white hover:bg-safety/90">
           {isSubmitting ? 'Creating account…' : 'Create account'}

@@ -2,8 +2,9 @@ import { useEffect, useRef } from 'react';
 
 /**
  * Cloudflare Turnstile widget. Renders a privacy-friendly captcha and hands the
- * resulting token to `onToken`. If no site key is configured (e.g. local dev),
- * it renders nothing and emits a sentinel token so forms remain usable.
+ * resulting token to `onToken`. If no site key is configured (e.g. local dev or
+ * tests), it renders nothing and emits NO token — callers must proceed without a
+ * captchaToken so forms remain usable until the captcha is configured.
  */
 
 type TurnstileAPI = {
@@ -54,10 +55,9 @@ export function Turnstile({
   }, [onToken]);
 
   useEffect(() => {
-    if (!SITE_KEY) {
-      onTokenRef.current('dev-no-turnstile');
-      return;
-    }
+    // No site key (dev/tests): render nothing and emit no token. Callers must
+    // submit without a captchaToken so auth still works locally.
+    if (!SITE_KEY) return;
 
     let widgetId: string | undefined;
     let cancelled = false;
