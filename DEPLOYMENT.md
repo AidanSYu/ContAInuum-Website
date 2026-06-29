@@ -114,7 +114,7 @@ Applies all migrations **including `0008_past_due_grace`** (the `past_due_since`
 ```bash
 supabase db push
 ```
-*Alternative (no CLI):* paste `supabase/PROVISION_ALL.sql` into Supabase Studio → SQL Editor → Run. It already includes the `0008` block and is safe to re-run.
+*Alternative (no CLI):* paste `supabase/PROVISION_ALL.sql` into Supabase Studio → SQL Editor → Run. It already includes migrations through `0009` (`0008` past_due grace + `0009` contact topic) and is safe to re-run.
 
 The `plans` catalog (Solo / Lab / Institute) is seeded by migrations `0002` + `0003` automatically. **Do not run `_seed.mjs` in production** — it creates local test users only.
 
@@ -300,7 +300,7 @@ Test and live are fully separate in Stripe. Repeat, in this order, with **live**
 
 **Blocking — must be done:**
 - [ ] Domain confirmed (`containuum.io` vs `contineon.com`); repo updated if needed (§1A, §2I)
-- [ ] `supabase db push` applied incl. migration `0008` (§2A)
+- [ ] `supabase db push` applied incl. migrations `0008` (past_due grace) + `0009` (contact topic) (§2A)
 - [ ] Stripe webhook registered with the 7 events; `STRIPE_WEBHOOK_SECRET` set (§2C–D)
 - [ ] All Supabase secrets set (§2D); all 9 functions deployed with correct `--no-verify-jwt` flags (§2E)
 - [ ] Supabase Auth: Site URL, Redirect URLs, **Confirm email ON**, SMTP, Turnstile secret (§2F)
@@ -333,4 +333,4 @@ Test and live are fully separate in Stripe. Repeat, in this order, with **live**
 - **Trial length is DB-driven** (`plans.trial_days = 14`), not a Stripe setting — don't add a trial to the Stripe price.
 - **The 7-day grace lives in two places** that must match: `PAST_DUE_GRACE_DAYS` (`src/lib/api/subscriptions.ts`) and `interval '7 days'` (migration `0008`).
 - **Never set `ALLOW_INSECURE_NO_CAPTCHA` in production** — it disables captcha and opens localhost CORS.
-- **`PROVISION_ALL.sql` currently bundles through `0008`.** If you add `0009+`, prefer `supabase db push`; the bundle would be stale.
+- **`PROVISION_ALL.sql` currently bundles through `0009`.** If you add `0010+`, prefer `supabase db push`; the bundle would be stale.

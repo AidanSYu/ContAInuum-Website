@@ -54,7 +54,8 @@ const TOPICS: Record<string, { eyebrow: string; heading: string; blurb: string; 
 
 export function ContactPage() {
   const [params] = useSearchParams();
-  const topic = TOPICS[params.get('topic') ?? 'general'] ?? TOPICS.general;
+  const topicKey = params.get('topic') ?? 'general';
+  const topic = TOPICS[topicKey] ?? TOPICS.general;
   const [turnstileToken, setTurnstileToken] = useState('');
 
   const {
@@ -84,7 +85,7 @@ export function ContactPage() {
       toast.error('Please complete the verification challenge.');
       return;
     }
-    mutation.mutate({ ...values, turnstileToken });
+    mutation.mutate({ ...values, topic: topicKey, turnstileToken });
   });
 
   return (

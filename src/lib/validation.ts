@@ -37,6 +37,8 @@ export const contactSchema = z.object({
     .trim()
     .min(1, 'Message is required')
     .max(5000, 'Message is too long (5000 char max)'),
+  /** Which funnel the message came from (partner, pilot, demo, …) — for triage. */
+  topic: z.string().trim().max(50).optional(),
   /** Honeypot: real users never fill this; bots often do. Must stay empty. */
   company_website: z.string().max(0).optional(),
   /** Cloudflare Turnstile token, attached at submit time. */

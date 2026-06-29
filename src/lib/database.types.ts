@@ -51,6 +51,7 @@ export type Database = {
           organization: string | null;
           message: string;
           ip_hash: string | null;
+          topic: string | null;
           created_at: string;
         };
         Insert: {
@@ -60,6 +61,7 @@ export type Database = {
           organization?: string | null;
           message: string;
           ip_hash?: string | null;
+          topic?: string | null;
           created_at?: string;
         };
         Update: {
@@ -68,6 +70,7 @@ export type Database = {
           organization?: string | null;
           message?: string;
           ip_hash?: string | null;
+          topic?: string | null;
         };
         Relationships: [];
       };

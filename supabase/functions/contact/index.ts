@@ -29,6 +29,7 @@ Deno.serve(async (req) => {
     const email = String(body.email ?? '').trim().toLowerCase();
     const organization = String(body.organization ?? '').trim();
     const message = String(body.message ?? '').trim();
+    const topic = String(body.topic ?? '').trim().slice(0, 50);
     const honeypot = String(body.company_website ?? '');
     const token = String(body.turnstileToken ?? '');
 
@@ -58,6 +59,7 @@ Deno.serve(async (req) => {
       organization: organization || null,
       message,
       ip_hash: ip ? await sha256(ip) : null,
+      topic: topic || null,
     });
 
     if (error) {
@@ -66,7 +68,7 @@ Deno.serve(async (req) => {
     }
 
     // Best-effort email notification (no-op unless Resend is configured).
-    await notify({ name, email, organization, message }).catch((e) =>
+    await notify({ name, email, organization, message, topic }).catch((e) =>
       console.error('notify failed:', e),
     );
 
@@ -77,11 +79,24 @@ Deno.serve(async (req) => {
   }
 });
 
+/** Human label for a topic key, used in the notification subject for triage. */
+function topicLabel(topic: string): string {
+  switch (topic) {
+    case 'partner': return 'Design-partner application';
+    case 'pilot': return 'Pilot request';
+    case 'enterprise': return 'Institute / enterprise inquiry';
+    case 'demo': return 'Demo request';
+    case 'security': return 'Security inquiry';
+    default: return 'Contact';
+  }
+}
+
 async function notify(msg: {
   name: string;
   email: string;
   organization: string;
   message: string;
+  topic: string;
 }): Promise<void> {
   const apiKey = Deno.env.get('RESEND_API_KEY');
   const to = Deno.env.get('CONTACT_NOTIFY_EMAIL');
@@ -98,8 +113,8 @@ async function notify(msg: {
       from,
       to,
       reply_to: msg.email,
-      subject: `New contact: ${msg.name}${msg.organization ? ` (${msg.organization})` : ''}`,
-      text: `From: ${msg.name} <${msg.email}>\nOrg: ${msg.organization || '—'}\n\n${msg.message}`,
+      subject: `${topicLabel(msg.topic)}: ${msg.name}${msg.organization ? ` (${msg.organization})` : ''}`,
+      text: `Topic: ${msg.topic || 'general'}\nFrom: ${msg.name} <${msg.email}>\nOrg: ${msg.organization || '—'}\n\n${msg.message}`,
     }),
   });
 }

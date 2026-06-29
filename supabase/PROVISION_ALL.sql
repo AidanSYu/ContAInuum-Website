@@ -733,3 +733,12 @@ $$;
 revoke all on function public.has_active_subscription(uuid) from public;
 grant execute on function public.has_active_subscription(uuid) to authenticated, service_role;
 
+-- ##################### 0009_contact_topic.sql #####################
+-- ============================================================================
+-- Store the contact topic (which funnel a message came from) so design-partner
+-- / pilot applications can be triaged apart from generic messages.
+-- Idempotent: add column if not exists.
+-- ============================================================================
+alter table public.contact_messages
+  add column if not exists topic text check (char_length(topic) <= 50);
+
