@@ -307,6 +307,26 @@ async function refundMilestone(
   // If the webhook already marked it, re-read the current row to return state.
   const finalMilestone = updated ?? (await loadMilestone(admin, milestoneId));
   const refreshed = await maybeCompleteAgreement(admin, agreement.id);
+
+  // Best-effort: notify the customer a milestone was refunded.
+  try {
+    const email = await getUserEmail(admin, agreement.user_id);
+    if (email) {
+      const link = `${SITE_URL}/app/escrow/${agreement.id}`;
+      await sendCustomerEmail(
+        email,
+        'A milestone on your contAInuum engagement was refunded',
+        `<p>We’ve refunded the milestone <strong>${escapeHtml(milestone.title)}</strong> on your
+         engagement <strong>${escapeHtml(agreement.title)}</strong>. The funds are being returned to
+         your original payment method.</p>
+         <p>See the latest status here:</p>
+         <p><a href="${link}">View your engagement</a></p>`,
+      );
+    }
+  } catch (e) {
+    console.error('milestone-refunded notification failed:', e);
+  }
+
   return json(
     { milestone: finalMilestone, agreement: refreshed, refund_id: refund.id },
     200,
