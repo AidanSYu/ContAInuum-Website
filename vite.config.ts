@@ -12,28 +12,11 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
-  build: {
-    rollupOptions: {
-      output: {
-        // Split heavy vendors into separate, independently-cacheable chunks so
-        // the first paint no longer downloads one giant bundle.
-        manualChunks(id) {
-          if (!id.includes('node_modules')) return;
-          if (
-            id.includes('/react-router') ||
-            id.includes('/react-dom/') ||
-            id.includes('/react/') ||
-            id.includes('/scheduler/')
-          )
-            return 'react-vendor';
-          if (id.includes('@radix-ui')) return 'radix';
-          if (id.includes('@supabase')) return 'supabase';
-          if (id.includes('@tanstack')) return 'query';
-          if (id.includes('recharts') || id.includes('/d3-') || id.includes('/victory-')) return 'charts';
-          if (id.includes('@stripe')) return 'stripe';
-          return 'vendor';
-        },
-      },
-    },
-  },
+  // NOTE: a hand-rolled `manualChunks` vendor split used to live here. It split
+  // React / Radix / vendor into separate chunks whose initialization order
+  // formed a cycle, producing a production-only "Cannot access 'X' before
+  // initialization" crash (white screen) while dev (unbundled ESM) looked fine.
+  // Rollup's automatic chunking orders cyclic modules correctly, so we let it
+  // decide. Routes are still code-split via React.lazy(), so first paint stays
+  // small without the fragile manual split.
 });
