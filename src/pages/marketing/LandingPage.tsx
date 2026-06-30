@@ -1,16 +1,17 @@
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { Seo } from '@/components/Seo';
 import { Reveal, Magnetic, ParticleField } from '@/components/motion';
 import { Cta, Kicker } from '@/components/marketing/ui';
-import { GridField, Plate } from '@/components/marketing/visuals';
-import { gsap, useGSAP, SplitText, ScrollTrigger } from '@/lib/gsap';
-import { cn } from '@/lib/utils';
+import { GridField } from '@/components/marketing/visuals';
+import { AsciiMedia } from '@/components/marketing/AsciiMedia';
+import { gsap, useGSAP, SplitText } from '@/lib/gsap';
 
 /* =============================================================================
-   Landing — Contineon MISSION page. The thesis: industrializing breakthrough
-   science. Atlas is only teased; product detail lives on /platform.
-   Dark/light rhythm, one accent, technical grid, cinematic imagery.
+   Landing — Contineon MISSION page. The first frame (hero) is fixed. Everything
+   below is the manifesto: what we are, the thesis, the new category, how we
+   build it, the wedge (Atlas), the dream. Big type, short lines, signature
+   ASCII media, one accent. Built to be felt fast.
    ============================================================================= */
 
 function Hero() {
@@ -56,6 +57,9 @@ function Hero() {
           loop
           playsInline
           poster="/images/airglow.jpg"
+          onLoadedData={(e) => {
+            e.currentTarget.playbackRate = 2.2;
+          }}
         >
           <source src="/images/iss-earth.mp4" type="video/mp4" />
         </video>
@@ -88,126 +92,75 @@ function Hero() {
   );
 }
 
-const PILLARS = [
+const BETS = [
   {
     n: '01',
     name: 'Infrastructure',
-    headline: 'Compute and the physical lab, one layer.',
-    body: 'Autonomous science needs a substrate that reaches all the way down to the instrument. We build the compute and the physical lab layer as a single system, because the gap between them is where most automation quietly fails.',
-    plate: { label: 'Fig. 01 / Substrate', src: undefined as string | undefined },
+    headline: 'Compute fused with the lab.',
+    line: 'One substrate that reaches all the way down to the instrument. The gap between thinking and doing is where most automation quietly dies. We close it.',
+    media: { src: '/images/earth-night-poster.jpg', tint: 'ember' as const },
   },
   {
     n: '02',
     name: 'Foundational models',
-    headline: 'Models that act in the world, not just describe it.',
-    body: 'We train our own frontier models: language models that reason over the literature, world models that perceive an experiment, predict its outcome, and decide the next move. A model that can only read about the world cannot run one. Ours are built to do both.',
-    plate: { label: 'Fig. 02 / World model', src: '/images/gargantua-blackhole.png' as string | undefined },
+    headline: 'Models that act, not just describe.',
+    line: 'Our own frontier models. Language models that read the literature; world models that perceive an experiment, predict its outcome, and decide the next move.',
+    media: { src: '/images/gargantua-blackhole.png', tint: 'ember' as const },
   },
   {
     n: '03',
     name: 'Own the stack',
-    headline: 'We own intelligence. We do not rent it.',
-    body: 'The field is busy renting its mind from a vendor and calling it strategy. We hold the contrarian view that the hard parts cannot be outsourced. We integrate vertically, from silicon to instrument to model, because the company that owns the full loop is the only one that can close it.',
-    plate: { label: 'Fig. 03 / Vertical integration', src: undefined as string | undefined },
+    headline: 'We own intelligence. We never rent it.',
+    line: 'Silicon to instrument to model, held as a single loop. The company that owns the full loop is the only one that can close it.',
+    media: { src: '/images/sun-sdo-poster.jpg', tint: 'ice' as const },
   },
   {
     n: '04',
     name: 'Unusual methods',
     headline: 'State of the art, off the main road.',
-    body: 'Consensus is a crowded road to a small destination. We reach state of the art through the approaches the field overlooked, and we know precisely why they were overlooked. The largest gains are still sitting in the assumptions everyone agreed to stop questioning. The hardness is the moat.',
-    plate: { label: 'Fig. 04 / Off the main road', src: undefined as string | undefined },
+    line: 'The largest gains are still sitting in the assumptions everyone agreed to stop questioning. The hardness is the moat.',
+    media: { src: '/images/sr71-horse-rider.png', tint: 'ember' as const },
   },
 ];
 
-function PillarsScrolly() {
-  const root = useRef<HTMLDivElement>(null);
-  const [active, setActive] = useState(0);
-
-  useGSAP(
-    () => {
-      const blocks = gsap.utils.toArray<HTMLElement>('[data-pillar]');
-      const triggers = blocks.map((b, i) =>
-        ScrollTrigger.create({
-          trigger: b,
-          start: 'top center',
-          end: 'bottom center',
-          onToggle: (self) => {
-            if (self.isActive) setActive(i);
-          },
-        }),
-      );
-      return () => triggers.forEach((t) => t.kill());
-    },
-    { scope: root },
-  );
-
+function BetsSection() {
   return (
-    <section id="pillars" className="dark relative bg-paper text-ink">
-      <GridField className="opacity-40" />
-      <div className="relative z-10 mx-auto max-w-7xl px-[5vw] pt-[clamp(72px,10vw,140px)] lg:px-8 xl:px-16">
+    <section id="how" className="border-y border-line bg-surface py-[clamp(72px,11vw,150px)]">
+      <div className="mx-auto max-w-7xl px-[5vw] lg:px-8 xl:px-16">
         <Reveal className="max-w-2xl">
-          <Kicker className="text-safety">How we do it</Kicker>
-          <h2 className="mt-4 text-[clamp(28px,3.6vw,50px)] font-bold leading-[1.03] tracking-[-0.03em]">
+          <Kicker className="text-safety">How we build it</Kicker>
+          <h2 className="mt-4 text-[clamp(28px,4vw,56px)] font-bold leading-[1.02] tracking-[-0.035em] text-ink">
             Four bets, built as one company.
           </h2>
         </Reveal>
 
-        <div ref={root} className="mt-10 grid gap-x-16 lg:grid-cols-2">
-          {/* sticky visual (desktop) */}
-          <div className="hidden lg:block">
-            <div className="sticky top-28">
-              <div className="relative aspect-[4/3]">
-                {PILLARS.map((p, i) => (
-                  <div
-                    key={p.n}
-                    className={cn(
-                      'absolute inset-0 transition-opacity duration-500',
-                      active === i ? 'opacity-100' : 'opacity-0',
-                    )}
-                  >
-                    <Plate src={p.plate.src} label={p.plate.label} className="h-full" />
-                  </div>
-                ))}
-              </div>
-              <div className="mt-6 flex items-center gap-4">
-                <span className="font-mono text-sm text-safety">{PILLARS[active].n}</span>
-                <span className="lab-label">{PILLARS[active].name}</span>
-                <span className="ml-auto flex gap-1.5">
-                  {PILLARS.map((p, i) => (
-                    <span
-                      key={p.n}
-                      className={cn('h-1 w-6 rounded-full transition-colors', active === i ? 'bg-safety' : 'bg-line')}
-                    />
-                  ))}
-                </span>
-              </div>
-            </div>
-          </div>
-
-          {/* scrolling text track */}
-          <div>
-            {PILLARS.map((p, i) => (
-              <div
-                key={p.n}
-                data-pillar={i}
-                className="flex min-h-[72vh] flex-col justify-center py-10 lg:border-b lg:border-line lg:last:border-b-0"
-              >
-                <div className="flex items-baseline gap-4 lg:hidden">
-                  <span className="font-mono text-sm text-safety">{p.n}</span>
-                  <span className="lab-label">{p.name}</span>
+        <div className="mt-12 grid gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-2">
+          {BETS.map((b, i) => (
+            <Reveal key={b.n} delay={i * 0.05} className="group flex flex-col bg-surface">
+              <div className="relative aspect-[16/10] overflow-hidden">
+                <AsciiMedia
+                  src={b.media.src}
+                  type="image"
+                  tint={b.media.tint}
+                  cols={118}
+                  className="absolute inset-0 transition-transform duration-[1200ms] ease-out group-hover:scale-[1.04]"
+                />
+                <div className="absolute inset-x-0 top-0 flex items-center gap-3 p-5">
+                  <span className="font-mono text-xs text-safety">{b.n}</span>
+                  <span className="lab-label text-white/80">{b.name}</span>
                 </div>
-                <h3 className="mt-4 max-w-xl text-[clamp(24px,2.8vw,42px)] font-bold leading-[1.06] tracking-[-0.025em] lg:mt-0">
-                  {p.headline}
-                </h3>
-                <p className="mt-5 max-w-xl text-[clamp(15px,1.1vw,18px)] leading-relaxed text-ink-muted">
-                  {p.body}
-                </p>
-                <Plate src={p.plate.src} label={p.plate.label} className="mt-8 aspect-[4/3] lg:hidden" />
               </div>
-            ))}
-          </div>
+              <div className="flex flex-1 flex-col p-7 lg:p-9">
+                <h3 className="text-[clamp(20px,2.1vw,30px)] font-bold leading-[1.07] tracking-[-0.02em] text-ink">
+                  {b.headline}
+                </h3>
+                <p className="mt-3 text-[clamp(14px,1.05vw,16.5px)] leading-relaxed text-ink-muted">
+                  {b.line}
+                </p>
+              </div>
+            </Reveal>
+          ))}
         </div>
-        <div className="h-[clamp(48px,8vw,110px)]" />
       </div>
     </section>
   );
@@ -218,84 +171,176 @@ export function LandingPage() {
     <>
       <Seo
         title="Contineon, industrializing breakthrough science"
-        description="Contineon is building the infrastructure, foundational models, and autonomous systems that make scientific discovery compound like industry. Atlas is our first product."
+        description="Contineon is the frontier lab turning intelligence into matter. We are building the second invention factory: industrialized invention across all matter. Atlas is the wedge."
         path="/"
       />
 
       <Hero />
 
-      {/* Thesis — light, the manifesto */}
-      <section id="thesis" className="border-y border-line bg-surface py-[clamp(80px,12vw,160px)]">
-        <div className="mx-auto max-w-7xl px-[5vw] lg:px-8 xl:px-16">
-          <Reveal className="max-w-5xl">
-            <Kicker>The thesis</Kicker>
-            <h2 className="mt-6 text-[clamp(30px,4.4vw,62px)] font-bold leading-[1.04] tracking-[-0.035em] text-ink">
-              We are not betting that science is easy. We are betting that it is industrializable.
+      {/* Capability — what we are */}
+      <section className="dark relative flex min-h-[78vh] items-center overflow-hidden bg-paper text-ink">
+        <AsciiMedia
+          src="/images/earth-night.mp4"
+          type="video"
+          poster="/images/earth-night-poster.jpg"
+          cols={170}
+          speed={1.5}
+          tint="ember"
+          className="absolute inset-0"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#06080B] via-[#06080B]/70 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#06080B] via-transparent to-[#06080B]/70" />
+        <GridField className="opacity-40" />
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-[5vw] lg:px-8 xl:px-16">
+          <Reveal className="max-w-4xl">
+            <Kicker className="text-safety">What we are</Kicker>
+            <h2 className="mt-5 text-[clamp(30px,5vw,74px)] font-bold leading-[1.0] tracking-[-0.04em]">
+              The frontier lab for turning intelligence into matter.
             </h2>
-          </Reveal>
-          <Reveal className="mt-10 grid gap-x-12 gap-y-6 lg:grid-cols-[1fr_1.1fr]" delay={0.05}>
-            <p className="text-[clamp(17px,1.5vw,23px)] font-medium leading-snug text-ink">
-              The ceiling on progress was never how fast one mind could think. It was that knowledge
-              never accumulated faster than people could be trained to carry it.
-            </p>
-            <p className="text-[clamp(16px,1.2vw,19px)] leading-relaxed text-ink-muted">
-              We treat that ceiling as an engineering problem, not a law of nature. Break it and
-              discovery begins to compound: every experiment sharpens the next, every result becomes a
-              tool, the frontier starts to move on its own. That is not a better lab. That is a
-              different century.
+            <p className="mt-6 max-w-xl text-[clamp(16px,1.4vw,22px)] leading-snug text-white/70">
+              Discovery, manufactured. Not waited for.
             </p>
           </Reveal>
         </div>
       </section>
 
-      {/* Pillars — pinned scrollytelling */}
-      <PillarsScrolly />
-
-      {/* Atlas teaser — light band */}
-      <section className="border-y border-line bg-surface py-[clamp(72px,10vw,140px)]">
-        <div className="mx-auto max-w-7xl px-[5vw] lg:px-8 xl:px-16">
-          <div className="grid gap-12 lg:grid-cols-[1fr_1fr]">
+      {/* Manifesto — the thesis */}
+      <section id="thesis" className="border-y border-line bg-surface py-[clamp(80px,13vw,180px)]">
+        <div className="mx-auto max-w-6xl px-[5vw] lg:px-8 xl:px-16">
+          <Reveal>
+            <Kicker className="text-safety">The thesis</Kicker>
+          </Reveal>
+          <div className="mt-8 space-y-3 text-[clamp(26px,4.4vw,60px)] font-bold leading-[1.05] tracking-[-0.035em] text-ink">
             <Reveal>
-              <Kicker>First, Atlas</Kicker>
-              <h2 className="mt-4 text-[clamp(30px,4vw,56px)] font-bold leading-[1.02] tracking-[-0.035em] text-ink">
-                The first place discovery compounds.
-              </h2>
-              <p className="mt-6 max-w-xl text-[clamp(16px,1.2vw,19px)] leading-relaxed text-ink-muted">
-                Atlas is an autonomous lab agent that plans and runs research campaigns on the
-                instruments a lab already owns, hands the work back to a human the moment judgment is
-                needed, and remembers everything it learns. The first place discovery starts to
-                compound. Not the last.
-              </p>
-              <div className="mt-8 flex flex-wrap gap-3">
-                <Cta to="/platform" variant="ink">
-                  Explore Atlas Framework <ArrowRight className="h-4 w-4" />
-                </Cta>
-              </div>
+              <p>Science is the last great craft.</p>
             </Reveal>
             <Reveal delay={0.05}>
-              <Plate src="/images/sr71-horse-rider.png" label="Atlas / first instrument" className="aspect-[4/3] h-full" />
+              <p className="text-ink-muted">
+                Still made by hand. One mind at a time. The way cloth was made before the loom.
+              </p>
+            </Reveal>
+            <Reveal delay={0.1}>
+              <p>We are not betting the work gets easier.</p>
+            </Reveal>
+            <Reveal delay={0.15}>
+              <p>
+                We are betting it gets <span className="text-safety">industrialized</span>.
+              </p>
+            </Reveal>
+          </div>
+          <Reveal delay={0.1} className="mt-12 max-w-2xl">
+            <p className="text-[clamp(17px,1.5vw,22px)] leading-snug text-ink">
+              Not smarter scientists. An industrializable science. Whoever industrializes it owns the
+              fastest curve in the world.
+            </p>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* Category — the second invention factory */}
+      <section className="dark relative flex min-h-[88vh] items-center overflow-hidden bg-paper text-ink">
+        <AsciiMedia
+          src="/images/sun-sdo.mp4"
+          type="video"
+          poster="/images/sun-sdo-poster.jpg"
+          cols={150}
+          speed={1.2}
+          tint="ember"
+          className="absolute inset-0"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#06080B]/85 via-[#06080B]/55 to-[#06080B]" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#06080B] to-transparent" />
+        <GridField className="opacity-30" />
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-[5vw] lg:px-8 xl:px-16">
+          <Reveal className="max-w-4xl">
+            <Kicker className="text-safety">The category</Kicker>
+            <h2 className="mt-5 text-[clamp(32px,5.4vw,82px)] font-bold leading-[0.98] tracking-[-0.04em]">
+              The second invention factory.
+            </h2>
+          </Reveal>
+          <Reveal delay={0.06} className="mt-8 grid max-w-5xl gap-x-12 gap-y-5 lg:grid-cols-2">
+            <p className="text-[clamp(17px,1.6vw,24px)] font-medium leading-snug text-white">
+              The first one took electricity and turned a century of ideas into products.
+            </p>
+            <p className="text-[clamp(16px,1.3vw,20px)] leading-relaxed text-white/70">
+              We are building the one that takes intelligence and turns it into discovery, at
+              industrial scale, across all matter: molecules, materials, medicine, machines.
+            </p>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* How — the four bets */}
+      <BetsSection />
+
+      {/* Wedge — Atlas */}
+      <section className="dark relative overflow-hidden bg-paper py-[clamp(80px,12vw,170px)] text-ink">
+        <GridField className="opacity-25" />
+        <div className="relative z-10 mx-auto max-w-7xl px-[5vw] lg:px-8 xl:px-16">
+          <div className="grid items-center gap-12 lg:grid-cols-[1.1fr_1fr]">
+            <Reveal>
+              <Kicker className="text-safety">The wedge</Kicker>
+              <h2 className="mt-5 text-[clamp(30px,4.4vw,62px)] font-bold leading-[1.0] tracking-[-0.04em]">
+                Atlas makes the labs that already exist autonomous.
+              </h2>
+              <p className="mt-6 max-w-xl text-[clamp(17px,1.5vw,23px)] font-medium leading-snug text-white">
+                Prompt in. Physical result out. At machine speed.
+              </p>
+              <p className="mt-4 max-w-xl text-[clamp(15px,1.15vw,18px)] leading-relaxed text-white/65">
+                Atlas plans the campaign, runs it on the instruments a lab already owns, and hands
+                control back the moment human judgment matters. The first place discovery compounds,
+                not the last.
+              </p>
+              <div className="mt-7 flex flex-wrap gap-2">
+                {['Design', 'Run', 'Learn', 'Repeat'].map((s) => (
+                  <span
+                    key={s}
+                    className="rounded-full border border-white/15 px-4 py-1.5 font-mono text-xs uppercase tracking-wide text-white/75"
+                  >
+                    {s}
+                  </span>
+                ))}
+              </div>
+              <div className="mt-9">
+                <Magnetic>
+                  <Cta to="/platform" variant="accent">
+                    See Atlas <ArrowRight className="h-4 w-4" />
+                  </Cta>
+                </Magnetic>
+              </div>
+            </Reveal>
+            <Reveal delay={0.06}>
+              <AsciiMedia
+                src="/images/earth-night.mp4"
+                type="video"
+                poster="/images/earth-night-poster.jpg"
+                tint="ice"
+                cols={150}
+                speed={1.5}
+                className="aspect-[4/3] w-full rounded-2xl border border-white/10"
+              />
             </Reveal>
           </div>
         </div>
       </section>
 
-      {/* Closing — dark, cinematic */}
+      {/* Closing — the dream */}
       <section className="dark relative overflow-hidden bg-paper text-ink">
         <div className="absolute inset-0">
-          <img src="/images/sr71-quote-wide.png" alt="" className="h-full w-full object-cover opacity-40" />
+          <img src="/images/sr71-quote-wide.png" alt="" className="h-full w-full object-cover opacity-45" />
           <div className="absolute inset-0 bg-gradient-to-b from-[#06080B]/85 to-[#06080B]/96" />
         </div>
         <GridField className="opacity-30" />
-        <div className="relative z-10 mx-auto max-w-7xl px-[5vw] py-[clamp(88px,13vw,180px)] lg:px-8 xl:px-16">
+        <div className="relative z-10 mx-auto max-w-7xl px-[5vw] py-[clamp(96px,14vw,200px)] lg:px-8 xl:px-16">
           <Reveal className="max-w-4xl">
             <Kicker className="text-safety">The frontier</Kicker>
-            <h2 className="mt-5 text-[clamp(32px,5vw,76px)] font-bold leading-[1.0] tracking-[-0.04em]">
+            <h2 className="mt-5 text-[clamp(34px,5.4vw,82px)] font-bold leading-[0.98] tracking-[-0.045em]">
               The frontier was never closed. We just stopped riding out to it.
             </h2>
-            <p className="mt-7 max-w-2xl text-[clamp(16px,1.2vw,19px)] leading-relaxed text-white/70">
-              Contineon is for the people who find that obvious and unbearable in equal measure.
-              Builders, scientists, and contrarians who believe the largest problems are the ones
-              worth their years, and that the next century of science should be built, not waited for.
+            <p className="mt-7 max-w-2xl text-[clamp(16px,1.3vw,20px)] leading-relaxed text-white/70">
+              Contineon is for the builders, scientists, and contrarians who believe the largest
+              problems are the ones worth their years, and that the next century of science should be
+              built, not waited for.
             </p>
             <div className="mt-9 flex flex-wrap gap-3">
               <Magnetic>
