@@ -58,29 +58,18 @@ function Hero() {
 
       <div className="relative z-10 mx-auto w-full max-w-7xl px-[5vw] pb-20 pt-32 lg:px-8 xl:px-16">
         <div className="max-w-5xl">
-          <p data-hero-fade>
-            <Kicker className="text-white/55">Industrializing science</Kicker>
-          </p>
           <h1
             data-hero-title
-            className="mt-5 text-[clamp(40px,6.4vw,98px)] font-bold leading-[0.96] tracking-[-0.04em]"
+            className="text-[clamp(44px,7.4vw,116px)] font-bold leading-[0.94] tracking-[-0.045em]"
           >
-            Make discovery compound like industry.
+            <span className="block">Industrializing</span>
+            <span className="block">Breakthrough</span>
+            <span className="block">Science.</span>
           </h1>
-          <p data-hero-fade className="mt-7 max-w-2xl text-[clamp(16px,1.35vw,21px)] leading-relaxed text-white/70">
-            Science still advances one lab, one researcher, one lucky run at a time. Contineon is
-            building the machine that turns one result into the next, on purpose, at scale, until
-            breakthroughs arrive on a cadence instead of by accident.
-          </p>
-          <div data-hero-fade className="mt-9 flex flex-wrap items-center gap-3">
-            <Magnetic>
-              <Cta to="/contact?topic=partner" variant="accent">
-                Request access <ArrowRight className="h-4 w-4" />
-              </Cta>
-            </Magnetic>
+          <div data-hero-fade className="mt-10 flex flex-wrap items-center gap-3">
             <Magnetic>
               <Cta to="/platform" variant="outlineLight">
-                See Atlas
+                See Atlas <ArrowRight className="h-4 w-4" />
               </Cta>
             </Magnetic>
           </div>
