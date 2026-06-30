@@ -10,13 +10,13 @@ const STEPS = [
   {
     n: '01',
     h: 'Connect your workcell',
-    p: 'Point ATLAS at the instruments, ELN, and data stores you already run. Integration is over open interfaces — if a step can be scripted or its output exported, ATLAS can read it. No rip-and-replace and no new instruments.',
+    p: 'Point Atlas at the instruments, ELN, and data stores you already run. Integration is over open interfaces — if a step can be scripted or its output exported, Atlas can read it. No rip-and-replace and no new instruments.',
     items: ['Liquid handlers & automation', 'Plate readers & analytical instruments (e.g. LC/MS)', 'Electronic lab notebooks', 'Existing execution traces & CSV/data exports'],
   },
   {
     n: '02',
     h: 'Define a campaign',
-    p: 'Describe an objective — a yield to optimize, a screen to run. ATLAS plans the campaign, seeding it from prior runs in your lab so it doesn’t start cold, and proposes the steps it will execute autonomously.',
+    p: 'Describe an objective — a yield to optimize, a screen to run. Atlas plans the campaign, seeding it from prior runs in your lab so it doesn’t start cold, and proposes the steps it will execute autonomously.',
     items: ['Set an objective & constraints', 'Review the seeded plan', 'Approve autonomous execution'],
   },
   {
@@ -37,8 +37,8 @@ export function DocsPage() {
   return (
     <div className="px-[5vw] pb-28 pt-32 lg:px-8 lg:pt-40">
       <Seo
-        title="Integration guide — contAInuum"
-        description="How ATLAS connects to the instruments, ELN, and data you already run — and how a campaign goes from objective to compounding memory."
+        title="Integration guide — Contineon"
+        description="How Atlas connects to the instruments, ELN, and data you already run — and how a campaign goes from objective to compounding memory."
         path="/docs"
       />
 
@@ -49,7 +49,7 @@ export function DocsPage() {
             From your workcell to a learning lab.
           </h1>
           <p className="mt-4 max-w-xl text-lg text-ink-muted">
-            A practical overview of how ATLAS plugs into the lab you already run. Need specifics for
+            A practical overview of how Atlas plugs into the lab you already run. Need specifics for
             your stack? <a href="/contact?topic=demo" className="text-safety hover:underline">Ask us.</a>
           </p>
         </div>

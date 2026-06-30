@@ -69,10 +69,10 @@ export function LegalTemplateNotice() {
         Draft — not legal advice — review required
       </p>
       <p className="mt-2 text-sm leading-relaxed text-ink-muted">
-        This document is a <strong className="text-ink">DRAFT</strong> generated from contAInuum's
+        This document is a <strong className="text-ink">DRAFT</strong> generated from Contineon's
         actual product behavior. It is <strong className="text-ink">not legal advice</strong> and has
         not been reviewed by counsel. It must be reviewed and adapted by a qualified attorney for
-        contAInuum's jurisdiction(s) and data-processing arrangements before launch. Items in{' '}
+        Contineon's jurisdiction(s) and data-processing arrangements before launch. Items in{' '}
         <code className="font-mono-tech text-[12px] text-safety">[BRACKETS]</code> are placeholders the
         owner must complete; clauses marked{' '}
         <code className="font-mono-tech text-[12px] text-safety">[REVIEW WITH COUNSEL]</code> involve

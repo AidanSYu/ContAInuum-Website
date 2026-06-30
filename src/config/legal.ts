@@ -52,5 +52,5 @@ export const legal: LegalFacts = {
   dpoOrEuRepresentative: null,
   // The only fact established so far: the app deploys on Vercel (see #3 / vercel.json).
   hostingProvider: 'Vercel',
-  contactEmail: 'hello@containuum.io',
+  contactEmail: 'hello@contineon.io',
 };

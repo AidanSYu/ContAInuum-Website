@@ -22,21 +22,21 @@ const TOPICS: Record<string, { eyebrow: string; heading: string; blurb: string; 
     eyebrow: 'DESIGN PARTNER PROGRAM',
     heading: 'Apply for access.',
     blurb:
-      'We onboard a small cohort of design-partner labs — chemistry, materials, and biology teams who run ATLAS on their own instruments and shape the product with us. Tell us about your lab and we’ll be in touch within two business days.',
+      'We onboard a small cohort of design-partner labs — chemistry, materials, and biology teams who run Atlas on their own instruments and shape the product with us. Tell us about your lab and we’ll be in touch within two business days.',
     starter:
       'Our lab works on … and we run the following instruments / ELN: …\nWe’d like to join the design-partner program because …\nTeam size: …',
   },
   demo: {
     eyebrow: 'BOOK A DEMO',
-    heading: 'See ATLAS on your bench.',
+    heading: 'See Atlas on your bench.',
     blurb: 'Tell us about your lab and what you run, and we’ll set up a walkthrough on instruments like yours.',
-    starter: 'I’d like a demo of ATLAS. Our lab works on … and we run the following instruments / ELN: …',
+    starter: 'I’d like a demo of Atlas. Our lab works on … and we run the following instruments / ELN: …',
   },
   enterprise: {
-    eyebrow: 'INSTITUTE / ENTERPRISE',
+    eyebrow: 'ENTERPRISE',
     heading: 'Let’s scope your deployment.',
-    blurb: 'Multi-lab, governance, SSO, dedicated compute — tell us your requirements and we’ll design a plan.',
-    starter: 'We’re interested in an Institute deployment. We have … labs / sites and need …',
+    blurb: 'Multi-lab, governance, SSO, dedicated compute — tell us your requirements and we’ll scope a deployment.',
+    starter: 'We’re interested in an enterprise deployment. We have … labs / sites and need …',
   },
   security: {
     eyebrow: 'SECURITY',
@@ -47,7 +47,7 @@ const TOPICS: Record<string, { eyebrow: string; heading: string; blurb: string; 
   general: {
     eyebrow: 'CONTACT',
     heading: 'Let’s talk.',
-    blurb: 'Whether you’re evaluating ATLAS for your team or need an Enterprise plan, tell us what you’re building and we’ll get back within two business days.',
+    blurb: 'Whether you’re evaluating Atlas for your team or need an enterprise deployment, tell us what you’re building and we’ll get back within two business days.',
     starter: '',
   },
 };
@@ -91,8 +91,8 @@ export function ContactPage() {
   return (
     <div className="px-[5vw] pb-28 pt-32 lg:px-8 lg:pt-40">
       <Seo
-        title="Contact — contAInuum"
-        description="Talk to the contAInuum team about retrofitting your lab with ATLAS. Book a demo or ask about an Institute plan."
+        title="Contact — Contineon"
+        description="Talk to the Contineon team about retrofitting your lab with Atlas. Book a demo or ask about an enterprise deployment."
         path="/contact"
       />
       <div className="mx-auto grid max-w-6xl border border-line bg-surface shadow-lab lg:grid-cols-2">
@@ -107,8 +107,8 @@ export function ContactPage() {
           <div className="mt-10 space-y-px border-t border-line">
             <div className="flex items-center gap-3 border-b border-line py-4 text-ink-muted">
               <Mail className="h-5 w-5 text-safety" strokeWidth={1.5} />
-              <a href="mailto:hello@containuum.io" className="hover:text-ink">
-                hello@containuum.io
+              <a href="mailto:hello@contineon.io" className="hover:text-ink">
+                hello@contineon.io
               </a>
             </div>
             <div className="flex items-center gap-3 py-4 text-ink-muted">

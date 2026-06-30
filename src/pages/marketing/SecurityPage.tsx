@@ -2,7 +2,7 @@ import { Lock, Database, KeyRound, Network, Eye, FileCheck } from 'lucide-react'
 import { Seo } from '@/components/Seo';
 
 /* =============================================================================
-   SecurityPage — the trust posture a lab needs before it connects ATLAS to its
+   SecurityPage — the trust posture a lab needs before it connects Atlas to its
    instruments and data. Honest about what exists today vs. what is on the
    roadmap (the product is in private trial).
    ============================================================================= */
@@ -16,7 +16,7 @@ const PILLARS = [
   {
     icon: Lock,
     title: 'Encryption',
-    body: 'Data is encrypted in transit (TLS) between your browser, our APIs, and our data stores. Secrets and payment details are held by specialized processors, not in application code.',
+    body: 'Data is encrypted in transit (TLS) between your browser, our APIs, and our data stores. Secrets and credentials are held by specialized processors, not in application code.',
   },
   {
     icon: Network,
@@ -26,7 +26,7 @@ const PILLARS = [
   {
     icon: KeyRound,
     title: 'Authentication & access',
-    body: 'Accounts are protected by modern auth with hardened password and session handling. SSO / SAML and role-based access are available on Institute deployments.',
+    body: 'Accounts are protected by modern auth with hardened password and session handling. SSO / SAML and role-based access are available for larger deployments.',
   },
   {
     icon: Eye,
@@ -36,13 +36,12 @@ const PILLARS = [
   {
     icon: FileCheck,
     title: 'Auditability',
-    body: 'Every campaign keeps a full execution trace and lineage. Institute plans add an audit log of access and administrative actions for governance and review.',
+    body: 'Every campaign keeps a full execution trace and lineage. Larger deployments add an audit log of access and administrative actions for governance and review.',
   },
 ];
 
 const PROCESSORS = [
   ['Supabase', 'Database, authentication, and edge functions'],
-  ['Stripe', 'Payment processing and subscription billing'],
   ['Cloudflare', 'Bot mitigation (Turnstile) and edge delivery'],
 ];
 
@@ -50,8 +49,8 @@ export function SecurityPage() {
   return (
     <div className="px-[5vw] pb-28 pt-32 lg:px-8 lg:pt-40">
       <Seo
-        title="Security & Trust — contAInuum"
-        description="How contAInuum protects your lab data: encryption, tenant isolation, access controls, privacy-preserving learning, and auditability."
+        title="Security & Trust — Contineon"
+        description="How Contineon protects your lab data: encryption, tenant isolation, access controls, privacy-preserving learning, and auditability."
         path="/security"
       />
 
@@ -62,7 +61,7 @@ export function SecurityPage() {
             Built to be trusted with your lab.
           </h1>
           <p className="mt-4 max-w-2xl text-lg text-ink-muted">
-            ATLAS connects to the instruments and data that run your science. Here is how we protect
+            Atlas connects to the instruments and data that run your science. Here is how we protect
             them — and an honest account of where we are today.
           </p>
         </div>
@@ -104,7 +103,7 @@ export function SecurityPage() {
         <div className="mt-14 rounded-xl border border-line bg-panel p-7">
           <h2 className="font-display text-2xl font-bold tracking-tight text-ink">Where we are today</h2>
           <p className="mt-3 max-w-2xl leading-relaxed text-ink-muted">
-            contAInuum is in private trial. The protections above are in place now. Formal attestations
+            Contineon is in private trial. The protections above are in place now. Formal attestations
             (such as SOC 2) and a published Data Processing Addendum are on our roadmap as we move toward
             general availability. If your evaluation needs a specific control, certification, or
             contractual term, tell us — we would rather scope it with you than over-claim.
@@ -113,7 +112,7 @@ export function SecurityPage() {
             <a href="/contact?topic=security" className="inline-flex items-center justify-center gap-2 rounded bg-ink px-5 py-2.5 text-sm font-medium text-paper transition-colors hover:opacity-90">
               Request our security details
             </a>
-            <a href="mailto:security@containuum.io" className="inline-flex items-center justify-center gap-2 rounded border border-line px-5 py-2.5 text-sm font-medium text-ink transition-colors hover:border-line-hair">
+            <a href="mailto:security@contineon.io" className="inline-flex items-center justify-center gap-2 rounded border border-line px-5 py-2.5 text-sm font-medium text-ink transition-colors hover:border-line-hair">
               Report a vulnerability
             </a>
           </div>

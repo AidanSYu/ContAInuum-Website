@@ -3,17 +3,15 @@ import { Routes, Route } from 'react-router-dom';
 
 import { MarketingLayout, AuthLayout, DashboardLayout } from '@/components/layout';
 import { RequireAuth } from '@/components/auth/RequireAuth';
-import { RequireActiveSubscription } from '@/components/auth/RequireActiveSubscription';
 import { RequireAdmin } from '@/components/auth/RequireAdmin';
 import { Spinner } from '@/components/ui/spinner';
 
-/* Route-level code splitting — each page (and its heavy deps like recharts and
-   the knowledge graph) ships in its own chunk instead of the initial bundle. */
+/* Route-level code splitting — each page ships in its own chunk. */
 const LandingPage = lazy(() =>
   import('@/pages/marketing/LandingPage').then((m) => ({ default: m.LandingPage })),
 );
-const PricingPage = lazy(() =>
-  import('@/pages/marketing/PricingPage').then((m) => ({ default: m.PricingPage })),
+const AtlasPage = lazy(() =>
+  import('@/pages/marketing/AtlasPage').then((m) => ({ default: m.AtlasPage })),
 );
 const ContactPage = lazy(() =>
   import('@/pages/marketing/ContactPage').then((m) => ({ default: m.ContactPage })),
@@ -57,9 +55,6 @@ const OverviewPage = lazy(() =>
 const ProjectsPage = lazy(() =>
   import('@/pages/app/ProjectsPage').then((m) => ({ default: m.ProjectsPage })),
 );
-const BillingPage = lazy(() =>
-  import('@/pages/app/BillingPage').then((m) => ({ default: m.BillingPage })),
-);
 const SettingsPage = lazy(() =>
   import('@/pages/app/SettingsPage').then((m) => ({ default: m.SettingsPage })),
 );
@@ -92,7 +87,7 @@ function App() {
         {/* Public marketing */}
         <Route element={<MarketingLayout />}>
           <Route index element={<LandingPage />} />
-          <Route path="pricing" element={<PricingPage />} />
+          <Route path="platform" element={<AtlasPage />} />
           <Route path="contact" element={<ContactPage />} />
           <Route path="terms" element={<TermsPage />} />
           <Route path="privacy" element={<PrivacyPage />} />
@@ -113,17 +108,12 @@ function App() {
           <Route path="reset-password" element={<ResetPasswordPage />} />
         </Route>
 
-        {/* Authenticated app */}
+        {/* Authenticated app (no self-serve billing — access is provisioned) */}
         <Route element={<RequireAuth />}>
           <Route path="app" element={<DashboardLayout />}>
             <Route index element={<OverviewPage />} />
-            <Route element={<RequireActiveSubscription />}>
-              <Route path="projects" element={<ProjectsPage />} />
-            </Route>
-            <Route path="billing" element={<BillingPage />} />
+            <Route path="projects" element={<ProjectsPage />} />
             <Route path="settings" element={<SettingsPage />} />
-            {/* Escrow is independent of the SaaS subscription, so it is NOT
-                wrapped in RequireActiveSubscription. */}
             <Route path="escrow" element={<EscrowListPage />} />
             <Route path="escrow/:id" element={<EscrowDetailPage />} />
             <Route element={<RequireAdmin />}>

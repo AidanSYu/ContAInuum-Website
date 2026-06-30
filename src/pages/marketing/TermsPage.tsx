@@ -6,8 +6,8 @@ export function TermsPage() {
   return (
     <>
       <Seo
-        title="Terms of Service — contAInuum"
-        description="The terms governing your use of contAInuum and the ATLAS platform."
+        title="Terms of Service — Contineon"
+        description="The terms governing your use of Contineon and the Atlas platform."
         path="/terms"
       />
 
@@ -16,17 +16,17 @@ export function TermsPage() {
 
         <p>
           These Terms of Service ("Terms") govern your access to and use of the websites, account
-          dashboard, ATLAS platform, and related services (collectively, the "Service") offered by{' '}
-          <Fact value={legal.entityName} placeholder="[LEGAL ENTITY NAME]" /> ("contAInuum", "we", "us"). By creating an
+          dashboard, Atlas platform, and related services (collectively, the "Service") offered by{' '}
+          <Fact value={legal.entityName} placeholder="[LEGAL ENTITY NAME]" /> ("Contineon", "we", "us"). By creating an
           account or using the Service, you agree to these Terms. If you are agreeing on behalf of an
           organization, you represent that you are authorized to bind it.
         </p>
 
         <LegalSection n="1" heading="The Service">
           <p>
-            contAInuum provides software that helps laboratories plan, run, and learn from research
+            Contineon provides software that helps laboratories plan, run, and learn from research
             campaigns, including autonomous agent workflows and human-in-the-loop handoffs. The
-            Service is offered on a subscription basis and may evolve over time.
+            Service is currently offered to design-partner labs and may evolve over time.
           </p>
         </LegalSection>
 
@@ -39,41 +39,25 @@ export function TermsPage() {
           </p>
         </LegalSection>
 
-        <LegalSection n="3" heading="Plans, free trial & billing">
+        <LegalSection n="3" heading="Access & pilots">
           <p>
-            <strong className="text-ink">Plans.</strong> We currently offer self-serve monthly plans —{' '}
-            <strong className="text-ink">Solo</strong> and <strong className="text-ink">Lab</strong> —
-            billed in the currency and at the price shown at checkout. The{' '}
-            <strong className="text-ink">Institute</strong> plan is sales-led and governed by a
-            separate order or agreement. Current pricing is shown on our{' '}
-            <a href="/pricing" className="text-safety hover:underline">Pricing page</a>; annual billing
-            may be available on request.
+            <strong className="text-ink">Design-partner access.</strong> Contineon is currently offered
+            to a limited cohort of design-partner labs. There is no self-serve paid plan today —
+            access is provisioned by us after you request it, and the scope of each pilot is agreed
+            with your lab.
           </p>
           <p>
-            <strong className="text-ink">Free trial.</strong> Paid plans begin with a free trial of
-            the length shown at sign-up (currently <strong className="text-ink">14 days</strong>). A
-            payment method is collected at checkout, but you are not charged during the trial. If you
-            do not cancel before the trial ends, your subscription begins and the plan's recurring fee
-            is charged.
-          </p>
-          <p>
-            <strong className="text-ink">Renewal &amp; cancellation.</strong> Subscriptions renew
-            automatically each billing period at the then-current price until canceled. You can manage
-            or cancel your subscription at any time from the in-app billing portal; cancellation takes
-            effect at the end of the current period.
-          </p>
-          <p>
-            <strong className="text-ink">Payments.</strong> Payments are processed by Stripe and are
-            also subject to Stripe's terms. We do not store your card details. Except where required by
-            law, fees are non-refundable. Prices may change with notice; changes apply to subsequent
-            billing periods.
+            <strong className="text-ink">Pilot terms.</strong> Where a pilot involves fees or
+            milestone funding, those commercial terms are set out in a separate order or engagement
+            agreement between you and Contineon, which governs in the event of any conflict with these
+            Terms.
           </p>
         </LegalSection>
 
         <LegalSection n="4" heading="Your data & content">
           <p>
             You retain ownership of the data, protocols, and results you bring to or generate with the
-            Service ("Your Content"). You grant contAInuum a limited license to host and process Your
+            Service ("Your Content"). You grant Contineon a limited license to host and process Your
             Content solely to provide and secure the Service for you, as described in our{' '}
             <a href="/privacy" className="text-safety hover:underline">Privacy Policy</a>. You can export
             Your Content, including your knowledge graph, and we do not sell it.
@@ -97,7 +81,7 @@ export function TermsPage() {
 
         <LegalSection n="6" heading="Autonomy & human oversight">
           <p>
-            ATLAS executes steps autonomously and pauses for human approval where configured. You are
+            Atlas executes steps autonomously and pauses for human approval where configured. You are
             responsible for appropriate oversight of laboratory work, for validating outputs, and for
             compliance with the safety and regulatory requirements that apply to your lab. The Service
             is a tool, not a substitute for professional judgment.
@@ -106,9 +90,9 @@ export function TermsPage() {
 
         <LegalSection n="7" heading="Intellectual property">
           <p>
-            The Service, including its software, design, and trademarks, is owned by contAInuum and its
+            The Service, including its software, design, and trademarks, is owned by Contineon and its
             licensors and is protected by intellectual-property laws. These Terms grant you a limited,
-            non-exclusive, non-transferable right to use the Service during your subscription. We may
+            non-exclusive, non-transferable right to use the Service during your engagement. We may
             use anonymized and aggregated data that does not identify you or your content to operate
             and improve the Service. If you send us feedback, you grant us a license to use it without
             restriction or obligation.
@@ -117,7 +101,7 @@ export function TermsPage() {
 
         <LegalSection n="8" heading="Third-party services">
           <p>
-            The Service relies on third parties (including Stripe for payments, Supabase for hosting
+            The Service relies on third parties (including Supabase for hosting
             and authentication, Cloudflare for bot mitigation, and Resend for email). Your use of those
             features may be subject to the third party's terms, and we are not responsible for their
             acts or omissions.
@@ -128,7 +112,7 @@ export function TermsPage() {
           <p>
             We strive for high availability but do not guarantee uninterrupted service. We may modify or
             discontinue features, with notice where material. Specific availability commitments, if any,
-            are set out in a separate agreement (for example, for Institute plans).
+            are set out in a separate agreement (for example, for enterprise engagements).
           </p>
         </LegalSection>
 
@@ -145,7 +129,7 @@ export function TermsPage() {
         <LegalSection n="11" heading="Limitation of liability">
           <p>
             <Placeholder>[REVIEW WITH COUNSEL]</Placeholder> To the maximum extent permitted by law,
-            contAInuum will not be liable for any indirect, incidental, special, consequential, or
+            Contineon will not be liable for any indirect, incidental, special, consequential, or
             punitive damages, or for lost profits, data, or goodwill. Our total aggregate liability
             arising out of or relating to the Service is limited to the amounts you paid to us for the
             Service in the <Fact value={legal.liabilityCapPeriod} placeholder="[CAP PERIOD — e.g. 12 months]" /> preceding the event
@@ -157,7 +141,7 @@ export function TermsPage() {
         <LegalSection n="12" heading="Indemnification">
           <p>
             <Placeholder>[REVIEW WITH COUNSEL]</Placeholder> You agree to indemnify and hold harmless
-            contAInuum from claims, losses, and expenses arising out of your misuse of the Service,
+            Contineon from claims, losses, and expenses arising out of your misuse of the Service,
             your violation of these Terms, or your violation of applicable law or third-party rights.
             The exact scope and any mutual obligations should be confirmed with counsel.
           </p>
@@ -194,7 +178,7 @@ export function TermsPage() {
         <LegalSection n="16" heading="Contact">
           <p>
             Questions about these Terms can be sent to{' '}
-            <a href="mailto:hello@containuum.io" className="text-safety hover:underline">hello@containuum.io</a>.
+            <a href="mailto:hello@contineon.io" className="text-safety hover:underline">hello@contineon.io</a>.
             The contracting entity is <Fact value={legal.entityName} placeholder="[LEGAL ENTITY NAME]" />,{' '}
             <Fact value={legal.registeredAddress} placeholder="[REGISTERED ADDRESS]" />.
           </p>

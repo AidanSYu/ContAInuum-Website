@@ -10,7 +10,7 @@ import { cn } from '@/lib/utils';
    the toggle just keeps `.dark` on <html> in sync with localStorage.
    ============================================================================= */
 
-const KEY = 'containuum-theme';
+const KEY = 'contineon-theme';
 
 function getInitial(): 'light' | 'dark' {
   if (typeof document !== 'undefined' && document.documentElement.classList.contains('dark')) {

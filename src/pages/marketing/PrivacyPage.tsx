@@ -6,8 +6,8 @@ export function PrivacyPage() {
   return (
     <>
       <Seo
-        title="Privacy Policy — contAInuum"
-        description="How contAInuum collects, uses, and protects your data."
+        title="Privacy Policy — Contineon"
+        description="How Contineon collects, uses, and protects your data."
         path="/privacy"
       />
 
@@ -16,8 +16,8 @@ export function PrivacyPage() {
 
         <p>
           This Privacy Policy explains what information <Fact value={legal.entityName} placeholder="[LEGAL ENTITY NAME]" />{' '}
-          ("contAInuum", "we", "us") collects, how we use it, and the choices you have. It applies to
-          our marketing website, the account/dashboard area, and the ATLAS platform (together, the
+          ("Contineon", "we", "us") collects, how we use it, and the choices you have. It applies to
+          our marketing website, the account/dashboard area, and the Atlas platform (together, the
           "Service"). It is written to describe how the Service actually handles data today.
         </p>
 
@@ -29,12 +29,10 @@ export function PrivacyPage() {
             flag used for access control.
           </p>
           <p>
-            <strong className="text-ink">Billing information.</strong> Payments are processed by
-            Stripe. We do <strong className="text-ink">not</strong> receive or store your full card
-            number or other card details — those are handled directly by Stripe. We store only a
-            Stripe customer reference, your subscription status and plan, trial/period end dates, and
-            whether a cancellation is scheduled. Stripe collects billing address and payment details
-            at checkout under its own privacy policy.
+            <strong className="text-ink">Billing information.</strong> Contineon does not currently
+            operate self-serve payments and does not collect or store card or billing details through
+            this site. Where a design-partner pilot involves fees, those are handled under a separate
+            engagement agreement. <Placeholder>[REVIEW WITH COUNSEL]</Placeholder>
           </p>
           <p>
             <strong className="text-ink">Contact form.</strong> When you submit the contact form we
@@ -56,7 +54,7 @@ export function PrivacyPage() {
           </p>
           <p>
             <strong className="text-ink">Lab content.</strong> The campaigns, protocols, traces,
-            results, and knowledge graph you create or connect within ATLAS are processed to provide
+            results, and knowledge graph you create or connect within Atlas are processed to provide
             the Service to your account. <Placeholder>[REVIEW WITH COUNSEL]</Placeholder> — confirm the
             scope of lab-content processing and any feature-specific data flows before launch.
           </p>
@@ -69,7 +67,7 @@ export function PrivacyPage() {
         <LegalSection n="2" heading="How we use information">
           <p>
             We use information to: create and secure your account; provide the Service and its
-            features; process payments and manage subscriptions through Stripe; respond to contact and
+            features; respond to contact and
             support requests; send transactional and (with consent) newsletter email; prevent abuse
             and fraud; and operate, debug, and improve the Service. We do not sell your personal data
             or your lab content, and we do not use the contents of your contact message for any
@@ -80,7 +78,7 @@ export function PrivacyPage() {
         <LegalSection n="3" heading="Legal bases">
           <p>
             Where applicable law (such as the GDPR) requires a legal basis, we rely on: performance of
-            our contract with you (providing the Service and billing); your consent (newsletter
+            our contract with you (providing the Service); your consent (newsletter
             email); our legitimate interests (securing the Service, preventing abuse, and basic
             operational analytics); and compliance with legal obligations. <Placeholder>[REVIEW WITH COUNSEL]</Placeholder>{' '}
             — confirm the legal bases and consent mechanics for your target jurisdictions.
@@ -95,11 +93,7 @@ export function PrivacyPage() {
           <ul className="ml-5 list-disc space-y-1.5">
             <li>
               <strong className="text-ink">Supabase</strong> — database, authentication, and edge
-              functions (stores account, contact, newsletter, and subscription records).
-            </li>
-            <li>
-              <strong className="text-ink">Stripe</strong> — payment processing and subscription
-              billing (handles card data; we never store it).
+              functions (stores account, contact, and newsletter records).
             </li>
             <li>
               <strong className="text-ink">Cloudflare</strong> — Turnstile bot mitigation on public
@@ -128,7 +122,7 @@ export function PrivacyPage() {
             afterward so you can export it, then delete or anonymize it unless a longer period is
             required by law. Contact-form submissions are retained for support and anti-abuse purposes
             and then deleted on a periodic basis. Newsletter records are retained until you
-            unsubscribe. Billing records are retained as required for tax and accounting purposes.{' '}
+            unsubscribe.{' '}
             {legal.retentionPeriods ?? (
               <>
                 <Placeholder>[RETENTION PERIODS]</Placeholder> — set concrete retention windows with
@@ -142,7 +136,7 @@ export function PrivacyPage() {
           <p>
             We use measures such as encryption in transit (TLS), database row-level security and
             tenant isolation, hardened authentication, and least-privilege access for our processors.
-            Card data is held by Stripe, not in our application. No system is perfectly secure, but we
+            No system is perfectly secure, but we
             work to reduce risk and to notify you of incidents as required by law. See our{' '}
             <a href="/security" className="text-safety hover:underline">Security page</a> for more.
           </p>
@@ -203,7 +197,7 @@ export function PrivacyPage() {
         <LegalSection n="11" heading="Contact">
           <p>
             Privacy questions or requests can be sent to{' '}
-            <a href="mailto:hello@containuum.io" className="text-safety hover:underline">hello@containuum.io</a>.
+            <a href="mailto:hello@contineon.io" className="text-safety hover:underline">hello@contineon.io</a>.
             The data controller is <Fact value={legal.entityName} placeholder="[LEGAL ENTITY NAME]" />, located at{' '}
             <Fact value={legal.registeredAddress} placeholder="[REGISTERED ADDRESS]" />.{' '}
             <Fact value={legal.dpoOrEuRepresentative} placeholder="[DPO / EU REPRESENTATIVE, IF REQUIRED]" />.

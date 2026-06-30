@@ -13,7 +13,7 @@ import { supabase } from '@/lib/supabase';
 import { signupSchema, type SignupInput } from '@/lib/validation';
 
 /** localStorage key the billing page reads to resume a plan chosen pre-signup. */
-export const PENDING_PLAN_KEY = 'containuum.pendingPlan';
+export const PENDING_PLAN_KEY = 'contineon.pendingPlan';
 
 const turnstileEnabled = Boolean(import.meta.env.VITE_TURNSTILE_SITE_KEY);
 
@@ -79,7 +79,7 @@ export function SignupPage() {
     <div className="border border-line bg-surface p-8 shadow-lab">
       <h1 className="font-display text-2xl font-extrabold uppercase leading-tight tracking-tight text-ink">Create your account</h1>
       <p className="mt-1 text-sm text-ink-muted">
-        Set up your contAInuum account to access your design-partner pilot.{' '}
+        Set up your Contineon account to access your design-partner pilot.{' '}
         Not a partner yet?{' '}
         <Link to="/contact?topic=partner" className="text-safety hover:underline">Apply for access</Link>.
       </p>

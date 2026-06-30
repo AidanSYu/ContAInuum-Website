@@ -14,10 +14,10 @@ const ENTRIES: Entry[] = [
     date: '2026-06-23',
     title: 'Private trial site',
     changes: [
-      { tag: 'new', text: 'Interactive product tour, FAQ, Security, and About pages.' },
+      { tag: 'new', text: 'Atlas Framework product page, plus FAQ, Security, and About.' },
       { tag: 'new', text: 'Newsletter sign-up and a book-a-demo path.' },
-      { tag: 'improved', text: 'Pricing now reflects the live plan catalog end-to-end.' },
-      { tag: 'improved', text: 'Clearer, consistent free-trial terms across the site.' },
+      { tag: 'improved', text: 'Refreshed identity — new Contineon brand, type, and cinematic imagery.' },
+      { tag: 'improved', text: 'Access is now request-based for design-partner labs.' },
     ],
   },
 ];
@@ -32,8 +32,8 @@ export function ChangelogPage() {
   return (
     <div className="px-[5vw] pb-28 pt-32 lg:px-8 lg:pt-40">
       <Seo
-        title="Changelog — contAInuum"
-        description="What’s new in contAInuum and the ATLAS platform."
+        title="Changelog — Contineon"
+        description="What’s new in Contineon and the Atlas platform."
         path="/changelog"
       />
 

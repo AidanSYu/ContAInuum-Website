@@ -4,7 +4,6 @@ import { useQuery } from '@tanstack/react-query';
 import {
   LayoutDashboard,
   FolderKanban,
-  CreditCard,
   Settings,
   LogOut,
   Menu,
@@ -13,7 +12,6 @@ import {
 } from 'lucide-react';
 import { Logo } from './Logo';
 import { ThemeToggle } from './ThemeToggle';
-import { TrialBanner } from '@/components/app/TrialBanner';
 import { getMyProfile } from '@/lib/api/profiles';
 import { useAuth } from '@/lib/auth';
 import { cn } from '@/lib/utils';
@@ -22,7 +20,6 @@ import { toast } from 'sonner';
 const NAV = [
   { to: '/app', label: 'Overview', icon: LayoutDashboard, end: true },
   { to: '/app/projects', label: 'Projects', icon: FolderKanban, end: false },
-  { to: '/app/billing', label: 'Billing', icon: CreditCard, end: false },
   // Escrow powers design-partner pilot engagements — surfaced as "Engagement".
   // Available to every authenticated user (not subscription-gated).
   { to: '/app/escrow', label: 'Engagement', icon: Landmark, end: false },
@@ -139,7 +136,6 @@ export function DashboardLayout() {
         </header>
 
         <main className="mx-auto max-w-6xl px-4 py-8 lg:px-8 lg:py-12">
-          <TrialBanner />
           <Outlet />
         </main>
       </div>

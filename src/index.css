@@ -1,18 +1,8 @@
-@import '@fontsource/sora/600.css';
-@import '@fontsource/sora/700.css';
-@import '@fontsource/sora/800.css';
-@import '@fontsource/inter/400.css';
-@import '@fontsource/inter/500.css';
-@import '@fontsource/inter/600.css';
-@import '@fontsource/inter/700.css';
-@import '@fontsource/ibm-plex-mono/400.css';
-@import '@fontsource/ibm-plex-mono/500.css';
-/* Fraunces — editorial serif display (mixed-case headlines, italic pull-quotes) */
-@import '@fontsource/fraunces/400.css';
-@import '@fontsource/fraunces/400-italic.css';
-@import '@fontsource/fraunces/600.css';
-@import '@fontsource/fraunces/700.css';
-@import '@fontsource/fraunces/900.css';
+/* Contineon type system — one warm humanist sans (Hanken Grotesk) for everything,
+   plus a single technical mono (JetBrains Mono) for small labels. Variable fonts:
+   one import each covers every weight. */
+@import '@fontsource-variable/hanken-grotesk';
+@import '@fontsource-variable/jetbrains-mono';
 
 @tailwind base;
 @tailwind components;
@@ -20,92 +10,93 @@
 
 @layer base {
   :root {
-    /* Lab Instrument — light / paper theme.
-       shadcn ui/* components read these, so they inherit the light look. */
-    --background: 45 33% 98%;       /* paper #FBFAF8 */
-    --foreground: 220 17% 10%;      /* ink   #16191F */
+    /* shadcn ui/* tokens — light (the default page surface). */
+    --background: 48 20% 95%;        /* paper */
+    --foreground: 220 17% 9%;        /* ink  */
     --card: 0 0% 100%;
-    --card-foreground: 220 17% 10%;
+    --card-foreground: 220 17% 9%;
     --popover: 0 0% 100%;
-    --popover-foreground: 220 17% 10%;
-    --primary: 220 17% 10%;         /* ink — default solid buttons are black */
-    --primary-foreground: 45 33% 98%;
-    --secondary: 45 14% 93%;        /* panel */
-    --secondary-foreground: 220 17% 10%;
-    --muted: 45 14% 93%;
-    --muted-foreground: 217 13% 40%; /* ink-muted #586172 */
-    --accent: 45 14% 93%;            /* neutral hover surface (orange stays bespoke) */
-    --accent-foreground: 220 17% 10%;
+    --popover-foreground: 220 17% 9%;
+    --primary: 220 17% 9%;           /* ink — solid buttons are near-black */
+    --primary-foreground: 48 20% 96%;
+    --secondary: 48 16% 92%;         /* panel */
+    --secondary-foreground: 220 17% 9%;
+    --muted: 48 16% 92%;
+    --muted-foreground: 217 7% 36%;  /* ink-muted */
+    --accent: 48 16% 92%;
+    --accent-foreground: 220 17% 9%;
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
-    --border: 43 14% 88%;            /* warm hairline #E6E3DD */
-    --input: 43 14% 88%;
-    --ring: 9 100% 59%;              /* brand orange focus ring */
-    --radius: 0.25rem;
+    --border: 43 17% 87%;            /* warm hairline */
+    --input: 43 17% 87%;
+    --ring: 15 78% 53%;              /* ember accent */
+    --radius: 0.5rem;
     --sidebar-background: 0 0% 100%;
-    --sidebar-foreground: 220 17% 10%;
-    --sidebar-primary: 9 100% 59%;
+    --sidebar-foreground: 220 17% 9%;
+    --sidebar-primary: 15 78% 53%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 45 14% 93%;
-    --sidebar-accent-foreground: 220 17% 10%;
-    --sidebar-border: 43 14% 88%;
-    --sidebar-ring: 9 100% 59%;
+    --sidebar-accent: 48 16% 92%;
+    --sidebar-accent-foreground: 220 17% 9%;
+    --sidebar-border: 43 17% 87%;
+    --sidebar-ring: 15 78% 53%;
 
-    /* Lab palette as variables (previously hardcoded in tailwind.config.js) */
-    --paper: #FBFAF8;
+    /* Contineon palette as raw variables — light. */
+    --paper: #F6F5F1;
     --surface: #FFFFFF;
-    --panel: #F3F2ED;
-    --ink: #16191F;
-    --ink-muted: #586172;
-    --ink-faint: #6B7280;       /* tertiary text — darkened for WCAG AA on paper */
-    --line: #E6E3DD;            /* warm hairline */
-    --line-strong: #16191F;     /* emphatic Swiss rule (kept = existing meaning) */
-    --hairline-strong: #D6D2C8; /* stronger hairline used by inputs / node boxes */
-    --safety: #FF4D2E;
+    --panel: #EEEDE7;
+    --ink: #14171C;
+    --ink-muted: #565B63;
+    --ink-faint: #8C9098;
+    --line: #E4E1D9;
+    --line-strong: #14171C;
+    --hairline-strong: #D5D1C7;
+    --safety: #E55B2B;
+    --accent-warm: #E55B2B;
   }
 
-  /* ── Dark theme (graphite). Toggled via .dark on <html> by ThemeToggle. ──── */
+  /* Dark — applied per-section via the .dark class (the hybrid "dark hero /
+     light body" system). Same semantic tokens flip, so bg-paper / text-ink /
+     border-line all just work inside a .dark block. */
   .dark {
-    /* shadcn HSL tokens — dark */
-    --background: 222 18% 6%;
-    --foreground: 45 20% 95%;
-    --card: 222 16% 10%;
-    --card-foreground: 45 20% 95%;
-    --popover: 222 16% 10%;
-    --popover-foreground: 45 20% 95%;
-    --primary: 45 20% 95%;
-    --primary-foreground: 222 18% 8%;
-    --secondary: 222 12% 16%;
-    --secondary-foreground: 45 20% 95%;
-    --muted: 222 12% 16%;
-    --muted-foreground: 217 10% 65%;
-    --accent: 222 12% 16%;
-    --accent-foreground: 45 20% 95%;
+    --background: 220 22% 6%;
+    --foreground: 45 16% 94%;
+    --card: 218 20% 9%;
+    --card-foreground: 45 16% 94%;
+    --popover: 218 20% 9%;
+    --popover-foreground: 45 16% 94%;
+    --primary: 45 16% 94%;
+    --primary-foreground: 220 22% 7%;
+    --secondary: 218 16% 14%;
+    --secondary-foreground: 45 16% 94%;
+    --muted: 218 16% 14%;
+    --muted-foreground: 216 8% 66%;
+    --accent: 218 16% 14%;
+    --accent-foreground: 45 16% 94%;
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
-    --border: 222 12% 18%;
-    --input: 222 12% 18%;
-    --ring: 9 100% 60%;
-    --sidebar-background: 222 16% 10%;
-    --sidebar-foreground: 45 20% 95%;
-    --sidebar-primary: 9 100% 60%;
+    --border: 218 16% 16%;
+    --input: 218 16% 16%;
+    --ring: 16 87% 59%;
+    --sidebar-background: 218 20% 9%;
+    --sidebar-foreground: 45 16% 94%;
+    --sidebar-primary: 16 87% 59%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 222 12% 16%;
-    --sidebar-accent-foreground: 45 20% 95%;
-    --sidebar-border: 222 12% 18%;
-    --sidebar-ring: 9 100% 60%;
+    --sidebar-accent: 218 16% 14%;
+    --sidebar-accent-foreground: 45 16% 94%;
+    --sidebar-border: 218 16% 16%;
+    --sidebar-ring: 16 87% 59%;
 
-    /* Lab palette — dark (graphite) */
-    --paper: #0D0F13;
-    --surface: #14171D;
-    --panel: #1A1E25;
-    --ink: #F4F3EF;
-    --ink-muted: #A2AAB6;
-    --ink-faint: #6A727E;
-    --line: #262B33;
-    --line-strong: #F4F3EF;
-    --hairline-strong: #333A44;
-    --safety: #FF5A3C;
+    --paper: #0B0D11;
+    --surface: #12151B;
+    --panel: #181C23;
+    --ink: #F3F2EE;
+    --ink-muted: #A2A7B0;
+    --ink-faint: #6B7079;
+    --line: #232830;
+    --line-strong: #F3F2EE;
+    --hairline-strong: #313742;
+    --safety: #F26A3A;
+    --accent-warm: #F26A3A;
   }
 }
 
@@ -122,17 +113,15 @@
 
   body {
     @apply bg-paper text-ink;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Hanken Grotesk Variable', system-ui, sans-serif;
     overflow-x: hidden;
-    font-feature-settings: 'cv05' 1, 'ss01' 1;
   }
 
   ::selection {
-    background: rgba(255, 77, 46, 0.18);
-    color: #16191f;
+    background: rgba(229, 91, 43, 0.16);
+    color: var(--ink);
   }
 
-  /* Visible keyboard focus — brand orange ring, never removed for mouse users. */
   :where(a, button, input, textarea, select, summary, [tabindex]:not([tabindex='-1'])):focus-visible {
     outline: 2px solid hsl(var(--ring));
     outline-offset: 2px;
@@ -141,89 +130,94 @@
 }
 
 @layer components {
-  /* Editorial display — Fraunces serif, mixed-case. The journal voice. */
-  .font-display {
-    font-family: 'Fraunces', 'Sora', serif;
-    font-optical-sizing: auto;
-    letter-spacing: -0.018em;
-  }
-
-  /* Geometric sans, kept for the rare spot that still wants it (logo, nav). */
-  .font-grotesk {
-    font-family: 'Sora', sans-serif;
+  /* One sans does everything. These aliases keep older markup coherent while
+     pointing at the single family. No serif, no decorative italic. */
+  .font-display,
+  .cine-head,
+  .font-grotesk,
+  .font-editorial-italic {
+    font-family: 'Hanken Grotesk Variable', system-ui, sans-serif;
+    font-style: normal;
+    letter-spacing: -0.02em;
   }
 
   .font-mono-tech {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'JetBrains Mono Variable', ui-monospace, monospace;
   }
 
-  /* Italic Fraunces for editorial pull-quotes / emphasis spans */
-  .font-editorial-italic {
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-    font-optical-sizing: auto;
-  }
-
-  /* Swiss micro-label: uppercase mono with wide tracking */
+  /* Quiet uppercase mono micro-label — no brackets, no dots, no ornaments. */
   .lab-label {
-    @apply font-mono-tech text-[11px] uppercase tracking-[0.22em] text-ink-faint;
+    font-family: 'JetBrains Mono Variable', ui-monospace, monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--ink-faint);
   }
 
+  /* Display / heading scale — tight, confident, sans. */
   .text-headline {
-    font-size: clamp(40px, 5vw, 80px);
-    line-height: 1.02;
-    letter-spacing: -0.025em;
+    font-size: clamp(40px, 5.4vw, 84px);
+    line-height: 1.0;
+    letter-spacing: -0.035em;
+    font-weight: 700;
   }
 
   .text-subhead {
-    font-size: clamp(24px, 2.8vw, 38px);
-    line-height: 1.15;
-    letter-spacing: -0.01em;
+    font-size: clamp(24px, 2.8vw, 40px);
+    line-height: 1.12;
+    letter-spacing: -0.02em;
+    font-weight: 600;
   }
 
   .text-body {
-    font-size: clamp(15px, 1.1vw, 18px);
-    line-height: 1.65;
+    font-size: clamp(15px, 1.05vw, 18px);
+    line-height: 1.6;
   }
 
-  /* Warm hairline rules — the backbone of the Swiss grid */
   .hairline {
     height: 1px;
-    background: #e6e3dd;
+    background: var(--line);
   }
 
   .hairline-vertical {
     width: 1px;
-    background: #e6e3dd;
+    background: var(--line);
   }
 
-  /* Blueprint grid — faint measured background for hero / sections */
-  .grid-blueprint {
-    background-image:
-      linear-gradient(to right, rgba(22, 25, 31, 0.045) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(22, 25, 31, 0.045) 1px, transparent 1px);
-    background-size: 64px 64px;
+  .border-hairline-strong {
+    border-color: var(--hairline-strong);
   }
 
-  /* Paper grain — extremely subtle texture, multiply blend on light */
-  .grain-overlay {
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 9999;
-    opacity: 0.05;
-    mix-blend-mode: multiply;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  /* Cinematic image treatment — unifies varied photography (and placeholders)
+     into one muted, filmic set in the SR-71 mood. */
+  .cine-img {
+    position: relative;
+    overflow: hidden;
+    background: var(--panel);
   }
-
-  /* Corner registration ticks — small lab-instrument detail */
-  .corner-ticks::before,
-  .corner-ticks::after {
+  .cine-img > img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: saturate(0.78) contrast(1.04) brightness(0.98);
+  }
+  /* subtle cool wash + bottom falloff so text overlays stay legible */
+  .cine-img::after {
     content: '';
     position: absolute;
-    width: 8px;
-    height: 8px;
-    border-color: #16191f;
+    inset: 0;
+    pointer-events: none;
+    background:
+      linear-gradient(180deg, rgba(11, 13, 17, 0) 40%, rgba(11, 13, 17, 0.55) 100%),
+      linear-gradient(0deg, rgba(20, 40, 60, 0.10), rgba(20, 40, 60, 0.10));
+    mix-blend-mode: normal;
+  }
+
+  /* Reveal base — animated to visible by GSAP; visible by default so the page
+     is never blank if JS/motion is off (progressive enhancement). */
+  .reveal {
+    opacity: 1;
   }
 }
 
@@ -231,83 +225,29 @@
   .will-change-transform {
     will-change: transform;
   }
-
   .will-change-opacity {
     will-change: opacity;
   }
 }
 
-/* ── Cinematic utilities (SpaceX-fused refresh) ───────────────────────────── */
-@layer components {
-  /* Editorial display headline for hero / mission panels — Fraunces serif,
-     mixed-case, high-contrast. (Was uppercase Sora; restyled for the journal look.) */
-  .cine-head {
-    font-family: 'Fraunces', serif;
-    font-optical-sizing: auto;
-    font-weight: 600;
-    letter-spacing: -0.022em;
-    line-height: 1.02;
-  }
-
-  /* hairline used by node boxes / inputs (slightly stronger than --line) */
-  .border-hairline-strong {
-    border-color: var(--hairline-strong);
-  }
-
-  /* Editorial drop-cap — Fraunces initial for the lede paragraph of a section */
-  .dropcap::first-letter {
-    font-family: 'Fraunces', serif;
-    font-weight: 700;
-    float: left;
-    font-size: 3.5em;
-    line-height: 0.74;
-    padding-right: 0.09em;
-    padding-top: 0.05em;
-    color: var(--ink);
-  }
+/* Filmic grain — extremely subtle, fixed over the page. */
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.045;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
-
-/* traveling pulse dot along the agent-loop connectors */
-@keyframes travel {
-  0% {
-    left: 0;
-    opacity: 0;
-  }
-  8% {
-    opacity: 1;
-  }
-  92% {
-    opacity: 1;
-  }
-  100% {
-    left: 100%;
-    opacity: 0;
-  }
-}
-
-/* hero slow zoom-in on load */
-@keyframes slowzoom {
-  to {
-    transform: scale(1);
-  }
-}
-
-/* scroll-cue line pulse */
-@keyframes cue {
-  0%,
-  100% {
-    transform: scaleY(0.4);
-    opacity: 0.4;
-  }
-  50% {
-    transform: scaleY(1);
-    opacity: 1;
-  }
+.dark .grain-overlay {
+  mix-blend-mode: screen;
+  opacity: 0.05;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero-zoom {
-    animation: none !important;
+  .reveal {
+    opacity: 1 !important;
     transform: none !important;
   }
 }

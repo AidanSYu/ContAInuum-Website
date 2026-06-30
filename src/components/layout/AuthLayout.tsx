@@ -2,7 +2,6 @@ import { Outlet } from 'react-router-dom';
 import { GrainOverlay, BlueprintGrid } from '@/components/effects';
 import { AuthAside } from '@/components/auth/AuthAside';
 import { Logo } from './Logo';
-import { ThemeToggle } from './ThemeToggle';
 
 /** Two-column shell for auth pages: form on the left, cinematic aside on the right. */
 export function AuthLayout() {
@@ -13,13 +12,10 @@ export function AuthLayout() {
       {/* Left — brand + form */}
       <div className="relative flex flex-col items-center justify-center overflow-hidden px-6 py-12">
         <BlueprintGrid />
-        <div className="absolute right-5 top-5 z-20">
-          <ThemeToggle />
-        </div>
         <div className="relative z-10 w-full max-w-sm">
           <div className="mb-8 flex flex-col items-center gap-2">
             <Logo className="text-2xl" />
-            <span className="lab-label">SECURE ACCESS / ATLAS</span>
+            <span className="lab-label">Secure access</span>
           </div>
           <Outlet />
         </div>

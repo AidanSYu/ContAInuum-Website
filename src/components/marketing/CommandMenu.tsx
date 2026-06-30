@@ -3,12 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import {
   Activity,
   BookOpen,
-  CreditCard,
+  FileText,
   LayoutGrid,
   LogIn,
   Mail,
-  MoonStar,
-  Network,
+  PlayCircle,
   Rocket,
 } from 'lucide-react';
 import {
@@ -22,24 +21,11 @@ import {
 } from '@/components/ui/command';
 
 /* =============================================================================
-   CommandMenu — ⌘K / Ctrl-K palette for fast navigation. Reinforces the
-   "lab instrument" persona. Opens via keyboard or a `containuum:command` event
-   (dispatched by the header affordance). Mounted once in MarketingLayout.
+   CommandMenu — ⌘K / Ctrl-K palette for fast navigation. Opens via keyboard or
+   a `contineon:command` event. Mounted once in MarketingLayout.
    ============================================================================= */
 
-const THEME_KEY = 'containuum-theme';
-
-function toggleTheme() {
-  const root = document.documentElement;
-  const dark = root.classList.toggle('dark');
-  try {
-    localStorage.setItem(THEME_KEY, dark ? 'dark' : 'light');
-  } catch {
-    /* ignore */
-  }
-}
-
-export const COMMAND_EVENT = 'containuum:command';
+export const COMMAND_EVENT = 'contineon:command';
 
 export function CommandMenu() {
   const [open, setOpen] = useState(false);
@@ -65,10 +51,6 @@ export function CommandMenu() {
     setOpen(false);
     navigate(to);
   };
-  const act = (fn: () => void) => () => {
-    setOpen(false);
-    fn();
-  };
 
   return (
     <CommandDialog
@@ -81,11 +63,14 @@ export function CommandMenu() {
       <CommandList>
         <CommandEmpty>No results.</CommandEmpty>
         <CommandGroup heading="Navigate">
-          <CommandItem onSelect={go('/#platform')}>
-            <LayoutGrid /> Platform
+          <CommandItem onSelect={go('/platform')}>
+            <LayoutGrid /> Atlas Framework
           </CommandItem>
-          <CommandItem onSelect={go('/pricing')}>
-            <CreditCard /> Pricing
+          <CommandItem onSelect={go('/blog')}>
+            <FileText /> Research
+          </CommandItem>
+          <CommandItem onSelect={go('/docs')}>
+            <BookOpen /> Docs
           </CommandItem>
           <CommandItem onSelect={go('/contact')}>
             <Mail /> Contact
@@ -93,26 +78,26 @@ export function CommandMenu() {
         </CommandGroup>
         <CommandSeparator />
         <CommandGroup heading="On the landing page">
+          <CommandItem onSelect={go('/#thesis')}>
+            <BookOpen /> The thesis
+          </CommandItem>
           <CommandItem onSelect={go('/#loop')}>
             <Activity /> Campaign loop
           </CommandItem>
-          <CommandItem onSelect={go('/#memory')}>
-            <Network /> Knowledge graph
-          </CommandItem>
           <CommandItem onSelect={go('/#how')}>
-            <BookOpen /> How it works
+            <LayoutGrid /> How it works
           </CommandItem>
         </CommandGroup>
         <CommandSeparator />
         <CommandGroup heading="Actions">
           <CommandItem onSelect={go('/contact?topic=partner')}>
-            <Rocket /> Apply for access
+            <Rocket /> Request access
+          </CommandItem>
+          <CommandItem onSelect={go('/contact?topic=demo')}>
+            <PlayCircle /> Book a demo
           </CommandItem>
           <CommandItem onSelect={go('/login')}>
             <LogIn /> Sign in
-          </CommandItem>
-          <CommandItem onSelect={act(toggleTheme)}>
-            <MoonStar /> Toggle light / dark theme
           </CommandItem>
         </CommandGroup>
       </CommandList>

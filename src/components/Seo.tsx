@@ -8,8 +8,8 @@
    correct per-route unfurls, add prerendering/SSR (see follow-ups).
    ============================================================================= */
 
-const SITE_URL = 'https://containuum.io';
-const DEFAULT_IMAGE = '/images/frontier-industrial-space.jpg';
+const SITE_URL = 'https://contineon.io';
+const DEFAULT_IMAGE = '/images/sr71-quote-wide.png';
 
 function absolute(pathOrUrl: string): string {
   if (/^https?:\/\//.test(pathOrUrl)) return pathOrUrl;
@@ -39,7 +39,7 @@ export function Seo({
       <link rel="canonical" href={url} />
 
       <meta property="og:type" content={type} />
-      <meta property="og:site_name" content="contAInuum" />
+      <meta property="og:site_name" content="Contineon" />
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
       <meta property="og:url" content={url} />

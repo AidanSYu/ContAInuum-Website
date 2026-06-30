@@ -12,7 +12,7 @@ export function BlogPostPage() {
 
   return (
     <div className="px-[5vw] pb-28 pt-32 lg:px-8 lg:pt-40">
-      <Seo title={`${post.title} — contAInuum`} description={post.excerpt} path={`/blog/${post.slug}`} type="article" />
+      <Seo title={`${post.title} — Contineon`} description={post.excerpt} path={`/blog/${post.slug}`} type="article" />
 
       <article className="mx-auto max-w-2xl">
         <Link to="/blog" className="inline-flex items-center gap-1.5 font-mono-tech text-[11px] uppercase tracking-[0.14em] text-ink-muted hover:text-ink">
@@ -37,8 +37,8 @@ export function BlogPostPage() {
         <div className="mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-line pt-8">
           <p className="font-display text-lg font-semibold text-ink">See it on your bench.</p>
           <div className="flex gap-3">
-            <a href="/signup" className="inline-flex items-center justify-center rounded bg-safety px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-safety/90">
-              Start free trial
+            <a href="/contact?topic=partner" className="inline-flex items-center justify-center rounded bg-safety px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-safety/90">
+              Request access
             </a>
             <a href="/contact?topic=demo" className="inline-flex items-center justify-center rounded border border-line px-5 py-2.5 text-sm font-medium text-ink transition-colors hover:border-line-hair">
               Book a demo

@@ -6,16 +6,16 @@ const COLS = [
   {
     title: 'Product',
     links: [
-      { label: 'Platform', href: '/#platform' },
-      { label: 'Pricing', href: '/pricing' },
-      { label: 'Apply for access', href: '/contact?topic=partner' },
+      { label: 'Atlas Framework', href: '/platform' },
+      { label: 'Demo', href: '/contact?topic=demo' },
+      { label: 'Request access', href: '/contact?topic=partner' },
     ],
   },
   {
     title: 'Resources',
     links: [
-      { label: 'FAQ', href: '/faq' },
       { label: 'Docs', href: '/docs' },
+      { label: 'FAQ', href: '/faq' },
       { label: 'Security', href: '/security' },
       { label: 'Changelog', href: '/changelog' },
     ],
@@ -24,7 +24,7 @@ const COLS = [
     title: 'Company',
     links: [
       { label: 'About', href: '/about' },
-      { label: 'Blog', href: '/blog' },
+      { label: 'Research', href: '/blog' },
       { label: 'Contact', href: '/contact' },
       { label: 'Sign in', href: '/login' },
     ],
@@ -39,15 +39,14 @@ const COLS = [
 ];
 
 export function SiteFooter() {
-  const year = new Date().getFullYear();
   return (
     <footer className="relative z-10 border-t border-line bg-paper">
       <div className="mx-auto grid max-w-7xl gap-10 px-[5vw] py-16 sm:grid-cols-2 md:grid-cols-[1.6fr_1fr_1fr_1fr] lg:grid-cols-[1.6fr_1fr_1fr_1fr_1fr] lg:px-8 xl:px-16">
         <div className="max-w-xs">
-          <Logo className="text-lg" />
+          <Logo className="text-[19px]" />
           <p className="mt-4 text-sm leading-relaxed text-ink-muted">
-            Autonomous laboratories for the next era of research. Run ATLAS
-            agents on managed, secure infrastructure.
+            The self-driving lab that remembers. Atlas runs autonomous campaigns on
+            the instruments you already have.
           </p>
 
           <div className="mt-6">
@@ -57,8 +56,6 @@ export function SiteFooter() {
             </p>
             <NewsletterSignup source="footer" />
           </div>
-
-          <p className="mt-6 lab-label">EST. 2026 — AUTONOMOUS LABS</p>
         </div>
 
         {COLS.map((col) => (
@@ -81,9 +78,9 @@ export function SiteFooter() {
       </div>
 
       <div className="border-t border-line">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-[5vw] py-6 font-mono-tech text-[11px] uppercase tracking-[0.15em] text-ink-faint sm:flex-row lg:px-8 xl:px-16">
-          <span>© {year} contAInuum</span>
-          <span>Payments secured by Stripe</span>
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-[5vw] py-6 lab-label sm:flex-row lg:px-8 xl:px-16">
+          <span>© 2026 Contineon</span>
+          <span>Built for working labs</span>
         </div>
       </div>
     </footer>

@@ -1,5 +1,5 @@
 /**
- * Security invariants for the contAInuum web app.
+ * Security invariants for the Contineon web app.
  *
  * These are intentionally cheap, deterministic checks that run in CI and fail
  * loudly if a regression breaks one of the trust boundaries the backend relies

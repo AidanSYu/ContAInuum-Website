@@ -1,30 +1,43 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, ChevronDown } from 'lucide-react';
 import { Logo } from './Logo';
-import { ThemeToggle } from './ThemeToggle';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/lib/auth';
 import { cn } from '@/lib/utils';
 
-const NAV = [
-  { label: 'Platform', to: '/#platform' },
-  { label: 'Pricing', to: '/pricing' },
-  { label: 'FAQ', to: '/faq' },
-  { label: 'Security', to: '/security' },
-  { label: 'Contact', to: '/contact' },
+type NavLink = { label: string; to: string; desc?: string };
+type NavEntry = { label: string; to?: string; items?: NavLink[] };
+
+const PRODUCT: NavLink[] = [
+  { label: 'Atlas Framework', desc: 'Our first product', to: '/platform' },
+  { label: 'Demo', desc: 'Coming soon', to: '/contact?topic=demo' },
 ];
 
-/** Routes that lead with a full-bleed dark hero under the transparent header.
-    The home hero is now a light editorial layout, so it uses ink nav at the top. */
-const DARK_HERO_ROUTES = new Set(['/pricing']);
+const COMPANY: NavLink[] = [
+  { label: 'About', desc: 'Who we are', to: '/about' },
+  { label: 'Security', desc: 'Trust & infrastructure', to: '/security' },
+  { label: 'Changelog', desc: "What's shipped", to: '/changelog' },
+  { label: 'Contact', desc: 'Talk to us', to: '/contact' },
+];
 
-/** Persistent marketing-site header. Hairline-on-scroll, responsive, auth-aware. */
+const NAV: NavEntry[] = [
+  { label: 'Product', items: PRODUCT },
+  { label: 'Research', to: '/blog' },
+  { label: 'Company', items: COMPANY },
+  { label: 'Docs', to: '/docs' },
+];
+
+/** Routes whose hero is a full-bleed dark section under the transparent header. */
+const DARK_HERO_ROUTES = new Set(['/']);
+
 export function SiteHeader() {
   const { user } = useAuth();
   const { pathname } = useLocation();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [menu, setMenu] = useState<string | null>(null);
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -33,66 +46,94 @@ export function SiteHeader() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // White nav while transparent over a dark hero; dark nav once the bar is solid.
+  // Close menus on navigation.
+  useEffect(() => {
+    setOpen(false);
+    setMenu(null);
+  }, [pathname]);
+
   const darkTop = !scrolled && DARK_HERO_ROUTES.has(pathname);
+
+  const openMenu = (label: string) => {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    setMenu(label);
+  };
+  const scheduleClose = () => {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    closeTimer.current = setTimeout(() => setMenu(null), 120);
+  };
+
+  const linkBase = cn(
+    'text-[15px] transition-colors',
+    darkTop ? 'text-white/80 hover:text-white' : 'text-ink-muted hover:text-ink',
+  );
 
   return (
     <header
       className={cn(
-        'fixed inset-x-0 top-0 z-[100] transition-all duration-300',
+        'fixed inset-x-0 top-0 z-[100] transition-colors duration-300',
         scrolled
-          ? 'border-b border-line bg-paper/80 backdrop-blur-xl'
+          ? 'border-b border-line bg-[hsl(var(--background)/0.85)] backdrop-blur-xl'
           : 'border-b border-transparent bg-transparent',
       )}
+      onMouseLeave={scheduleClose}
     >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-[5vw] lg:px-8">
-        <div className="flex items-center gap-3">
-          <Logo className={cn('text-lg', darkTop && 'text-white')} />
-          <span
-            className={cn(
-              'hidden font-mono-tech text-[10px] uppercase tracking-[0.2em] sm:inline',
-              darkTop ? 'text-white/50' : 'text-ink-faint',
-            )}
-          >
-            / ATLAS
-          </span>
-        </div>
+        <Logo className={cn('text-[19px]', darkTop && 'text-white')} />
 
-        <nav className="hidden items-center gap-9 md:flex">
-          {NAV.map((item) => (
-            <a
-              key={item.to}
-              href={item.to}
-              className={cn(
-                'font-mono-tech text-[11px] uppercase tracking-[0.18em] transition-colors',
-                darkTop ? 'text-white/80 hover:text-white' : 'text-ink-muted hover:text-ink',
-              )}
-            >
-              {item.label}
-            </a>
-          ))}
+        <nav className="hidden items-center gap-1 md:flex">
+          {NAV.map((item) =>
+            item.items ? (
+              <div
+                key={item.label}
+                className="relative"
+                onMouseEnter={() => openMenu(item.label)}
+                onMouseLeave={scheduleClose}
+              >
+                <button
+                  type="button"
+                  aria-haspopup="true"
+                  aria-expanded={menu === item.label}
+                  onClick={() => setMenu((m) => (m === item.label ? null : item.label))}
+                  className={cn('flex items-center gap-1 rounded-md px-3 py-2', linkBase)}
+                >
+                  {item.label}
+                  <ChevronDown
+                    className={cn(
+                      'h-3.5 w-3.5 transition-transform',
+                      menu === item.label && 'rotate-180',
+                    )}
+                  />
+                </button>
+                {menu === item.label && (
+                  <div
+                    className="absolute left-0 top-[calc(100%+6px)] w-64 overflow-hidden rounded-xl border border-line bg-surface p-1.5 shadow-lab"
+                    onMouseEnter={() => openMenu(item.label)}
+                  >
+                    {item.items.map((sub) => (
+                      <Link
+                        key={sub.label}
+                        to={sub.to}
+                        className="block rounded-lg px-3 py-2.5 transition-colors hover:bg-panel"
+                      >
+                        <span className="block text-[14px] font-medium text-ink">{sub.label}</span>
+                        {sub.desc && (
+                          <span className="mt-0.5 block text-[12.5px] text-ink-faint">{sub.desc}</span>
+                        )}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ) : (
+              <Link key={item.label} to={item.to!} className={cn('rounded-md px-3 py-2', linkBase)}>
+                {item.label}
+              </Link>
+            ),
+          )}
         </nav>
 
-        <div className="hidden items-center gap-2 md:flex">
-          <button
-            type="button"
-            onClick={() => window.dispatchEvent(new Event('containuum:command'))}
-            aria-label="Open command menu"
-            className={cn(
-              'inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1.5 font-mono-tech text-[10px] uppercase tracking-[0.14em] transition-colors',
-              darkTop
-                ? 'border-white/30 bg-white/5 text-white/70 hover:border-white/60 hover:text-white'
-                : 'border-line bg-surface text-ink-faint hover:border-line-hair hover:text-ink',
-            )}
-          >
-            <span className="text-[11px] leading-none">⌘</span>K
-          </button>
-          <ThemeToggle
-            className={cn(
-              darkTop &&
-                'border-white/30 bg-white/5 text-white/80 hover:border-white/60 hover:text-white',
-            )}
-          />
+        <div className="hidden items-center gap-1.5 md:flex">
           {user ? (
             <Button asChild size="sm" className="bg-safety text-white hover:bg-safety/90">
               <Link to="/app">Dashboard</Link>
@@ -112,7 +153,7 @@ export function SiteHeader() {
                 <Link to="/login">Sign in</Link>
               </Button>
               <Button asChild size="sm" className="bg-safety text-white hover:bg-safety/90">
-                <Link to="/contact?topic=partner">Apply for access</Link>
+                <Link to="/contact?topic=partner">Request access</Link>
               </Button>
             </>
           )}
@@ -128,36 +169,50 @@ export function SiteHeader() {
       </div>
 
       {open && (
-        <div className="border-t border-line bg-paper/95 px-[5vw] py-6 backdrop-blur-xl md:hidden">
-          <nav className="flex flex-col gap-5">
-            {NAV.map((item) => (
-              <a
-                key={item.to}
-                href={item.to}
-                onClick={() => setOpen(false)}
-                className="font-mono-tech text-sm uppercase tracking-[0.15em] text-ink-muted"
-              >
-                {item.label}
-              </a>
-            ))}
-            <div className="mt-2 flex flex-col gap-3">
+        <div className="max-h-[calc(100vh-4rem)] overflow-y-auto border-t border-line bg-[hsl(var(--background)/0.97)] px-[5vw] py-6 backdrop-blur-xl md:hidden">
+          <nav className="flex flex-col gap-1">
+            {NAV.map((item) =>
+              item.items ? (
+                <div key={item.label} className="py-2">
+                  <span className="lab-label">{item.label}</span>
+                  <div className="mt-2 flex flex-col gap-1">
+                    {item.items.map((sub) => (
+                      <Link
+                        key={sub.label}
+                        to={sub.to}
+                        className="rounded-lg px-2 py-2 text-[15px] text-ink-muted hover:bg-panel hover:text-ink"
+                      >
+                        {sub.label}
+                        {sub.desc && <span className="ml-2 text-[12.5px] text-ink-faint">{sub.desc}</span>}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <Link
+                  key={item.label}
+                  to={item.to!}
+                  className="rounded-lg px-2 py-2.5 text-[15px] text-ink-muted hover:bg-panel hover:text-ink"
+                >
+                  {item.label}
+                </Link>
+              ),
+            )}
+            <div className="mt-3 flex flex-col gap-2 border-t border-line pt-4">
               {user ? (
                 <Button asChild className="bg-safety text-white hover:bg-safety/90">
-                  <Link to="/app" onClick={() => setOpen(false)}>Dashboard</Link>
+                  <Link to="/app">Dashboard</Link>
                 </Button>
               ) : (
                 <>
-                  <Button asChild variant="outline" onClick={() => setOpen(false)}>
+                  <Button asChild variant="outline">
                     <Link to="/login">Sign in</Link>
                   </Button>
-                  <Button asChild className="bg-safety text-white hover:bg-safety/90" onClick={() => setOpen(false)}>
-                    <Link to="/contact?topic=partner">Apply for access</Link>
+                  <Button asChild className="bg-safety text-white hover:bg-safety/90">
+                    <Link to="/contact?topic=partner">Request access</Link>
                   </Button>
                 </>
               )}
-            </div>
-            <div className="mt-2">
-              <ThemeToggle />
             </div>
           </nav>
         </div>

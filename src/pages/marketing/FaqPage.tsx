@@ -15,16 +15,16 @@ const GROUPS: Group[] = [
     group: 'Product',
     items: [
       {
-        q: 'What exactly is ATLAS?',
-        a: 'ATLAS is an autonomous agent for the lab. It plans a campaign toward an objective you set, executes the steps it can, and pauses to hand off the steps that still need a human. Every campaign it touches feeds a memory that makes the next one start smarter.',
+        q: 'What exactly is Atlas?',
+        a: 'Atlas is an autonomous agent for the lab. It plans a campaign toward an objective you set, executes the steps it can, and pauses to hand off the steps that still need a human. Every campaign it touches feeds a memory that makes the next one start smarter.',
       },
       {
         q: 'Do I need to buy new instruments or rebuild my lab?',
-        a: 'No. contAInuum is a retrofit, not a rip-and-replace. ATLAS runs on the instruments, ELN, and data you already have. The whole premise is that you keep your workcell and add a memory and an autonomy layer on top of it.',
+        a: 'No. Contineon is a retrofit, not a rip-and-replace. Atlas runs on the instruments, ELN, and data you already have. The whole premise is that you keep your workcell and add a memory and an autonomy layer on top of it.',
       },
       {
         q: 'What happens when a step needs a human?',
-        a: 'ATLAS pauses the campaign and notifies a scientist — like a job awaiting approval. You return a result (a TLC photo, a CSV, a note) and the run resumes from exactly where it stopped. Correct a tool call once and that correction becomes training signal.',
+        a: 'Atlas pauses the campaign and notifies a scientist — like a job awaiting approval. You return a result (a TLC photo, a CSV, a note) and the run resumes from exactly where it stopped. Correct a tool call once and that correction becomes training signal.',
       },
     ],
   },
@@ -33,15 +33,15 @@ const GROUPS: Group[] = [
     items: [
       {
         q: 'Which instruments and systems integrate?',
-        a: 'ATLAS connects over open integrations to the systems labs already run — liquid handlers, plate readers, analytical instruments (e.g. LC/MS), and electronic lab notebooks. As a rule of thumb: if a step can be scripted or its output can be exported, ATLAS can read it. Tell us your stack and we will confirm specifics.',
+        a: 'Atlas connects over open integrations to the systems labs already run — liquid handlers, plate readers, analytical instruments (e.g. LC/MS), and electronic lab notebooks. As a rule of thumb: if a step can be scripted or its output can be exported, Atlas can read it. Tell us your stack and we will confirm specifics.',
       },
       {
         q: 'How long does setup take?',
-        a: 'Connecting your workcell is an afternoon, not a quarter. You point ATLAS at your instruments and data, define an objective, and run your first campaign the same day.',
+        a: 'Connecting your workcell is an afternoon, not a quarter. You point Atlas at your instruments and data, define an objective, and run your first campaign the same day.',
       },
       {
-        q: 'Is contAInuum cloud or on-premises?',
-        a: 'The Solo and Lab plans run on managed, secure cloud infrastructure. Institute deployments can run in a dedicated or VPC arrangement with governance controls — talk to us about your requirements.',
+        q: 'Is Contineon cloud or on-premises?',
+        a: 'Atlas runs on managed, secure cloud infrastructure. Dedicated or VPC arrangements with governance controls are available for larger deployments — talk to us about your requirements.',
       },
     ],
   },
@@ -58,24 +58,24 @@ const GROUPS: Group[] = [
       },
       {
         q: 'How do you secure my data?',
-        a: 'Encryption in transit, access controls, and tenant isolation, with SSO/SAML and audit logging available on Institute. See the Security page for the full picture.',
+        a: 'Encryption in transit, access controls, and tenant isolation, with SSO/SAML and audit logging available for larger deployments. See the Security page for the full picture.',
       },
     ],
   },
   {
-    group: 'Trial & billing',
+    group: 'Access & onboarding',
     items: [
       {
-        q: 'What does the free trial include?',
-        a: 'A 14-day free trial with the full features of the plan you pick. A payment method is collected at checkout, but you are not charged during the trial and you can cancel anytime before it ends.',
+        q: 'How do I get access?',
+        a: 'We onboard a small cohort of design-partner labs at a time. Request access and we will scope an early-partner pilot for your lab on the instruments you already run — no rip-and-replace.',
       },
       {
-        q: 'How is contAInuum priced?',
-        a: 'Plans are based on how much autonomy you need — active campaigns, agent runs, handoff channels, and governance. See the pricing page for the current Solo, Lab, and Institute tiers.',
+        q: 'Is there a demo?',
+        a: 'An interactive demo is on the way. In the meantime, book a live walkthrough and we will run Atlas against a campaign close to your own.',
       },
       {
         q: 'What support do I get?',
-        a: 'Community support on Solo, priority support on Lab, and a named success engineer with an SLA on Institute.',
+        a: 'Design partners work directly with the team building Atlas, with response times scoped to your pilot.',
       },
     ],
   },
@@ -85,8 +85,8 @@ export function FaqPage() {
   return (
     <div className="px-[5vw] pb-28 pt-32 lg:px-8 lg:pt-40">
       <Seo
-        title="FAQ — contAInuum"
-        description="Answers to common questions about ATLAS: instruments and integrations, data privacy and security, setup time, and how the free trial and billing work."
+        title="FAQ — Contineon"
+        description="Answers to common questions about Atlas: instruments and integrations, data privacy and security, setup time, and how to get access."
         path="/faq"
       />
 
@@ -126,8 +126,8 @@ export function FaqPage() {
         <div className="mt-16 flex flex-wrap items-center justify-between gap-4 border-t border-line pt-8">
           <p className="font-display text-lg font-semibold text-ink">Ready to see it on your bench?</p>
           <div className="flex gap-3">
-            <a href="/signup" className="inline-flex items-center justify-center gap-2 rounded bg-safety px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-safety/90">
-              Start free trial
+            <a href="/contact?topic=partner" className="inline-flex items-center justify-center gap-2 rounded bg-safety px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-safety/90">
+              Request access
             </a>
             <a href="/contact?topic=demo" className="inline-flex items-center justify-center gap-2 rounded border border-line px-5 py-2.5 text-sm font-medium text-ink transition-colors hover:border-line-hair">
               Book a demo

@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import { GrainOverlay } from '@/components/effects';
 import { CommandMenu } from '@/components/marketing/CommandMenu';
+import { SmoothScroll } from '@/components/motion';
 import { SiteHeader } from './SiteHeader';
 import { SiteFooter } from './SiteFooter';
 
@@ -23,6 +24,7 @@ export function MarketingLayout() {
 
   return (
     <div className="relative min-h-screen bg-paper text-ink">
+      <SmoothScroll />
       <GrainOverlay />
       <CommandMenu />
       <SiteHeader />

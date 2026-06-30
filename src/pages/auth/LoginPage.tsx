@@ -46,7 +46,7 @@ export function LoginPage() {
   return (
     <div className="border border-line bg-surface p-8 shadow-lab">
       <h1 className="font-display text-2xl font-extrabold uppercase leading-tight tracking-tight text-ink">Welcome back</h1>
-      <p className="mt-1 text-sm text-ink-muted">Sign in to your contAInuum account.</p>
+      <p className="mt-1 text-sm text-ink-muted">Sign in to your Contineon account.</p>
 
       <form onSubmit={onSubmit} className="mt-6 space-y-4" noValidate>
         <div>
@@ -74,7 +74,7 @@ export function LoginPage() {
 
       <p className="mt-6 text-center text-sm text-ink-muted">
         Don’t have an account?{' '}
-        <Link to="/signup" className="text-safety hover:underline">Start free trial</Link>
+        <Link to="/contact?topic=partner" className="text-safety hover:underline">Request access</Link>
       </p>
     </div>
   );

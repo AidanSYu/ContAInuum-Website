@@ -1,7 +1,7 @@
 import { Seo } from '@/components/Seo';
 
 /* =============================================================================
-   AboutPage — who is behind contAInuum and why. Deliberately avoids fabricated
+   AboutPage — who is behind Contineon and why. Deliberately avoids fabricated
    bios/headshots; states the mission, the beliefs that shape the product, and
    how to meet the team (a call). Swap in real leadership once ready.
    ============================================================================= */
@@ -15,7 +15,7 @@ const BELIEFS = [
   {
     n: '02',
     h: 'Humans stay in the loop',
-    p: 'Autonomy that ignores the bench is a demo. ATLAS pauses for the steps that need hands, and treats a scientist’s correction as the most valuable signal it gets.',
+    p: 'Autonomy that ignores the bench is a demo. Atlas pauses for the steps that need hands, and treats a scientist’s correction as the most valuable signal it gets.',
   },
   {
     n: '03',
@@ -33,8 +33,8 @@ export function AboutPage() {
   return (
     <div className="px-[5vw] pb-28 pt-32 lg:px-8 lg:pt-40">
       <Seo
-        title="About — contAInuum"
-        description="contAInuum builds the self-driving lab that remembers — retrofitting the labs scientists already run with an autonomous agent and a compounding memory."
+        title="About — Contineon"
+        description="Contineon builds the self-driving lab that remembers — retrofitting the labs scientists already run with an autonomous agent and a compounding memory."
         path="/about"
       />
 
@@ -46,9 +46,9 @@ export function AboutPage() {
             The self-driving lab that remembers.
           </h1>
           <p className="mt-6 max-w-2xl text-lg leading-relaxed text-ink-muted">
-            contAInuum exists to make autonomous science practical for the labs that already exist.
+            Contineon exists to make autonomous science practical for the labs that already exist.
             Instead of a sealed robotic box that only works greenfield, we retrofit the instruments and
-            people you run today with ATLAS — an agent that plans, executes, hands work back when it
+            people you run today with Atlas — an agent that plans, executes, hands work back when it
             needs a human, and remembers every campaign it touches.
           </p>
         </div>
