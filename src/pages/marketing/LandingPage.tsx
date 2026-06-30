@@ -5,7 +5,7 @@ import { Magnetic, ParticleField } from '@/components/motion';
 import { Cta } from '@/components/marketing/ui';
 import { GridField } from '@/components/marketing/visuals';
 import { AsciiMedia } from '@/components/marketing/AsciiMedia';
-import { LoomField } from '@/components/marketing/LoomField';
+import { InteractiveAscii } from '@/components/marketing/InteractiveAscii';
 import { gsap, useGSAP, SplitText } from '@/lib/gsap';
 import { cn } from '@/lib/utils';
 
@@ -183,9 +183,14 @@ export function LandingPage() {
       <Beat
         media={
           <>
-            <LoomField className="absolute inset-0" />
-            <div className="absolute inset-0 bg-gradient-to-r from-[#06080B] via-[#06080B]/55 to-transparent" />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#06080B]/65 via-transparent to-[#06080B]/35" />
+            <InteractiveAscii
+              src="/images/mill.mp4"
+              poster="/images/mill-poster.jpg"
+              cols={142}
+              className="absolute inset-0"
+            />
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#06080B] via-[#06080B]/55 to-[#06080B]/10" />
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#06080B]/70 via-transparent to-[#06080B]/40" />
           </>
         }
       >
