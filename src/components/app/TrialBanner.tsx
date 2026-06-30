@@ -6,7 +6,7 @@ import { flags } from '@/lib/flags';
 import { cn } from '@/lib/utils';
 
 /* =============================================================================
-   TrialBanner — converts the dormant "N days left" number into action. Shown at
+   TrialBanner, converts the dormant "N days left" number into action. Shown at
    the top of the dashboard:
      • no subscription      → prompt to start the free trial
      • trialing             → days remaining (emphasized in the last 3 days)
@@ -53,7 +53,7 @@ export function TrialBanner() {
     if (!flags.selfServeBilling) return null;
     return (
       <Banner tone="info" icon={Sparkles} cta={{ to: '/app/billing', label: 'Choose a plan' }}>
-        Start your free trial to run your first campaign — 14 days, cancel anytime.
+        Start your free trial to run your first campaign, 14 days, cancel anytime.
       </Banner>
     );
   }
@@ -79,11 +79,11 @@ export function TrialBanner() {
           <>
             <strong className="font-semibold">{days} day{days === 1 ? '' : 's'} left</strong> in your free trial
             {sub.cancel_at_period_end
-              ? ' — your trial is set to cancel and won’t convert.'
-              : ' — your plan begins automatically when it ends.'}
+              ? ', your trial is set to cancel and won’t convert.'
+              : ', your plan begins automatically when it ends.'}
           </>
         ) : (
-          <>Your trial ends today — your plan begins automatically unless you cancel.</>
+          <>Your trial ends today, your plan begins automatically unless you cancel.</>
         )}
       </Banner>
     );

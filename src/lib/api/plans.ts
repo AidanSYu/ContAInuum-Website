@@ -3,7 +3,7 @@ import type { Database } from '@/lib/database.types';
 
 export type Plan = Database['public']['Tables']['plans']['Row'];
 
-/** Plan features are stored as a JSON string[] — narrow it for the UI. */
+/** Plan features are stored as a JSON string[], narrow it for the UI. */
 export function planFeatures(plan: Plan): string[] {
   return Array.isArray(plan.features) ? (plan.features as string[]) : [];
 }

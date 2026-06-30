@@ -7,7 +7,7 @@ export function BlogPage() {
   return (
     <div className="px-[5vw] pb-28 pt-32 lg:px-8 lg:pt-40">
       <Seo
-        title="Blog — Contineon"
+        title="Blog, Contineon"
         description="Notes from the team building the self-driving lab that remembers."
         path="/blog"
       />

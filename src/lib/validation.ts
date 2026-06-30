@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import type { Json } from './database.types';
 
-/** Recursive JSON value schema — matches the `Json` type of jsonb columns. */
+/** Recursive JSON value schema, matches the `Json` type of jsonb columns. */
 const jsonSchema: z.ZodType<Json> = z.lazy(() =>
   z.union([
     z.string(),
@@ -15,7 +15,7 @@ const jsonSchema: z.ZodType<Json> = z.lazy(() =>
 
 /**
  * Shared validation schemas. The SAME rules run client-side (instant feedback)
- * and are mirrored server-side in the Edge Functions — never trust the client.
+ * and are mirrored server-side in the Edge Functions, never trust the client.
  */
 
 // Provider-agnostic email check (avoids relying on a specific Zod version's
@@ -37,7 +37,7 @@ export const contactSchema = z.object({
     .trim()
     .min(1, 'Message is required')
     .max(5000, 'Message is too long (5000 char max)'),
-  /** Which funnel the message came from (partner, pilot, demo, …) — for triage. */
+  /** Which funnel the message came from (partner, pilot, demo, …), for triage. */
   topic: z.string().trim().max(50).optional(),
   /** Honeypot: real users never fill this; bots often do. Must stay empty. */
   company_website: z.string().max(0).optional(),

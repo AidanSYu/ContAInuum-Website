@@ -17,7 +17,7 @@ type RevealProps = {
 
 /* Transform + opacity reveal on scroll into view. GPU-friendly, fires once,
    fully gated behind prefers-reduced-motion (content stays visible if motion is
-   off or JS fails — `.reveal` defaults to opacity:1). */
+   off or JS fails, `.reveal` defaults to opacity:1). */
 export function Reveal({
   children,
   className,

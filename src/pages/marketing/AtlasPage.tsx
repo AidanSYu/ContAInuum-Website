@@ -6,10 +6,10 @@ import { ConsolePreview } from '@/components/marketing/ConsolePreview';
 
 const CAPABILITIES = [
   { h: 'Autonomous planning', p: 'Atlas decomposes an objective into an ordered campaign of concrete experiments.' },
-  { h: 'Runs on your bench', p: 'It executes on the instruments, ELN, and integrations you already operate — no rip-and-replace.' },
+  { h: 'Runs on your bench', p: 'It executes on the instruments, ELN, and integrations you already operate. No rip-and-replace.' },
   { h: 'Human-in-the-loop', p: 'It pauses for the steps that need hands, then resumes from exactly where it stopped.' },
   { h: 'Compounding memory', p: 'Recipes, failure modes, and lab lore accumulate into a private knowledge graph.' },
-  { h: 'Honest evaluation', p: 'Results — including the failures — are read back, scored, and explained.' },
+  { h: 'Honest evaluation', p: 'Results, including the failures, are read back, scored, and explained.' },
   { h: 'Portable & secure', p: 'Your data, graph, and run history export with you. Access is provisioned, never scraped.' },
 ];
 
@@ -17,7 +17,7 @@ export function AtlasPage() {
   return (
     <>
       <Seo
-        title="Atlas Framework — Contineon"
+        title="Atlas Framework, Contineon"
         description="Atlas is Contineon's autonomous lab agent: it plans, runs campaigns on your existing instruments, hands work back when it needs a human, and remembers everything it learns."
         path="/platform"
       />
@@ -82,7 +82,7 @@ export function AtlasPage() {
         </div>
       </section>
 
-      {/* Demo — honest placeholder */}
+      {/* Demo, honest placeholder */}
       <section className="dark bg-paper py-[clamp(64px,9vw,120px)] text-ink">
         <div className="mx-auto max-w-7xl px-[5vw] lg:px-8 xl:px-16">
           <Reveal className="flex flex-col items-start justify-between gap-8 rounded-2xl border border-line bg-surface p-[clamp(28px,4vw,56px)] lg:flex-row lg:items-center">

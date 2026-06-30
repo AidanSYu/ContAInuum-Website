@@ -6,7 +6,7 @@ export function TermsPage() {
   return (
     <>
       <Seo
-        title="Terms of Service — Contineon"
+        title="Terms of Service, Contineon"
         description="The terms governing your use of Contineon and the Atlas platform."
         path="/terms"
       />
@@ -42,8 +42,8 @@ export function TermsPage() {
         <LegalSection n="3" heading="Access & pilots">
           <p>
             <strong className="text-ink">Design-partner access.</strong> Contineon is currently offered
-            to a limited cohort of design-partner labs. There is no self-serve paid plan today —
-            access is provisioned by us after you request it, and the scope of each pilot is agreed
+            to a limited cohort of design-partner labs. There is no self-serve paid plan today.
+            Access is provisioned by us after you request it, and the scope of each pilot is agreed
             with your lab.
           </p>
           <p>
@@ -132,7 +132,7 @@ export function TermsPage() {
             Contineon will not be liable for any indirect, incidental, special, consequential, or
             punitive damages, or for lost profits, data, or goodwill. Our total aggregate liability
             arising out of or relating to the Service is limited to the amounts you paid to us for the
-            Service in the <Fact value={legal.liabilityCapPeriod} placeholder="[CAP PERIOD — e.g. 12 months]" /> preceding the event
+            Service in the <Fact value={legal.liabilityCapPeriod} placeholder="[CAP PERIOD, e.g. 12 months]" /> preceding the event
             giving rise to the claim. Some jurisdictions do not allow certain limitations; in those
             cases, the limitations apply to the fullest extent permitted.
           </p>
@@ -163,7 +163,7 @@ export function TermsPage() {
             <Fact value={legal.governingLaw} placeholder="[JURISDICTION]" />, without regard to its conflict-of-laws rules.
             The courts located in <Fact value={legal.venue} placeholder="[VENUE]" /> will have exclusive jurisdiction,
             unless a mandatory arbitration or alternative dispute-resolution mechanism is adopted
-            (<Placeholder>[ARBITRATION CLAUSE — REVIEW WITH COUNSEL]</Placeholder>).
+            (<Placeholder>[ARBITRATION CLAUSE, REVIEW WITH COUNSEL]</Placeholder>).
           </p>
         </LegalSection>
 

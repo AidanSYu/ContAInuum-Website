@@ -102,7 +102,7 @@ export function OverviewPage() {
       {access && trialLeft > 0 && (
         <div className="border border-line bg-surface p-6">
           <p className="text-sm text-ink-muted">
-            You’re on a free trial — <span className="font-medium text-ink">{trialLeft} day{trialLeft === 1 ? '' : 's'} left</span>.
+            You’re on a free trial, <span className="font-medium text-ink">{trialLeft} day{trialLeft === 1 ? '' : 's'} left</span>.
             Manage your plan anytime in{' '}
             <Link to="/app/billing" className="text-safety hover:underline">Billing</Link>.
           </p>
@@ -116,7 +116,7 @@ export function OverviewPage() {
         <div>
           {flags.showDemoMetrics ? (
             <>
-              <HandoffAlert onResolve={() => toast.success('Handoff resolved — ATLAS is resuming the campaign.')} />
+              <HandoffAlert onResolve={() => toast.success('Handoff resolved, ATLAS is resuming the campaign.')} />
               <StatCards />
             </>
           ) : (

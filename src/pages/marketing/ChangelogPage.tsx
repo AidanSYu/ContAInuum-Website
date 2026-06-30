@@ -2,7 +2,7 @@ import { Seo } from '@/components/Seo';
 import { formatDate } from '@/content/posts';
 
 /* =============================================================================
-   ChangelogPage — product updates, newest first. Add entries to ENTRIES; tag
+   ChangelogPage, product updates, newest first. Add entries to ENTRIES; tag
    each change as new / improved / fixed. Data-driven so a release is one edit.
    ============================================================================= */
 
@@ -16,7 +16,7 @@ const ENTRIES: Entry[] = [
     changes: [
       { tag: 'new', text: 'Atlas Framework product page, plus FAQ, Security, and About.' },
       { tag: 'new', text: 'Newsletter sign-up and a book-a-demo path.' },
-      { tag: 'improved', text: 'Refreshed identity — new Contineon brand, type, and cinematic imagery.' },
+      { tag: 'improved', text: 'Refreshed identity, new Contineon brand, type, and cinematic imagery.' },
       { tag: 'improved', text: 'Access is now request-based for design-partner labs.' },
     ],
   },
@@ -32,7 +32,7 @@ export function ChangelogPage() {
   return (
     <div className="px-[5vw] pb-28 pt-32 lg:px-8 lg:pt-40">
       <Seo
-        title="Changelog — Contineon"
+        title="Changelog, Contineon"
         description="What’s new in Contineon and the Atlas platform."
         path="/changelog"
       />

@@ -22,7 +22,7 @@ const TOPICS: Record<string, { eyebrow: string; heading: string; blurb: string; 
     eyebrow: 'DESIGN PARTNER PROGRAM',
     heading: 'Apply for access.',
     blurb:
-      'We onboard a small cohort of design-partner labs — chemistry, materials, and biology teams who run Atlas on their own instruments and shape the product with us. Tell us about your lab and we’ll be in touch within two business days.',
+      'We onboard a small cohort of design-partner labs, chemistry, materials, and biology teams who run Atlas on their own instruments and shape the product with us. Tell us about your lab and we’ll be in touch within two business days.',
     starter:
       'Our lab works on … and we run the following instruments / ELN: …\nWe’d like to join the design-partner program because …\nTeam size: …',
   },
@@ -35,7 +35,7 @@ const TOPICS: Record<string, { eyebrow: string; heading: string; blurb: string; 
   enterprise: {
     eyebrow: 'ENTERPRISE',
     heading: 'Let’s scope your deployment.',
-    blurb: 'Multi-lab, governance, SSO, dedicated compute — tell us your requirements and we’ll scope a deployment.',
+    blurb: 'Multi-lab, governance, SSO, dedicated compute, tell us your requirements and we’ll scope a deployment.',
     starter: 'We’re interested in an enterprise deployment. We have … labs / sites and need …',
   },
   security: {
@@ -91,12 +91,12 @@ export function ContactPage() {
   return (
     <div className="px-[5vw] pb-28 pt-32 lg:px-8 lg:pt-40">
       <Seo
-        title="Contact — Contineon"
+        title="Contact, Contineon"
         description="Talk to the Contineon team about retrofitting your lab with Atlas. Book a demo or ask about an enterprise deployment."
         path="/contact"
       />
       <div className="mx-auto grid max-w-6xl border border-line bg-surface shadow-lab lg:grid-cols-2">
-        {/* Left — copy + details */}
+        {/* Left, copy + details */}
         <div className="border-b border-line p-8 sm:p-12 lg:border-b-0 lg:border-r">
           <p className="lab-label text-safety">{topic.eyebrow}</p>
           <h1 className="mt-4 font-display text-5xl font-bold tracking-tight text-ink">
@@ -118,7 +118,7 @@ export function ContactPage() {
           </div>
         </div>
 
-        {/* Right — form */}
+        {/* Right, form */}
         <div className="p-8 sm:p-12">
           <form onSubmit={onSubmit} className="space-y-5" noValidate>
             <div>

@@ -12,7 +12,7 @@ export function SettingsPage() {
   const { user, updatePassword } = useAuth();
   const { data: profile } = useQuery({ queryKey: ['profile'], queryFn: getMyProfile });
 
-  // `null` means "not edited yet" — fall back to the loaded profile name so the
+  // `null` means "not edited yet", fall back to the loaded profile name so the
   // input reflects server data without syncing state in an effect.
   const [edited, setEdited] = useState<string | null>(null);
   const fullName = edited ?? profile?.full_name ?? '';

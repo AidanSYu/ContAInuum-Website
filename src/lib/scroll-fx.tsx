@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, type ReactNode, type ElementType } from 'r
 import { cn } from '@/lib/utils';
 
 /* =============================================================================
-   Scroll effects — dependency-free (no framer-motion needed).
+   Scroll effects, dependency-free (no framer-motion needed).
    ============================================================================= */
 
 /** Fade/slide a block in when it scrolls into view. Respects reduced-motion. */

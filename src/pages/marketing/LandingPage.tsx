@@ -7,7 +7,7 @@ import { ConsolePreview } from '@/components/marketing/ConsolePreview';
 import { gsap, useGSAP, SplitText } from '@/lib/gsap';
 
 /* =============================================================================
-   Landing — Contineon. Hybrid system: dark cinematic hero + closing band,
+   Landing, Contineon. Hybrid system: dark cinematic hero + closing band,
    warm-light editorial body. One sans (Hanken Grotesk), one accent, no AI tells.
    ============================================================================= */
 
@@ -74,7 +74,7 @@ function Hero() {
             data-hero-fade
             className="mt-7 max-w-xl text-[clamp(16px,1.3vw,20px)] leading-relaxed text-white/70"
           >
-            Atlas retrofits the lab you already run — planning and running campaigns
+            Atlas retrofits the lab you already run, planning and running campaigns
             autonomously, handing work back when it needs a human, and remembering
             every run it touches.
           </p>
@@ -93,13 +93,13 @@ function Hero() {
 }
 
 const FACTS = [
-  { label: 'Pause', text: 'A tool call pauses the campaign and notifies a scientist — like a job awaiting approval.' },
+  { label: 'Pause', text: 'A tool call pauses the campaign and notifies a scientist, like a job awaiting approval.' },
   { label: 'Resume', text: 'Return a TLC photo, a CSV, or a note. Atlas picks up from exactly where it stopped.' },
   { label: 'Learn', text: 'Correct a step once, and that correction becomes signal for every campaign after.' },
 ];
 
 const STEPS = [
-  { n: '01', h: 'Connect your workcell', p: 'Point Atlas at the instruments, ELN, and data you already run. No rip-and-replace — it speaks to your stack over open integrations.' },
+  { n: '01', h: 'Connect your workcell', p: 'Point Atlas at the instruments, ELN, and data you already run. No rip-and-replace. It speaks to your stack over open integrations.' },
   { n: '02', h: 'Run a campaign', p: 'Define an objective. Atlas plans, executes autonomously, and pauses to hand you the steps that still need a human.' },
   { n: '03', h: 'Watch it compound', p: 'Each campaign seeds the next. Failure modes, recipes, and lab lore accumulate into a memory that is yours alone.' },
 ];
@@ -107,7 +107,7 @@ const STEPS = [
 const LOOP = [
   { k: 'Plan', t: 'Atlas decomposes an objective into a campaign of concrete, ordered experiments.' },
   { k: 'Run', t: 'It executes on your instruments, calling for a human only where hands are genuinely needed.' },
-  { k: 'Evaluate', t: 'Results — including the failures — are read back, scored, and explained.' },
+  { k: 'Evaluate', t: 'Results, including the failures, are read back, scored, and explained.' },
   { k: 'Learn', t: 'Every outcome updates the lab’s memory so the next campaign starts smarter.' },
 ];
 
@@ -115,19 +115,19 @@ export function LandingPage() {
   return (
     <>
       <Seo
-        title="Contineon — the self-driving lab that remembers"
-        description="Contineon retrofits the lab you already run with Atlas — an autonomous agent that plans, executes, hands work back to your scientists, and remembers every campaign it touches."
+        title="Contineon, the self-driving lab that remembers"
+        description="Contineon retrofits the lab you already run with Atlas, an autonomous agent that plans, executes, hands work back to your scientists, and remembers every campaign it touches."
         path="/"
       />
 
       <Hero />
 
-      {/* Trust strip — honest framing, no fabricated logos, no dot motifs. */}
+      {/* Trust strip, honest framing, no fabricated logos, no dot motifs. */}
       <section className="border-b border-line bg-surface">
         <div className="mx-auto flex max-w-7xl flex-col gap-2 px-[5vw] py-5 sm:flex-row sm:items-center sm:gap-8 lg:px-8 xl:px-16">
           <span className="lab-label text-safety">Now in private trial</span>
           <span className="text-sm text-ink-muted">
-            Built alongside working chemistry, materials &amp; bio labs — partner names at launch.
+            Built alongside working chemistry, materials &amp; bio labs. Partner names at launch.
           </span>
         </div>
       </section>
@@ -147,7 +147,7 @@ export function LandingPage() {
             <Reveal className="lg:col-span-6 lg:col-start-7" delay={0.05}>
               <p className="text-[clamp(17px,1.4vw,22px)] leading-relaxed text-ink-muted">
                 Every other self-driving lab asks you to rebuild from scratch. Atlas runs
-                on the instruments and people you already have — and when a step needs
+                on the instruments and people you already have, and when a step needs
                 hands, it pauses and hands it to you.
               </p>
               <dl className="mt-10 divide-y divide-line border-y border-line">
@@ -189,7 +189,7 @@ export function LandingPage() {
           <Reveal className="max-w-2xl">
             <Kicker>The campaign loop</Kicker>
             <h2 className="mt-4 text-[clamp(30px,4vw,52px)] font-bold leading-[1.03] tracking-[-0.03em] text-ink">
-              Plan, run, evaluate, learn — then carry it forward.
+              Plan, run, evaluate, learn. Then carry it forward.
             </h2>
           </Reveal>
           <Reveal className="mt-12 grid gap-px border border-line bg-line sm:grid-cols-2 lg:grid-cols-4" stagger>
@@ -227,7 +227,7 @@ export function LandingPage() {
         </div>
       </section>
 
-      {/* Memory band — dark */}
+      {/* Memory band, dark */}
       <section className="dark bg-paper py-[clamp(72px,10vw,128px)] text-ink">
         <div className="mx-auto max-w-7xl px-[5vw] lg:px-8 xl:px-16">
           <div className="grid items-center gap-10 lg:grid-cols-12">
@@ -237,7 +237,7 @@ export function LandingPage() {
                 Most labs throw away their hardest-won knowledge.
               </h2>
               <p className="mt-6 max-w-2xl text-[clamp(16px,1.2vw,19px)] leading-relaxed text-ink-muted">
-                Every run — recipes, failure modes, and lab lore — accumulates into a
+                Every run (recipes, failure modes, and lab lore) accumulates into a
                 private knowledge graph. It is yours alone, it exports with you, and it
                 makes each campaign smarter than the last.
               </p>
@@ -260,7 +260,7 @@ export function LandingPage() {
         </div>
       </section>
 
-      {/* Closing CTA — dark, cinematic */}
+      {/* Closing CTA, dark, cinematic */}
       <section className="dark relative overflow-hidden bg-paper text-ink">
         <div className="absolute inset-0">
           <img src="/images/sr71-quote-wide.png" alt="" className="h-full w-full object-cover opacity-40" />
@@ -273,7 +273,7 @@ export function LandingPage() {
               The next campaign starts where the last one left off.
             </h2>
             <p className="mt-6 max-w-xl text-[clamp(16px,1.2vw,19px)] leading-relaxed text-white/70">
-              We work with a small cohort of design-partner labs — no rip-and-replace,
+              We work with a small cohort of design-partner labs. No rip-and-replace,
               no amnesia. Apply to run Atlas on the instruments you already have.
             </p>
             <div className="mt-9 flex flex-wrap gap-3">

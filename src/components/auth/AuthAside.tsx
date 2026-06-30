@@ -1,5 +1,5 @@
 /* =============================================================================
-   AuthAside — cinematic right-hand panel for the sign-up / login pages.
+   AuthAside, cinematic right-hand panel for the sign-up / login pages.
    Rendered as the right column in AuthLayout (hidden below lg). Honest framing —
    no fabricated testimonials or customer logos.
    ============================================================================= */
@@ -23,10 +23,10 @@ export function AuthAside() {
         style={{ background: 'linear-gradient(180deg, rgba(11,13,17,.6), rgba(11,13,17,.92))' }}
       />
       <div className="relative z-10 flex h-full flex-col justify-between p-[clamp(36px,4vw,60px)]">
-        <p className="lab-label text-white/55">Atlas — the lab that remembers</p>
+        <p className="lab-label text-white/55">Atlas, the lab that remembers</p>
 
         <p className="max-w-md text-[clamp(24px,2.6vw,36px)] font-bold leading-[1.1] tracking-[-0.02em] text-white">
-          One agent that plans, runs, and remembers — on the lab you already have.
+          One agent that plans, runs, and remembers, on the lab you already have.
         </p>
 
         <dl className="divide-y divide-white/10 border-y border-white/10">

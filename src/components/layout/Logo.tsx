@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 
-/** The Contineon mark — an open "C" built from three offset bars — and wordmark.
+/** The Contineon mark, an open "C" built from three offset bars, and wordmark.
     The mark uses currentColor so it inverts cleanly on dark sections. */
 export function Logo({
   className,
@@ -15,7 +15,7 @@ export function Logo({
   return (
     <Link
       to={to}
-      aria-label="Contineon — home"
+      aria-label="Contineon, home"
       className={cn(
         'inline-flex items-center gap-2.5 font-semibold tracking-tight text-ink',
         'transition-opacity hover:opacity-70',

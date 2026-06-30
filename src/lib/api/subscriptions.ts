@@ -8,7 +8,7 @@ const ACTIVE_STATUSES: Subscription['status'][] = ['trialing', 'active', 'past_d
 
 /**
  * How long a `past_due` subscription keeps access after a failed payment, before
- * the gate denies it. Access-denial only — we never mutate the Stripe
+ * the gate denies it. Access-denial only, we never mutate the Stripe
  * subscription, so Stripe's own dunning stays authoritative.
  *
  * MUST mirror the `interval '7 days'` bound in has_active_subscription()
@@ -65,7 +65,7 @@ export function hasAccess(sub: Subscription | null): boolean {
 }
 
 /**
- * Whole days left in a past_due grace window — for a "payment failed, N days
+ * Whole days left in a past_due grace window, for a "payment failed, N days
  * left" banner. Returns 0 when the window has closed or the sub isn't past_due,
  * and null when the window is effectively unbounded because we don't yet know
  * when past_due began.

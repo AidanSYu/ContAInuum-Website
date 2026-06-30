@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 
 /* =============================================================================
-   LegalDoc — shared editorial shell for long-form legal/policy pages
+   LegalDoc, shared editorial shell for long-form legal/policy pages
    (Terms, Privacy). Keeps the masthead + typographic rhythm consistent with the
    rest of the marketing site. Content lives in the page that renders it.
    ============================================================================= */
@@ -26,7 +26,7 @@ export function LegalDoc({
             {title}
           </h1>
           <p className="mt-4 font-mono-tech text-[11px] uppercase tracking-[0.16em] text-ink-faint">
-            Last updated — {lastUpdated}
+            Last updated, {lastUpdated}
           </p>
         </div>
 
@@ -66,7 +66,7 @@ export function LegalTemplateNotice() {
   return (
     <div className="rounded-lg border border-safety/50 bg-safety/[0.07] p-5">
       <p className="font-mono-tech text-[10px] uppercase tracking-[0.16em] text-safety">
-        Draft — not legal advice — review required
+        Draft, not legal advice, review required
       </p>
       <p className="mt-2 text-sm leading-relaxed text-ink-muted">
         This document is a <strong className="text-ink">DRAFT</strong> generated from Contineon's
@@ -93,7 +93,7 @@ export function Placeholder({ children }: { children: ReactNode }) {
 
 /**
  * Render a filled-in legal fact (from src/config/legal.ts), or fall back to the
- * visible [PLACEHOLDER] marker when it hasn't been provided yet — so unfilled
+ * visible [PLACEHOLDER] marker when it hasn't been provided yet, so unfilled
  * blanks stay obvious and the "review required" banner stays accurate.
  */
 export function Fact({ value, placeholder }: { value: string | null; placeholder: string }) {

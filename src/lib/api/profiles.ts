@@ -2,7 +2,7 @@ import { supabase } from '@/lib/supabase';
 import type { Database } from '@/lib/database.types';
 
 export type Profile = Database['public']['Tables']['profiles']['Row'];
-// Clients must never set `role` — the DB also REVOKEs UPDATE(role), so omitting
+// Clients must never set `role`, the DB also REVOKEs UPDATE(role), so omitting
 // it here makes passing `role` a compile-time error to match.
 type ProfileUpdate = Omit<Database['public']['Tables']['profiles']['Update'], 'role'>;
 

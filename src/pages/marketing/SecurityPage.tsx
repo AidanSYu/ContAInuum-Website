@@ -2,7 +2,7 @@ import { Lock, Database, KeyRound, Network, Eye, FileCheck } from 'lucide-react'
 import { Seo } from '@/components/Seo';
 
 /* =============================================================================
-   SecurityPage — the trust posture a lab needs before it connects Atlas to its
+   SecurityPage, the trust posture a lab needs before it connects Atlas to its
    instruments and data. Honest about what exists today vs. what is on the
    roadmap (the product is in private trial).
    ============================================================================= */
@@ -11,7 +11,7 @@ const PILLARS = [
   {
     icon: Database,
     title: 'Your data is yours',
-    body: 'Lab content — campaigns, traces, results, and your knowledge graph — belongs to you. It is used to provide the Service to your account, never sold, and it exports with you if you leave. No lock-in.',
+    body: 'Lab content, campaigns, traces, results, and your knowledge graph, belongs to you. It is used to provide the Service to your account, never sold, and it exports with you if you leave. No lock-in.',
   },
   {
     icon: Lock,
@@ -31,7 +31,7 @@ const PILLARS = [
   {
     icon: Eye,
     title: 'Privacy-preserving learning',
-    body: 'Cross-lab learning is opt-in. Where enabled, it uses aggregated or differentially private signals — one lab’s failure mode can warn another’s scientist without either seeing the other’s targets.',
+    body: 'Cross-lab learning is opt-in. Where enabled, it uses aggregated or differentially private signals, one lab’s failure mode can warn another’s scientist without either seeing the other’s targets.',
   },
   {
     icon: FileCheck,
@@ -49,7 +49,7 @@ export function SecurityPage() {
   return (
     <div className="px-[5vw] pb-28 pt-32 lg:px-8 lg:pt-40">
       <Seo
-        title="Security & Trust — Contineon"
+        title="Security & Trust, Contineon"
         description="How Contineon protects your lab data: encryption, tenant isolation, access controls, privacy-preserving learning, and auditability."
         path="/security"
       />
@@ -62,7 +62,7 @@ export function SecurityPage() {
           </h1>
           <p className="mt-4 max-w-2xl text-lg text-ink-muted">
             Atlas connects to the instruments and data that run your science. Here is how we protect
-            them — and an honest account of where we are today.
+            them, and an honest account of where we are today.
           </p>
         </div>
 
@@ -106,7 +106,7 @@ export function SecurityPage() {
             Contineon is in private trial. The protections above are in place now. Formal attestations
             (such as SOC 2) and a published Data Processing Addendum are on our roadmap as we move toward
             general availability. If your evaluation needs a specific control, certification, or
-            contractual term, tell us — we would rather scope it with you than over-claim.
+            contractual term, tell us, we would rather scope it with you than over-claim.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
             <a href="/contact?topic=security" className="inline-flex items-center justify-center gap-2 rounded bg-ink px-5 py-2.5 text-sm font-medium text-paper transition-colors hover:opacity-90">

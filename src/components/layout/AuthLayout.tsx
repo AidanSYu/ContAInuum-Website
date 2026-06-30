@@ -9,7 +9,7 @@ export function AuthLayout() {
     <div className="relative grid min-h-screen bg-paper text-ink lg:grid-cols-2">
       <GrainOverlay />
 
-      {/* Left — brand + form */}
+      {/* Left, brand + form */}
       <div className="relative flex flex-col items-center justify-center overflow-hidden px-6 py-12">
         <BlueprintGrid />
         <div className="relative z-10 w-full max-w-sm">
@@ -21,7 +21,7 @@ export function AuthLayout() {
         </div>
       </div>
 
-      {/* Right — cinematic aside (hidden below lg) */}
+      {/* Right, cinematic aside (hidden below lg) */}
       <AuthAside />
     </div>
   );

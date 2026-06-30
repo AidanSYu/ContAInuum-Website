@@ -43,7 +43,7 @@ export function milestoneBadgeVariant(status: EscrowMilestone['status']): BadgeV
   return MILESTONE_BADGE[status];
 }
 
-/** Settled (released or refunded) milestones out of the total — for a progress read. */
+/** Settled (released or refunded) milestones out of the total, for a progress read. */
 export function milestoneProgress(
   milestones: Pick<EscrowMilestone, 'status'>[],
 ): { done: number; total: number } {
@@ -56,7 +56,7 @@ export function milestoneProgress(
 export function engagementStatusCopy(status: EscrowAgreement['status']): string {
   switch (status) {
     case 'draft':
-      return 'We’re still scoping this engagement with you — no action needed yet.';
+      return 'We’re still scoping this engagement with you, no action needed yet.';
     case 'pending':
       return 'Your engagement is ready to fund. Funding locks in your milestones and starts the work.';
     case 'funded':

@@ -47,7 +47,7 @@ describe('hasAccess', () => {
   });
 });
 
-describe('hasAccess — bounded past_due grace window', () => {
+describe('hasAccess, bounded past_due grace window', () => {
   const NOW = new Date('2026-06-22T12:00:00.000Z');
   const daysAgo = (n: number) => new Date(NOW.getTime() - n * 86_400_000).toISOString();
 

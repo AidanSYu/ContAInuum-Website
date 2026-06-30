@@ -6,7 +6,7 @@ import { RequireAuth } from '@/components/auth/RequireAuth';
 import { RequireAdmin } from '@/components/auth/RequireAdmin';
 import { Spinner } from '@/components/ui/spinner';
 
-/* Route-level code splitting — each page ships in its own chunk. */
+/* Route-level code splitting, each page ships in its own chunk. */
 const LandingPage = lazy(() =>
   import('@/pages/marketing/LandingPage').then((m) => ({ default: m.LandingPage })),
 );
@@ -108,7 +108,7 @@ function App() {
           <Route path="reset-password" element={<ResetPasswordPage />} />
         </Route>
 
-        {/* Authenticated app (no self-serve billing — access is provisioned) */}
+        {/* Authenticated app (no self-serve billing, access is provisioned) */}
         <Route element={<RequireAuth />}>
           <Route path="app" element={<DashboardLayout />}>
             <Route index element={<OverviewPage />} />

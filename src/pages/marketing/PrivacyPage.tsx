@@ -6,7 +6,7 @@ export function PrivacyPage() {
   return (
     <>
       <Seo
-        title="Privacy Policy — Contineon"
+        title="Privacy Policy, Contineon"
         description="How Contineon collects, uses, and protects your data."
         path="/privacy"
       />
@@ -38,7 +38,7 @@ export function PrivacyPage() {
             <strong className="text-ink">Contact form.</strong> When you submit the contact form we
             store the name, email, optional organization, and message you provide. For anti-abuse
             purposes we also store a one-way <strong className="text-ink">SHA-256 hash of your IP
-            address</strong> — never the raw IP. Submissions are screened with Cloudflare Turnstile to
+            address</strong>, never the raw IP. Submissions are screened with Cloudflare Turnstile to
             block automated abuse.
           </p>
           <p>
@@ -55,7 +55,7 @@ export function PrivacyPage() {
           <p>
             <strong className="text-ink">Lab content.</strong> The campaigns, protocols, traces,
             results, and knowledge graph you create or connect within Atlas are processed to provide
-            the Service to your account. <Placeholder>[REVIEW WITH COUNSEL]</Placeholder> — confirm the
+            the Service to your account. <Placeholder>[REVIEW WITH COUNSEL]</Placeholder>, confirm the
             scope of lab-content processing and any feature-specific data flows before launch.
           </p>
           <p>
@@ -81,7 +81,7 @@ export function PrivacyPage() {
             our contract with you (providing the Service); your consent (newsletter
             email); our legitimate interests (securing the Service, preventing abuse, and basic
             operational analytics); and compliance with legal obligations. <Placeholder>[REVIEW WITH COUNSEL]</Placeholder>{' '}
-            — confirm the legal bases and consent mechanics for your target jurisdictions.
+           , confirm the legal bases and consent mechanics for your target jurisdictions.
           </p>
         </LegalSection>
 
@@ -92,20 +92,20 @@ export function PrivacyPage() {
           </p>
           <ul className="ml-5 list-disc space-y-1.5">
             <li>
-              <strong className="text-ink">Supabase</strong> — database, authentication, and edge
+              <strong className="text-ink">Supabase</strong>, database, authentication, and edge
               functions (stores account, contact, and newsletter records).
             </li>
             <li>
-              <strong className="text-ink">Cloudflare</strong> — Turnstile bot mitigation on public
+              <strong className="text-ink">Cloudflare</strong>, Turnstile bot mitigation on public
               forms (and edge delivery, where used).
             </li>
             <li>
-              <strong className="text-ink">Resend</strong> — transactional and confirmation email
+              <strong className="text-ink">Resend</strong>, transactional and confirmation email
               delivery (contact notifications and newsletter double opt-in).
             </li>
             <li>
-              <strong className="text-ink"><Fact value={legal.hostingProvider} placeholder="[HOSTING/CDN PROVIDER — e.g. Vercel or Cloudflare]" /></strong>{' '}
-              — website and application hosting and content delivery.
+              <strong className="text-ink"><Fact value={legal.hostingProvider} placeholder="[HOSTING/CDN PROVIDER, e.g. Vercel or Cloudflare]" /></strong>{' '}
+             , website and application hosting and content delivery.
             </li>
           </ul>
           <p>
@@ -125,7 +125,7 @@ export function PrivacyPage() {
             unsubscribe.{' '}
             {legal.retentionPeriods ?? (
               <>
-                <Placeholder>[RETENTION PERIODS]</Placeholder> — set concrete retention windows with
+                <Placeholder>[RETENTION PERIODS]</Placeholder>, set concrete retention windows with
                 counsel.
               </>
             )}
@@ -147,7 +147,7 @@ export function PrivacyPage() {
             Our processors may store and process data in countries other than your own (for example,
             in the United States and the European Union). Where required, we rely on appropriate
             safeguards such as standard contractual clauses. <Placeholder>[REVIEW WITH COUNSEL]</Placeholder>{' '}
-            — confirm hosting/processing regions and transfer mechanisms for your subprocessors.
+           , confirm hosting/processing regions and transfer mechanisms for your subprocessors.
           </p>
         </LegalSection>
 
@@ -182,7 +182,7 @@ export function PrivacyPage() {
           <p>
             The Service is intended for use by professionals and organizations and is not directed to
             children. We do not knowingly collect personal data from children.{' '}
-            <Placeholder>[REVIEW WITH COUNSEL]</Placeholder> — confirm the applicable minimum-age
+            <Placeholder>[REVIEW WITH COUNSEL]</Placeholder>, confirm the applicable minimum-age
             statement for your jurisdictions.
           </p>
         </LegalSection>

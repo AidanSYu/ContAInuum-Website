@@ -1,7 +1,7 @@
 import { Seo } from '@/components/Seo';
 
 /* =============================================================================
-   DocsPage — a single integration guide (not a full docs system). Answers the
+   DocsPage, a single integration guide (not a full docs system). Answers the
    "how would this actually plug into my lab?" question for an evaluator. Expand
    into a proper docs site later; for now it gives prospects concrete footing.
    ============================================================================= */
@@ -10,25 +10,25 @@ const STEPS = [
   {
     n: '01',
     h: 'Connect your workcell',
-    p: 'Point Atlas at the instruments, ELN, and data stores you already run. Integration is over open interfaces — if a step can be scripted or its output exported, Atlas can read it. No rip-and-replace and no new instruments.',
+    p: 'Point Atlas at the instruments, ELN, and data stores you already run. Integration is over open interfaces, if a step can be scripted or its output exported, Atlas can read it. No rip-and-replace and no new instruments.',
     items: ['Liquid handlers & automation', 'Plate readers & analytical instruments (e.g. LC/MS)', 'Electronic lab notebooks', 'Existing execution traces & CSV/data exports'],
   },
   {
     n: '02',
     h: 'Define a campaign',
-    p: 'Describe an objective — a yield to optimize, a screen to run. Atlas plans the campaign, seeding it from prior runs in your lab so it doesn’t start cold, and proposes the steps it will execute autonomously.',
+    p: 'Describe an objective, a yield to optimize, a screen to run. Atlas plans the campaign, seeding it from prior runs in your lab so it doesn’t start cold, and proposes the steps it will execute autonomously.',
     items: ['Set an objective & constraints', 'Review the seeded plan', 'Approve autonomous execution'],
   },
   {
     n: '03',
     h: 'Resolve handoffs',
-    p: 'When a step needs hands, the campaign pauses and notifies a scientist — by email, Slack, or mobile depending on your plan. You return a result and the run resumes from exactly where it stopped. Corrections become training signal.',
+    p: 'When a step needs hands, the campaign pauses and notifies a scientist, by email, Slack, or mobile depending on your plan. You return a result and the run resumes from exactly where it stopped. Corrections become training signal.',
     items: ['Get notified on the channel you use', 'Return a reading, file, or note', 'Run resumes with full state preserved'],
   },
   {
     n: '04',
     h: 'Watch memory compound',
-    p: 'Every campaign feeds a knowledge graph that is yours alone — recipes, failure modes, supplier quirks, lab lore. The next campaign starts smarter, and your graph and run history export with you anytime.',
+    p: 'Every campaign feeds a knowledge graph that is yours alone, recipes, failure modes, supplier quirks, lab lore. The next campaign starts smarter, and your graph and run history export with you anytime.',
     items: ['Cross-campaign carry-over', 'Recipe & failure-mode library', 'Full lineage & one-click export'],
   },
 ];
@@ -37,8 +37,8 @@ export function DocsPage() {
   return (
     <div className="px-[5vw] pb-28 pt-32 lg:px-8 lg:pt-40">
       <Seo
-        title="Integration guide — Contineon"
-        description="How Atlas connects to the instruments, ELN, and data you already run — and how a campaign goes from objective to compounding memory."
+        title="Integration guide, Contineon"
+        description="How Atlas connects to the instruments, ELN, and data you already run, and how a campaign goes from objective to compounding memory."
         path="/docs"
       />
 

@@ -5,7 +5,7 @@ const url = import.meta.env.VITE_SUPABASE_URL;
 const anonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
 /**
- * The anon key is PUBLIC by design — it only grants what Row Level Security
+ * The anon key is PUBLIC by design, it only grants what Row Level Security
  * allows. The service_role key must NEVER appear in frontend code.
  */
 export const SUPABASE_ANON_KEY = anonKey ?? '';
@@ -25,7 +25,7 @@ if (!isBackendConfigured) {
 }
 
 // Use a syntactically valid placeholder when unconfigured so importing this
-// module never throws — the static site still renders without a backend.
+// module never throws, the static site still renders without a backend.
 export const supabase = createClient<Database>(
   url ?? 'https://placeholder.supabase.co',
   anonKey ?? 'placeholder-anon-key',

@@ -164,7 +164,7 @@ export function AdminEscrowPage() {
               <div className="space-y-1.5">
                 <label className="lab-label">Title</label>
                 <Input
-                  placeholder="e.g. ATLAS integration — Phase 1"
+                  placeholder="e.g. ATLAS integration, Phase 1"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
                 />

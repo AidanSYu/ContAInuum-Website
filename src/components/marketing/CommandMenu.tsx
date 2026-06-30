@@ -21,7 +21,7 @@ import {
 } from '@/components/ui/command';
 
 /* =============================================================================
-   CommandMenu — ⌘K / Ctrl-K palette for fast navigation. Opens via keyboard or
+   CommandMenu, ⌘K / Ctrl-K palette for fast navigation. Opens via keyboard or
    a `contineon:command` event. Mounted once in MarketingLayout.
    ============================================================================= */
 

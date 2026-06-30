@@ -3,7 +3,7 @@ import { useEffect, useRef } from 'react';
 /**
  * Cloudflare Turnstile widget. Renders a privacy-friendly captcha and hands the
  * resulting token to `onToken`. If no site key is configured (e.g. local dev or
- * tests), it renders nothing and emits NO token — callers must proceed without a
+ * tests), it renders nothing and emits NO token, callers must proceed without a
  * captchaToken so forms remain usable until the captcha is configured.
  */
 

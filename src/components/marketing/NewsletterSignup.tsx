@@ -11,7 +11,7 @@ import { cn } from '@/lib/utils';
 const turnstileEnabled = Boolean(import.meta.env.VITE_TURNSTILE_SITE_KEY);
 
 /* =============================================================================
-   NewsletterSignup — lightweight double-opt-in capture for visitors who aren't
+   NewsletterSignup, lightweight double-opt-in capture for visitors who aren't
    ready to start a trial. Wires the existing `subscribe()` API + newsletter
    Edge Function. `source` tags where the signup came from for attribution.
    ============================================================================= */
@@ -52,7 +52,7 @@ export function NewsletterSignup({ source = 'footer', className }: { source?: st
       <div className={cn('flex items-start gap-2.5 text-sm text-ink-muted', className)}>
         <MailCheck className="mt-0.5 h-4 w-4 flex-none text-safety" strokeWidth={1.75} />
         <span>
-          Almost there — check your inbox and click the link to confirm your subscription.
+          Almost there, check your inbox and click the link to confirm your subscription.
         </span>
       </div>
     );

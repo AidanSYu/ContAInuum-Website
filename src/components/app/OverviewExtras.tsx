@@ -3,17 +3,17 @@ import { useCountUp } from '@/lib/scroll-fx';
 import { cn } from '@/lib/utils';
 
 /* =============================================================================
-   OverviewExtras — dashboard handoff alert + stat cards.
+   OverviewExtras, dashboard handoff alert + stat cards.
    <HandoffAlert /> and <StatCards /> show DEMO data (there is no ATLAS campaign
    backend yet), so OverviewPage only renders them behind the `showDemoMetrics`
    feature flag (off by default). When the flag is off, customers see
-   <CampaignsEmptyState /> instead — no fabricated numbers.
+   <CampaignsEmptyState /> instead, no fabricated numbers.
    When the real campaign API lands, wire the values / onResolve to live queries
    and drop the flag gate.
    ============================================================================= */
 
 export function HandoffAlert({
-  title = 'Campaign 4821 paused — needs a human read',
+  title = 'Campaign 4821 paused, needs a human read',
   detail = 'ATLAS ran a TLC plate on the Pd catalyst screen and needs you to confirm the result before it resumes.',
   since = 'paused 14m ago',
   onResolve,
@@ -80,7 +80,7 @@ export function StatCards({ className }: { className?: string }) {
 }
 
 /* -----------------------------------------------------------------------------
-   CampaignsEmptyState — shown on the Overview when demo metrics are off.
+   CampaignsEmptyState, shown on the Overview when demo metrics are off.
    Honest placeholder: no numbers, just an explanation of what will appear here.
    ----------------------------------------------------------------------------- */
 export function CampaignsEmptyState({ className }: { className?: string }) {

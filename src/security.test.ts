@@ -26,7 +26,7 @@ function walk(dir: string, exts: string[]): string[] {
 }
 
 describe('the service_role key never reaches the frontend', () => {
-  // Only files actually shipped to the browser — tests/harness are excluded
+  // Only files actually shipped to the browser, tests/harness are excluded
   // (this very file legitimately mentions SERVICE_ROLE to assert the rule).
   const appFiles = walk(resolve(ROOT, 'src'), ['.ts', '.tsx']).filter(
     (f) => !/\.test\.tsx?$/.test(f) && !/[\\/]test[\\/]/.test(f),

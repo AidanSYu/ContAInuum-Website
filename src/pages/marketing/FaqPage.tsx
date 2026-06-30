@@ -2,7 +2,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { Seo } from '@/components/Seo';
 
 /* =============================================================================
-   FaqPage — objection handling for evaluating labs. Grouped by the questions a
+   FaqPage, objection handling for evaluating labs. Grouped by the questions a
    lab director actually asks before a trial: what it is, how it connects, what
    happens to their data, and how the trial/billing works.
    ============================================================================= */
@@ -24,7 +24,7 @@ const GROUPS: Group[] = [
       },
       {
         q: 'What happens when a step needs a human?',
-        a: 'Atlas pauses the campaign and notifies a scientist — like a job awaiting approval. You return a result (a TLC photo, a CSV, a note) and the run resumes from exactly where it stopped. Correct a tool call once and that correction becomes training signal.',
+        a: 'Atlas pauses the campaign and notifies a scientist, like a job awaiting approval. You return a result (a TLC photo, a CSV, a note) and the run resumes from exactly where it stopped. Correct a tool call once and that correction becomes training signal.',
       },
     ],
   },
@@ -33,7 +33,7 @@ const GROUPS: Group[] = [
     items: [
       {
         q: 'Which instruments and systems integrate?',
-        a: 'Atlas connects over open integrations to the systems labs already run — liquid handlers, plate readers, analytical instruments (e.g. LC/MS), and electronic lab notebooks. As a rule of thumb: if a step can be scripted or its output can be exported, Atlas can read it. Tell us your stack and we will confirm specifics.',
+        a: 'Atlas connects over open integrations to the systems labs already run, liquid handlers, plate readers, analytical instruments (e.g. LC/MS), and electronic lab notebooks. As a rule of thumb: if a step can be scripted or its output can be exported, Atlas can read it. Tell us your stack and we will confirm specifics.',
       },
       {
         q: 'How long does setup take?',
@@ -41,7 +41,7 @@ const GROUPS: Group[] = [
       },
       {
         q: 'Is Contineon cloud or on-premises?',
-        a: 'Atlas runs on managed, secure cloud infrastructure. Dedicated or VPC arrangements with governance controls are available for larger deployments — talk to us about your requirements.',
+        a: 'Atlas runs on managed, secure cloud infrastructure. Dedicated or VPC arrangements with governance controls are available for larger deployments, talk to us about your requirements.',
       },
     ],
   },
@@ -50,11 +50,11 @@ const GROUPS: Group[] = [
     items: [
       {
         q: 'Is my data private? Do you train shared models on it?',
-        a: 'Your lab content is yours. By default it is used only to provide the Service to your account. Cross-lab learning, where offered, is opt-in and privacy-preserving — aggregated or differentially private — and never exposes one customer’s data to another.',
+        a: 'Your lab content is yours. By default it is used only to provide the Service to your account. Cross-lab learning, where offered, is opt-in and privacy-preserving, aggregated or differentially private, and never exposes one customer’s data to another.',
       },
       {
         q: 'Can I export my data if I leave?',
-        a: 'Yes. Your knowledge graph and run history export with you. There is no lock-in — that is a deliberate design choice, not a favor.',
+        a: 'Yes. Your knowledge graph and run history export with you. There is no lock-in, that is a deliberate design choice, not a favor.',
       },
       {
         q: 'How do you secure my data?',
@@ -67,7 +67,7 @@ const GROUPS: Group[] = [
     items: [
       {
         q: 'How do I get access?',
-        a: 'We onboard a small cohort of design-partner labs at a time. Request access and we will scope an early-partner pilot for your lab on the instruments you already run — no rip-and-replace.',
+        a: 'We onboard a small cohort of design-partner labs at a time. Request access and we will scope an early-partner pilot for your lab on the instruments you already run, no rip-and-replace.',
       },
       {
         q: 'Is there a demo?',
@@ -85,7 +85,7 @@ export function FaqPage() {
   return (
     <div className="px-[5vw] pb-28 pt-32 lg:px-8 lg:pt-40">
       <Seo
-        title="FAQ — Contineon"
+        title="FAQ, Contineon"
         description="Answers to common questions about Atlas: instruments and integrations, data privacy and security, setup time, and how to get access."
         path="/faq"
       />

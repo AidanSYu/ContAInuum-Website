@@ -6,7 +6,7 @@ export type Project = Database['public']['Tables']['projects']['Row'];
 
 /**
  * Authenticated CRUD over the user's own projects. No `user_id` is ever sent
- * from the client — the column defaults to auth.uid() and RLS enforces that a
+ * from the client, the column defaults to auth.uid() and RLS enforces that a
  * user can only read/write their own rows.
  */
 
@@ -27,7 +27,7 @@ export async function createProject(input: ProjectInput): Promise<Project> {
     .select()
     .single();
   if (error) {
-    // Supabase/PostgREST RLS rejection (code 42501) — most likely a lapsed sub
+    // Supabase/PostgREST RLS rejection (code 42501), most likely a lapsed sub
     // hitting the has_active_subscription gate added in 0005.
     if (error.code === '42501' || /row-level security/i.test(error.message)) {
       throw new Error('An active subscription is required to create projects. Visit Billing to start your plan.');

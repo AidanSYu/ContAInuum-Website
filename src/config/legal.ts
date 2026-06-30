@@ -1,11 +1,11 @@
 /* =============================================================================
-   Legal facts — the single source the Terms and Privacy pages read from.
+   Legal facts, the single source the Terms and Privacy pages read from.
    Fill every `null` below with the real value BEFORE launch. Until a value is
    set, the page keeps rendering the visible [PLACEHOLDER] marker, so unfilled
    blanks stay obvious and the "review required" banner stays accurate.
 
    These are FACTS, not legal judgment. The clauses still marked
-   [REVIEW WITH COUNSEL] in the pages are a SEPARATE concern — a qualified
+   [REVIEW WITH COUNSEL] in the pages are a SEPARATE concern, a qualified
    attorney must review/finalize those, and the LegalTemplateNotice banner must
    stay until counsel signs off. Do not treat filling these blanks as having had
    the documents reviewed.
@@ -26,7 +26,7 @@ export interface LegalFacts {
   liabilityCapPeriod: string | null;
   /**
    * One concrete sentence stating data-retention windows (replaces the
-   * "[RETENTION PERIODS] — set concrete retention windows with counsel." text).
+   * "[RETENTION PERIODS], set concrete retention windows with counsel." text).
    */
   retentionPeriods: string | null;
   /**

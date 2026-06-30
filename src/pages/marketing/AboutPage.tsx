@@ -1,7 +1,7 @@
 import { Seo } from '@/components/Seo';
 
 /* =============================================================================
-   AboutPage — who is behind Contineon and why. Deliberately avoids fabricated
+   AboutPage, who is behind Contineon and why. Deliberately avoids fabricated
    bios/headshots; states the mission, the beliefs that shape the product, and
    how to meet the team (a call). Swap in real leadership once ready.
    ============================================================================= */
@@ -10,7 +10,7 @@ const BELIEFS = [
   {
     n: '01',
     h: 'Retrofit beats greenfield',
-    p: 'The lab you already run is the asset. Progress comes from giving it a memory and an autonomy layer — not from asking scientists to rebuild from scratch.',
+    p: 'The lab you already run is the asset. Progress comes from giving it a memory and an autonomy layer, not from asking scientists to rebuild from scratch.',
   },
   {
     n: '02',
@@ -20,7 +20,7 @@ const BELIEFS = [
   {
     n: '03',
     h: 'Memory should compound',
-    p: 'Most labs throw away their hardest-won knowledge at the end of a campaign. We think every run — including the failures — should make the next one smarter.',
+    p: 'Most labs throw away their hardest-won knowledge at the end of a campaign. We think every run, including the failures, should make the next one smarter.',
   },
   {
     n: '04',
@@ -33,8 +33,8 @@ export function AboutPage() {
   return (
     <div className="px-[5vw] pb-28 pt-32 lg:px-8 lg:pt-40">
       <Seo
-        title="About — Contineon"
-        description="Contineon builds the self-driving lab that remembers — retrofitting the labs scientists already run with an autonomous agent and a compounding memory."
+        title="About, Contineon"
+        description="Contineon builds the self-driving lab that remembers, retrofitting the labs scientists already run with an autonomous agent and a compounding memory."
         path="/about"
       />
 
@@ -48,7 +48,7 @@ export function AboutPage() {
           <p className="mt-6 max-w-2xl text-lg leading-relaxed text-ink-muted">
             Contineon exists to make autonomous science practical for the labs that already exist.
             Instead of a sealed robotic box that only works greenfield, we retrofit the instruments and
-            people you run today with Atlas — an agent that plans, executes, hands work back when it
+            people you run today with Atlas, an agent that plans, executes, hands work back when it
             needs a human, and remembers every campaign it touches.
           </p>
         </div>
@@ -72,7 +72,7 @@ export function AboutPage() {
           <div>
             <h2 className="font-display text-2xl font-bold tracking-tight text-ink">A distributed team, close to the bench.</h2>
             <p className="mt-3 leading-relaxed text-ink-muted">
-              We work alongside chemistry, materials, and biology labs across four hubs — building with
+              We work alongside chemistry, materials, and biology labs across four hubs, building with
               practitioners rather than for an imagined user. Partner names will be shared at launch.
             </p>
           </div>

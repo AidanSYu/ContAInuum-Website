@@ -34,7 +34,7 @@ export function EscrowListPage() {
       return () => clearTimeout(t);
     }
     if (checkout === 'cancel') {
-      toast('Funding canceled — no charge was made.');
+      toast('Funding canceled, no charge was made.');
       setParams(next, { replace: true });
     }
   }, [params, setParams, qc]);

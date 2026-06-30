@@ -3,7 +3,7 @@ import { Moon, Sun } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 /* =============================================================================
-   ThemeToggle — light/dark switch for the Lab palette.
+   ThemeToggle, light/dark switch for the Lab palette.
    Rendered in SiteHeader, the dashboard topbar, and the auth pages.
 
    The FOUC guard in index.html applies the saved theme before first paint, so

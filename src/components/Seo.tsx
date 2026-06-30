@@ -1,10 +1,10 @@
 /* =============================================================================
-   Seo — per-route head tags. React 19 hoists <title>/<meta>/<link> to <head>,
+   Seo, per-route head tags. React 19 hoists <title>/<meta>/<link> to <head>,
    so dropping <Seo/> at the top of a page sets a consistent title, description,
    canonical URL, and Open Graph / Twitter card for that route.
 
    Note: this covers JS-executing crawlers (e.g. Google). Social unfurlers and
-   bots that don't run JS still see the static index.html tags — for fully
+   bots that don't run JS still see the static index.html tags, for fully
    correct per-route unfurls, add prerendering/SSR (see follow-ups).
    ============================================================================= */
 

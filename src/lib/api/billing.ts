@@ -3,7 +3,7 @@ import { supabase } from '@/lib/supabase';
 
 /**
  * Billing calls go through Edge Functions that hold the Stripe secret key.
- * They require an authenticated user — we forward the user's JWT so the
+ * They require an authenticated user, we forward the user's JWT so the
  * function can identify them via `auth.getUser()` and never trust a client id.
  */
 async function authedPost<T>(fn: string, body: unknown): Promise<T> {
