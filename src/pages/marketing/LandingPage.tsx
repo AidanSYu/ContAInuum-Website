@@ -5,47 +5,16 @@ import { Magnetic, ParticleField } from '@/components/motion';
 import { Cta } from '@/components/marketing/ui';
 import { GridField } from '@/components/marketing/visuals';
 import { AsciiMedia } from '@/components/marketing/AsciiMedia';
+import { LoomField } from '@/components/marketing/LoomField';
 import { gsap, useGSAP, SplitText } from '@/lib/gsap';
 import { cn } from '@/lib/utils';
 
 /* =============================================================================
-   Landing — Contineon. A short cinematic mission piece. Four screens, one idea
-   each: the open, the hook, the vision, the frontier. The media carries it; the
-   words stay sparse. One typeface, one accent, one motion register. All obsidian.
+   Landing — Contineon. A short cinematic mission piece. The open, the hook,
+   what we actually build, the call. Each screen one idea, one distinct medium:
+   ISS video, a generative loom, the ASCII sun, a photographic still. The poetry
+   hooks; the specifics make it real. One typeface, one accent, all obsidian.
    ============================================================================= */
-
-/* Slow Ken Burns push on a muted autoplay video, graded to the obsidian mood. */
-function KenBurnsVideo({ src, poster, speed = 1.8 }: { src: string; poster: string; speed?: number }) {
-  const ref = useRef<HTMLVideoElement>(null);
-  useGSAP(
-    () => {
-      const mm = gsap.matchMedia();
-      mm.add('(prefers-reduced-motion: no-preference)', () => {
-        if (ref.current) {
-          gsap.fromTo(ref.current, { scale: 1.05 }, { scale: 1.15, duration: 26, ease: 'sine.inOut', repeat: -1, yoyo: true });
-        }
-      });
-      return () => mm.revert();
-    },
-    { scope: ref },
-  );
-  return (
-    <video
-      ref={ref}
-      autoPlay
-      muted
-      loop
-      playsInline
-      poster={poster}
-      onLoadedData={(e) => {
-        e.currentTarget.playbackRate = speed;
-      }}
-      className="h-full w-full object-cover will-change-transform [filter:saturate(0.82)_contrast(1.05)_brightness(0.82)]"
-    >
-      <source src={src} type="video/mp4" />
-    </video>
-  );
-}
 
 /* Cinematic still with a gentle scroll parallax. */
 function ParallaxImage({ src, className }: { src: string; className?: string }) {
@@ -204,22 +173,19 @@ export function LandingPage() {
     <>
       <Seo
         title="Contineon, industrializing breakthrough science"
-        description="Contineon is the frontier lab turning intelligence into matter. Science never had its industrial revolution. We are building the second invention factory."
+        description="Contineon builds the autonomous laboratory: foundational models that design an experiment, run it on real instruments, learn from the result, and choose what to run next. The first is Atlas."
         path="/"
       />
 
       <Hero />
 
-      {/* The hook */}
+      {/* The hook — a bespoke loom, not another Earth video */}
       <Beat
         media={
           <>
-            <div className="absolute inset-0">
-              <KenBurnsVideo src="/images/earth-night.mp4" poster="/images/earth-night-poster.jpg" speed={1.6} />
-            </div>
-            <div className="absolute inset-0 bg-gradient-to-r from-[#06080B] via-[#06080B]/75 to-[#06080B]/25" />
-            <div className="absolute inset-0 bg-[linear-gradient(to_bottom,#06080B_0%,#06080B_22%,rgba(6,8,11,0.12)_54%,#06080B_100%)]" />
-            <GridField className="opacity-25" />
+            <LoomField className="absolute inset-0" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#06080B] via-[#06080B]/55 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#06080B]/65 via-transparent to-[#06080B]/35" />
           </>
         }
       >
@@ -233,11 +199,11 @@ export function LandingPage() {
           data-beat-fade
           className="mt-8 max-w-2xl text-[clamp(17px,1.7vw,26px)] font-medium leading-snug text-white/65"
         >
-          It is still made by hand. One mind at a time. The way cloth was made before the loom.
+          It is still done by hand. One result at a time. The way cloth was made before the loom.
         </p>
       </Beat>
 
-      {/* The vision, the boom */}
+      {/* What we build — the specifics, the proof it is real */}
       <Beat
         minH="min-h-[98svh]"
         media={
@@ -251,30 +217,33 @@ export function LandingPage() {
               tint="ember"
               className="absolute inset-0"
             />
-            <div className="absolute inset-0 bg-gradient-to-b from-[#06080B] via-[#06080B]/40 to-[#06080B]" />
-            <div className="absolute inset-0 bg-gradient-to-r from-[#06080B]/90 via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-b from-[#06080B] via-[#06080B]/45 to-[#06080B]" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#06080B]/92 via-transparent to-transparent" />
             <GridField className="opacity-25" />
           </>
         }
       >
-        <p data-beat-fade className="max-w-2xl text-[clamp(17px,1.7vw,24px)] font-medium leading-snug text-white/75">
-          We are not betting it gets easier. We are betting it gets industrialized.
+        <p data-beat-fade className="font-mono text-xs uppercase tracking-[0.18em] text-safety">
+          What we build
         </p>
         <h2
           data-beat-title
-          className="mt-6 max-w-6xl text-[clamp(44px,8.6vw,150px)] font-bold leading-[0.92] tracking-[-0.05em]"
+          className="mt-5 max-w-5xl text-[clamp(40px,7.4vw,128px)] font-bold leading-[0.94] tracking-[-0.05em]"
         >
-          The second invention factory.
+          The autonomous laboratory.
         </h2>
-        <p data-beat-fade className="mt-8 max-w-2xl text-[clamp(16px,1.5vw,22px)] leading-relaxed text-white/65">
-          Intelligence turned into matter, at industrial scale. Whoever industrializes science owns
-          the fastest curve in the world.
+        <p data-beat-fade className="mt-8 max-w-3xl text-[clamp(17px,1.7vw,25px)] font-medium leading-snug text-white">
+          Foundational models that design an experiment, run it on real instruments, learn from the
+          result, and choose what to run next. On their own. At machine speed.
+        </p>
+        <p data-beat-fade className="mt-5 max-w-2xl text-[clamp(15px,1.3vw,19px)] leading-relaxed text-white/60">
+          We call the first one Atlas. It is the first machine in the second invention factory.
         </p>
       </Beat>
 
-      {/* The frontier, the close */}
+      {/* The call — specific, direct, one CTA */}
       <Beat
-        minH="min-h-[92svh]"
+        minH="min-h-[90svh]"
         media={
           <>
             <div className="absolute inset-0">
@@ -287,23 +256,18 @@ export function LandingPage() {
       >
         <h2
           data-beat-title
-          className="max-w-5xl text-[clamp(34px,5.6vw,90px)] font-bold leading-[0.98] tracking-[-0.045em]"
+          className="max-w-4xl text-[clamp(34px,5.6vw,88px)] font-bold leading-[0.98] tracking-[-0.045em]"
         >
-          The frontier was never closed. We just stopped riding out to it.
+          Come build it with us.
         </h2>
-        <p data-beat-fade className="mt-8 max-w-2xl text-[clamp(16px,1.4vw,21px)] leading-relaxed text-white/65">
-          Contineon is for the builders, scientists, and contrarians who find that unbearable, and
-          who believe the next century of science should be built, not waited for.
+        <p data-beat-fade className="mt-8 max-w-2xl text-[clamp(16px,1.5vw,22px)] leading-relaxed text-white/65">
+          We are a small team of researchers and engineers. If you build foundational models,
+          autonomous systems, or the instruments they run on, we want to talk.
         </p>
-        <div data-beat-fade className="mt-10 flex flex-wrap items-center gap-3">
+        <div data-beat-fade className="mt-10">
           <Magnetic>
             <Cta to="/contact?topic=partner" variant="accent">
               Request access <ArrowRight className="h-4 w-4" />
-            </Cta>
-          </Magnetic>
-          <Magnetic>
-            <Cta to="/platform" variant="outlineLight">
-              See Atlas
             </Cta>
           </Magnetic>
         </div>
