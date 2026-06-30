@@ -11,7 +11,7 @@
 @layer base {
   :root {
     /* shadcn ui/* tokens — light (the default page surface). */
-    --background: 48 20% 95%;        /* paper */
+    --background: 210 17% 96%;        /* paper */
     --foreground: 220 17% 9%;        /* ink  */
     --card: 0 0% 100%;
     --card-foreground: 220 17% 9%;
@@ -27,8 +27,8 @@
     --accent-foreground: 220 17% 9%;
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
-    --border: 43 17% 87%;            /* warm hairline */
-    --input: 43 17% 87%;
+    --border: 214 14% 90%;            /* warm hairline */
+    --input: 214 14% 90%;
     --ring: 15 78% 53%;              /* ember accent */
     --radius: 0.5rem;
     --sidebar-background: 0 0% 100%;
@@ -41,15 +41,15 @@
     --sidebar-ring: 15 78% 53%;
 
     /* Contineon palette as raw variables — light. */
-    --paper: #F6F5F1;
+    --paper: #F3F4F5;
     --surface: #FFFFFF;
-    --panel: #EEEDE7;
+    --panel: #EBEDEF;
     --ink: #14171C;
     --ink-muted: #565B63;
-    --ink-faint: #8C9098;
-    --line: #E4E1D9;
+    --ink-faint: #878D96;
+    --line: #E3E5E8;
     --line-strong: #14171C;
-    --hairline-strong: #D5D1C7;
+    --hairline-strong: #D2D6DB;
     --safety: #E55B2B;
     --accent-warm: #E55B2B;
   }
@@ -58,7 +58,7 @@
      light body" system). Same semantic tokens flip, so bg-paper / text-ink /
      border-line all just work inside a .dark block. */
   .dark {
-    --background: 220 22% 6%;
+    --background: 220 13% 5%;
     --foreground: 45 16% 94%;
     --card: 218 20% 9%;
     --card-foreground: 45 16% 94%;
@@ -74,8 +74,8 @@
     --accent-foreground: 45 16% 94%;
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
-    --border: 218 16% 16%;
-    --input: 218 16% 16%;
+    --border: 220 14% 15%;
+    --input: 220 14% 15%;
     --ring: 16 87% 59%;
     --sidebar-background: 218 20% 9%;
     --sidebar-foreground: 45 16% 94%;
@@ -86,17 +86,17 @@
     --sidebar-border: 218 16% 16%;
     --sidebar-ring: 16 87% 59%;
 
-    --paper: #0B0D11;
-    --surface: #12151B;
-    --panel: #181C23;
-    --ink: #F3F2EE;
-    --ink-muted: #A2A7B0;
+    --paper: #0A0B0D;
+    --surface: #101216;
+    --panel: #161A20;
+    --ink: #ECECE8;
+    --ink-muted: #9AA0A8;
     --ink-faint: #6B7079;
-    --line: #232830;
-    --line-strong: #F3F2EE;
-    --hairline-strong: #313742;
-    --safety: #F26A3A;
-    --accent-warm: #F26A3A;
+    --line: #20242B;
+    --line-strong: #ECECE8;
+    --hairline-strong: #2C313A;
+    --safety: #F2613A;
+    --accent-warm: #F2613A;
   }
 }
 

@@ -1,10 +1,11 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { Seo } from '@/components/Seo';
-import { Reveal } from '@/components/motion';
+import { Reveal, Magnetic, ParticleField } from '@/components/motion';
 import { Cta, Kicker } from '@/components/marketing/ui';
 import { GridField, Plate } from '@/components/marketing/visuals';
-import { gsap, useGSAP, SplitText } from '@/lib/gsap';
+import { gsap, useGSAP, SplitText, ScrollTrigger } from '@/lib/gsap';
+import { cn } from '@/lib/utils';
 
 /* =============================================================================
    Landing — Contineon MISSION page. The thesis: industrializing breakthrough
@@ -52,6 +53,7 @@ function Hero() {
         <div className="absolute inset-0 bg-gradient-to-b from-[#06080B]/55 via-[#06080B]/35 to-[#06080B]/95" />
         <div className="absolute inset-0 bg-gradient-to-r from-[#06080B]/85 via-transparent to-transparent" />
       </div>
+      <ParticleField className="pointer-events-none absolute inset-0 z-[1]" />
       <GridField className="opacity-[0.5]" />
 
       <div className="relative z-10 mx-auto w-full max-w-7xl px-[5vw] pb-20 pt-32 lg:px-8 xl:px-16">
@@ -71,12 +73,16 @@ function Hero() {
             breakthroughs arrive on a cadence instead of by accident.
           </p>
           <div data-hero-fade className="mt-9 flex flex-wrap items-center gap-3">
-            <Cta to="/contact?topic=partner" variant="accent">
-              Request access <ArrowRight className="h-4 w-4" />
-            </Cta>
-            <Cta to="/platform" variant="outlineLight">
-              See Atlas
-            </Cta>
+            <Magnetic>
+              <Cta to="/contact?topic=partner" variant="accent">
+                Request access <ArrowRight className="h-4 w-4" />
+              </Cta>
+            </Magnetic>
+            <Magnetic>
+              <Cta to="/platform" variant="outlineLight">
+                See Atlas
+              </Cta>
+            </Magnetic>
           </div>
         </div>
       </div>
@@ -115,6 +121,100 @@ const PILLARS = [
   },
 ];
 
+function PillarsScrolly() {
+  const root = useRef<HTMLDivElement>(null);
+  const [active, setActive] = useState(0);
+
+  useGSAP(
+    () => {
+      const blocks = gsap.utils.toArray<HTMLElement>('[data-pillar]');
+      const triggers = blocks.map((b, i) =>
+        ScrollTrigger.create({
+          trigger: b,
+          start: 'top center',
+          end: 'bottom center',
+          onToggle: (self) => {
+            if (self.isActive) setActive(i);
+          },
+        }),
+      );
+      return () => triggers.forEach((t) => t.kill());
+    },
+    { scope: root },
+  );
+
+  return (
+    <section id="pillars" className="dark relative bg-paper text-ink">
+      <GridField className="opacity-40" />
+      <div className="relative z-10 mx-auto max-w-7xl px-[5vw] pt-[clamp(72px,10vw,140px)] lg:px-8 xl:px-16">
+        <Reveal className="max-w-2xl">
+          <Kicker className="text-safety">How we do it</Kicker>
+          <h2 className="mt-4 text-[clamp(28px,3.6vw,50px)] font-bold leading-[1.03] tracking-[-0.03em]">
+            Four bets, built as one company.
+          </h2>
+        </Reveal>
+
+        <div ref={root} className="mt-10 grid gap-x-16 lg:grid-cols-2">
+          {/* sticky visual (desktop) */}
+          <div className="hidden lg:block">
+            <div className="sticky top-28">
+              <div className="relative aspect-[4/3]">
+                {PILLARS.map((p, i) => (
+                  <div
+                    key={p.n}
+                    className={cn(
+                      'absolute inset-0 transition-opacity duration-500',
+                      active === i ? 'opacity-100' : 'opacity-0',
+                    )}
+                  >
+                    <Plate src={p.plate.src} label={p.plate.label} className="h-full" />
+                  </div>
+                ))}
+              </div>
+              <div className="mt-6 flex items-center gap-4">
+                <span className="font-mono text-sm text-safety">{PILLARS[active].n}</span>
+                <span className="lab-label">{PILLARS[active].name}</span>
+                <span className="ml-auto flex gap-1.5">
+                  {PILLARS.map((p, i) => (
+                    <span
+                      key={p.n}
+                      className={cn('h-1 w-6 rounded-full transition-colors', active === i ? 'bg-safety' : 'bg-line')}
+                    />
+                  ))}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* scrolling text track */}
+          <div>
+            {PILLARS.map((p, i) => (
+              <div
+                key={p.n}
+                data-pillar={i}
+                className="flex min-h-[72vh] flex-col justify-center py-10 lg:border-b lg:border-line lg:last:border-b-0"
+              >
+                <div className="flex items-baseline gap-4 lg:hidden">
+                  <span className="font-mono text-sm text-safety">{p.n}</span>
+                  <span className="lab-label">{p.name}</span>
+                </div>
+                <h3 className="mt-4 max-w-xl text-[clamp(24px,2.8vw,42px)] font-bold leading-[1.06] tracking-[-0.025em] lg:mt-0">
+                  {p.headline}
+                </h3>
+                <p className="mt-5 max-w-xl text-[clamp(15px,1.1vw,18px)] leading-relaxed text-ink-muted">
+                  {p.body}
+                </p>
+                <Plate src={p.plate.src} label={p.plate.label} className="mt-8 aspect-[4/3] lg:hidden" />
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="h-[clamp(48px,8vw,110px)]" />
+      </div>
+    </section>
+  );
+}
+
 export function LandingPage() {
   return (
     <>
@@ -150,45 +250,8 @@ export function LandingPage() {
         </div>
       </section>
 
-      {/* Pillars — dark, alternating rows with cinematic plates */}
-      <section id="pillars" className="dark relative overflow-hidden bg-paper py-[clamp(72px,10vw,140px)] text-ink">
-        <GridField className="opacity-40" />
-        <div className="relative z-10 mx-auto max-w-7xl px-[5vw] lg:px-8 xl:px-16">
-          <Reveal className="max-w-2xl">
-            <Kicker className="text-safety">How we do it</Kicker>
-            <h2 className="mt-4 text-[clamp(28px,3.6vw,50px)] font-bold leading-[1.03] tracking-[-0.03em]">
-              Four bets, built as one company.
-            </h2>
-          </Reveal>
-
-          <div className="mt-16 flex flex-col gap-[clamp(56px,9vw,120px)]">
-            {PILLARS.map((p, i) => (
-              <Reveal
-                key={p.n}
-                className={`grid items-center gap-x-12 gap-y-8 lg:grid-cols-2 ${i % 2 === 1 ? '' : ''}`}
-              >
-                <div className={i % 2 === 1 ? 'lg:order-2' : ''}>
-                  <div className="flex items-baseline gap-4">
-                    <span className="font-mono text-sm text-safety">{p.n}</span>
-                    <span className="lab-label">{p.name}</span>
-                  </div>
-                  <h3 className="mt-5 max-w-xl text-[clamp(24px,2.8vw,40px)] font-bold leading-[1.06] tracking-[-0.025em]">
-                    {p.headline}
-                  </h3>
-                  <p className="mt-5 max-w-xl text-[clamp(15px,1.1vw,18px)] leading-relaxed text-ink-muted">
-                    {p.body}
-                  </p>
-                </div>
-                <Plate
-                  src={p.plate.src}
-                  label={p.plate.label}
-                  className={`aspect-[4/3] ${i % 2 === 1 ? 'lg:order-1' : ''}`}
-                />
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* Pillars — pinned scrollytelling */}
+      <PillarsScrolly />
 
       {/* Atlas teaser — light band */}
       <section className="border-y border-line bg-surface py-[clamp(72px,10vw,140px)]">
@@ -237,12 +300,16 @@ export function LandingPage() {
               worth their years, and that the next century of science should be built, not waited for.
             </p>
             <div className="mt-9 flex flex-wrap gap-3">
-              <Cta to="/contact?topic=partner" variant="accent">
-                Request access <ArrowRight className="h-4 w-4" />
-              </Cta>
-              <Cta to="/contact?topic=demo" variant="outlineLight">
-                Book a demo
-              </Cta>
+              <Magnetic>
+                <Cta to="/contact?topic=partner" variant="accent">
+                  Request access <ArrowRight className="h-4 w-4" />
+                </Cta>
+              </Magnetic>
+              <Magnetic>
+                <Cta to="/contact?topic=demo" variant="outlineLight">
+                  Book a demo
+                </Cta>
+              </Magnetic>
             </div>
           </Reveal>
         </div>
