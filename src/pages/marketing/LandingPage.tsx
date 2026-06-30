@@ -15,7 +15,7 @@ import { cn } from '@/lib/utils';
 
 function Hero() {
   const root = useRef<HTMLElement>(null);
-  const img = useRef<HTMLImageElement>(null);
+  const media = useRef<HTMLVideoElement>(null);
 
   useGSAP(
     () => {
@@ -27,9 +27,14 @@ function Hero() {
           gsap.from(split.words, { yPercent: 115, duration: 1.05, ease: 'power4.out', stagger: 0.045, delay: 0.15 });
         }
         gsap.from('[data-hero-fade]', { opacity: 0, y: 18, duration: 0.9, ease: 'power3.out', stagger: 0.12, delay: 0.5 });
-        if (img.current) {
-          gsap.to(img.current, {
-            yPercent: 18,
+        if (media.current) {
+          gsap.fromTo(
+            media.current,
+            { scale: 1.06 },
+            { scale: 1.16, duration: 24, ease: 'sine.inOut', repeat: -1, yoyo: true },
+          );
+          gsap.to(media.current, {
+            yPercent: 16,
             ease: 'none',
             scrollTrigger: { trigger: root.current, start: 'top top', end: 'bottom top', scrub: true },
           });
@@ -43,13 +48,17 @@ function Hero() {
   return (
     <section ref={root} className="dark relative flex min-h-[100svh] items-end overflow-hidden bg-paper text-ink">
       <div className="absolute inset-0">
-        <img
-          ref={img}
-          src="/images/sr71-quote-wide.png"
-          alt=""
-          className="h-[118%] w-full object-cover"
-          fetchPriority="high"
-        />
+        <video
+          ref={media}
+          className="h-[118%] w-full object-cover will-change-transform [filter:saturate(0.85)_contrast(1.04)_brightness(0.9)]"
+          autoPlay
+          muted
+          loop
+          playsInline
+          poster="/images/airglow.jpg"
+        >
+          <source src="/images/iss-earth.mp4" type="video/mp4" />
+        </video>
         <div className="absolute inset-0 bg-gradient-to-b from-[#06080B]/55 via-[#06080B]/35 to-[#06080B]/95" />
         <div className="absolute inset-0 bg-gradient-to-r from-[#06080B]/85 via-transparent to-transparent" />
       </div>
