@@ -98,7 +98,7 @@ function Hero() {
 /* ----------------------------- Thesis (one beat) ---------------------------- */
 function Thesis() {
   return (
-    <section id="thesis" className="dark relative flex min-h-[88vh] items-center overflow-hidden bg-paper text-ink">
+    <section id="thesis" className="dark relative flex min-h-[88vh] items-center overflow-hidden bg-[#06080B] text-ink">
       <AsciiMedia
         src="/images/gargantua-blackhole.png"
         type="image"
@@ -115,13 +115,13 @@ function Thesis() {
         </Reveal>
         <Reveal delay={0.03}>
           <h2 className="mt-5 text-[clamp(34px,6vw,86px)] font-bold leading-[0.98] tracking-[-0.04em]">
-            Science is the last great craft.
+            Science never had its industrial revolution.
           </h2>
         </Reveal>
         <div className="mt-10 max-w-3xl space-y-5 text-[clamp(18px,2.1vw,30px)] font-medium leading-[1.18] tracking-[-0.02em]">
           <Reveal delay={0.05}>
             <p className="text-white/55">
-              Still made by hand. One mind at a time. The way cloth was made before the loom.
+              It is still made by hand. One mind at a time. The way cloth was made before the loom.
             </p>
           </Reveal>
           <Reveal delay={0.1}>
@@ -154,7 +154,7 @@ const ATLAS_LOOP: Array<[string, string]> = [
 
 function Atlas() {
   return (
-    <section className="dark relative overflow-hidden bg-paper py-[clamp(80px,12vw,160px)] text-ink">
+    <section className="dark relative overflow-hidden bg-[#06080B] py-[clamp(80px,12vw,160px)] text-ink">
       <GridField className="opacity-25" />
       <div className="relative z-10 mx-auto max-w-7xl px-[5vw] lg:px-8 xl:px-16">
         <div className="grid items-center gap-12 lg:grid-cols-2">
@@ -263,7 +263,7 @@ function ProductCard({ p }: { p: Product }) {
 
 function ProductsGrid() {
   return (
-    <section id="products" className="border-y border-line bg-surface py-[clamp(72px,10vw,140px)]">
+    <section id="products" className="relative bg-surface py-[clamp(72px,10vw,140px)]">
       <div className="mx-auto max-w-7xl px-[5vw] lg:px-8 xl:px-16">
         <Reveal className="max-w-2xl">
           <Kicker className="text-safety">What we are building</Kicker>
@@ -293,7 +293,7 @@ function NewsletterSignup() {
   const [email, setEmail] = useState('');
   const [done, setDone] = useState(false);
   return (
-    <section className="dark relative overflow-hidden bg-paper text-ink">
+    <section className="dark relative overflow-hidden bg-[#06080B] text-ink">
       <GridField className="opacity-20" />
       <div className="relative z-10 mx-auto max-w-7xl px-[5vw] py-[clamp(56px,8vw,96px)] lg:px-8 xl:px-16">
         <div className="grid gap-8 lg:grid-cols-2 lg:items-center">
@@ -345,7 +345,7 @@ function NewsletterSignup() {
 /* ------------------------------- Close (CTA) -------------------------------- */
 function Close() {
   return (
-    <section className="dark relative overflow-hidden bg-paper text-ink">
+    <section className="dark relative overflow-hidden bg-[#06080B] text-ink">
       <div className="absolute inset-0">
         <img src="/images/sr71-quote-wide.png" alt="" className="h-full w-full object-cover opacity-45" />
         <div className="absolute inset-0 bg-gradient-to-b from-[#06080B]/85 to-[#06080B]/96" />
@@ -391,7 +391,9 @@ export function LandingPage() {
       <Hero />
       <Thesis />
       <Atlas />
+      <div aria-hidden className="h-[clamp(64px,9vw,120px)] bg-gradient-to-b from-[#06080B] to-[#FFFFFF]" />
       <ProductsGrid />
+      <div aria-hidden className="h-[clamp(64px,9vw,120px)] bg-gradient-to-b from-[#FFFFFF] to-[#06080B]" />
       <NewsletterSignup />
       <Close />
     </>
