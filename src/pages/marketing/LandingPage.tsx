@@ -25,7 +25,7 @@ function ParallaxImage({ src, className }: { src: string; className?: string }) 
       mm.add('(prefers-reduced-motion: no-preference)', () => {
         if (ref.current) {
           gsap.to(ref.current, {
-            yPercent: 12,
+            yPercent: 6,
             ease: 'none',
             scrollTrigger: { trigger: ref.current, start: 'top bottom', end: 'bottom top', scrub: true },
           });
@@ -35,7 +35,7 @@ function ParallaxImage({ src, className }: { src: string; className?: string }) 
     },
     { scope: ref },
   );
-  return <img ref={ref} src={src} alt="" className={cn('h-[118%] w-full object-cover', className)} />;
+  return <img ref={ref} src={src} alt="" className={cn('h-full w-full object-contain object-center', className)} />;
 }
 
 /* A full-bleed cinematic beat: media behind, one statement in front. The
@@ -228,21 +228,19 @@ export function LandingPage() {
           </>
         }
       >
-        <p data-beat-fade className="font-mono text-xs uppercase tracking-[0.18em] text-safety">
-          What we build
-        </p>
         <h2
           data-beat-title
-          className="mt-5 max-w-5xl text-[clamp(40px,7.4vw,128px)] font-bold leading-[0.94] tracking-[-0.05em]"
+          className="max-w-5xl text-[clamp(36px,6.6vw,100px)] font-bold leading-[0.96] tracking-[-0.045em]"
         >
-          The autonomous laboratory.
+          We are building the invention factory.
         </h2>
-        <p data-beat-fade className="mt-8 max-w-3xl text-[clamp(17px,1.7vw,25px)] font-medium leading-snug text-white">
-          Foundational models that design an experiment, run it on real instruments, learn from the
-          result, and choose what to run next. On their own. At machine speed.
-        </p>
-        <p data-beat-fade className="mt-5 max-w-2xl text-[clamp(15px,1.3vw,19px)] leading-relaxed text-white/60">
-          We call the first one Atlas. It is the first machine in the second invention factory.
+        <p
+          data-beat-fade
+          className="mt-8 max-w-5xl text-[clamp(18px,1.7vw,24px)] font-medium leading-snug text-white/85"
+        >
+          Foundational model systems that design an experiment, run it on real instruments, learn from
+          the result, and choose what to run next. On their own. At machine speed.{' '}
+          <span className="text-safety">In every existing lab.</span>
         </p>
       </Beat>
 
@@ -252,9 +250,10 @@ export function LandingPage() {
         media={
           <>
             <div className="absolute inset-0">
-              <ParallaxImage src="/images/sr71-quote-wide.png" className="opacity-50" />
+              <ParallaxImage src="/images/sr71-quote-wide.png" className="opacity-[0.62]" />
             </div>
-            <div className="absolute inset-0 bg-gradient-to-b from-[#06080B]/80 via-[#06080B]/70 to-[#06080B]/96" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#06080B] via-[#06080B]/35 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-b from-[#06080B]/45 via-transparent to-[#06080B]/55" />
             <GridField className="opacity-20" />
           </>
         }
