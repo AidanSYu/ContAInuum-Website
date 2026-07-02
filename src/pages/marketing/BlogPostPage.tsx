@@ -44,8 +44,8 @@ export function BlogPostPage() {
             See it on your bench.
           </p>
           <div className="mt-6">
-            <Cta to="/contact?topic=partner" variant="accent">
-              Request access <ArrowRight className="h-4 w-4" />
+            <Cta to="/docs" variant="accent">
+              Get started <ArrowRight className="h-4 w-4" />
             </Cta>
           </div>
         </div>

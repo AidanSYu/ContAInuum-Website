@@ -227,8 +227,8 @@ export function LandingPage() {
         </p>
         <div data-beat-fade className="mt-10">
           <Magnetic>
-            <Cta to="/contact?topic=partner" variant="accent">
-              Request access <ArrowRight className="h-4 w-4" />
+            <Cta to="/docs" variant="accent">
+              Get started <ArrowRight className="h-4 w-4" />
             </Cta>
           </Magnetic>
         </div>

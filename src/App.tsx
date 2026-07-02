@@ -1,9 +1,7 @@
 import { Suspense, lazy } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
-import { MarketingLayout, AuthLayout, DashboardLayout } from '@/components/layout';
-import { RequireAuth } from '@/components/auth/RequireAuth';
-import { RequireAdmin } from '@/components/auth/RequireAdmin';
+import { MarketingLayout } from '@/components/layout';
 import { Spinner } from '@/components/ui/spinner';
 
 /* Route-level code splitting, each page ships in its own chunk. */
@@ -38,36 +36,6 @@ const ChangelogPage = lazy(() =>
   import('@/pages/marketing/ChangelogPage').then((m) => ({ default: m.ChangelogPage })),
 );
 
-const LoginPage = lazy(() => import('@/pages/auth/LoginPage').then((m) => ({ default: m.LoginPage })));
-const SignupPage = lazy(() =>
-  import('@/pages/auth/SignupPage').then((m) => ({ default: m.SignupPage })),
-);
-const ForgotPasswordPage = lazy(() =>
-  import('@/pages/auth/ForgotPasswordPage').then((m) => ({ default: m.ForgotPasswordPage })),
-);
-const ResetPasswordPage = lazy(() =>
-  import('@/pages/auth/ResetPasswordPage').then((m) => ({ default: m.ResetPasswordPage })),
-);
-
-const OverviewPage = lazy(() =>
-  import('@/pages/app/OverviewPage').then((m) => ({ default: m.OverviewPage })),
-);
-const ProjectsPage = lazy(() =>
-  import('@/pages/app/ProjectsPage').then((m) => ({ default: m.ProjectsPage })),
-);
-const SettingsPage = lazy(() =>
-  import('@/pages/app/SettingsPage').then((m) => ({ default: m.SettingsPage })),
-);
-const EscrowListPage = lazy(() =>
-  import('@/pages/app/EscrowListPage').then((m) => ({ default: m.EscrowListPage })),
-);
-const EscrowDetailPage = lazy(() =>
-  import('@/pages/app/EscrowDetailPage').then((m) => ({ default: m.EscrowDetailPage })),
-);
-const AdminEscrowPage = lazy(() =>
-  import('@/pages/app/admin/AdminEscrowPage').then((m) => ({ default: m.AdminEscrowPage })),
-);
-
 const NotFoundPage = lazy(() =>
   import('@/pages/NotFoundPage').then((m) => ({ default: m.NotFoundPage })),
 );
@@ -84,7 +52,7 @@ function App() {
   return (
     <Suspense fallback={<PageFallback />}>
       <Routes>
-        {/* Public marketing */}
+        {/* Public marketing, Atlas is open source, no login required */}
         <Route element={<MarketingLayout />}>
           <Route index element={<LandingPage />} />
           <Route path="platform" element={<AtlasPage />} />
@@ -98,28 +66,6 @@ function App() {
           <Route path="blog" element={<BlogPage />} />
           <Route path="blog/:slug" element={<BlogPostPage />} />
           <Route path="changelog" element={<ChangelogPage />} />
-        </Route>
-
-        {/* Auth */}
-        <Route element={<AuthLayout />}>
-          <Route path="login" element={<LoginPage />} />
-          <Route path="signup" element={<SignupPage />} />
-          <Route path="forgot-password" element={<ForgotPasswordPage />} />
-          <Route path="reset-password" element={<ResetPasswordPage />} />
-        </Route>
-
-        {/* Authenticated app (no self-serve billing, access is provisioned) */}
-        <Route element={<RequireAuth />}>
-          <Route path="app" element={<DashboardLayout />}>
-            <Route index element={<OverviewPage />} />
-            <Route path="projects" element={<ProjectsPage />} />
-            <Route path="settings" element={<SettingsPage />} />
-            <Route path="escrow" element={<EscrowListPage />} />
-            <Route path="escrow/:id" element={<EscrowDetailPage />} />
-            <Route element={<RequireAdmin />}>
-              <Route path="admin/escrow" element={<AdminEscrowPage />} />
-            </Route>
-          </Route>
         </Route>
 
         <Route path="*" element={<NotFoundPage />} />

@@ -52,8 +52,8 @@ export function BlogPage() {
             data-beat-fade
             className="mt-7 max-w-2xl type-lede text-white/75"
           >
-            How we think about autonomous science, the retrofit thesis, and what we’re learning with
-            design partners.
+            How we think about autonomous science, the retrofit thesis, and what we’re learning
+            building Atlas in the open.
           </p>
         </div>
       </Beat>

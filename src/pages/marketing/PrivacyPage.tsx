@@ -23,16 +23,16 @@ export function PrivacyPage() {
 
         <LegalSection n="1" heading="Information we collect">
           <p>
-            <strong className="text-ink">Account information.</strong> When you create an account we
-            store your email address and the full name you provide at sign-up. Email is held in our
-            authentication system; your name is stored in your profile record. We also store a role
-            flag used for access control.
+            <strong className="text-ink">Account information.</strong> This site does not offer sign-up,
+            and using the open-source Atlas software requires no account with us. If you use an optional
+            hosted or supported deployment, that service may store your email address, name, and a role
+            flag used for access control. <Placeholder>[REVIEW WITH COUNSEL]</Placeholder>
           </p>
           <p>
             <strong className="text-ink">Billing information.</strong> Contineon does not currently
             operate self-serve payments and does not collect or store card or billing details through
-            this site. Where a design-partner pilot involves fees, those are handled under a separate
-            engagement agreement. <Placeholder>[REVIEW WITH COUNSEL]</Placeholder>
+            this site. Where a hosted or supported deployment involves fees, those are handled under a
+            separate engagement agreement. <Placeholder>[REVIEW WITH COUNSEL]</Placeholder>
           </p>
           <p>
             <strong className="text-ink">Contact form.</strong> When you submit the contact form we
@@ -42,15 +42,16 @@ export function PrivacyPage() {
             block automated abuse.
           </p>
           <p>
-            <strong className="text-ink">Newsletter / waitlist.</strong> If you subscribe, we store
+            <strong className="text-ink">Newsletter.</strong> If you subscribe, we store
             your email address, the source of the sign-up, and your confirmation status. We use{' '}
             <strong className="text-ink">double opt-in</strong>: a confirmation email is sent and your
             subscription is only activated after you click the link. You can unsubscribe at any time.
           </p>
           <p>
-            <strong className="text-ink">Authentication &amp; session data.</strong> We use cookies
-            and similar local storage to keep you signed in and to maintain your session securely.
-            These are necessary for the account area to function.
+            <strong className="text-ink">Cookies &amp; local storage.</strong> We use a small number of
+            essential cookies and similar local storage to remember your preferences (such as light or
+            dark theme) and to operate the site securely. We do not use them to track you across other
+            sites.
           </p>
           <p>
             <strong className="text-ink">Lab content.</strong> The campaigns, protocols, traces,

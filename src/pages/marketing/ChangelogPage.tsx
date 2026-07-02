@@ -18,12 +18,12 @@ type Entry = { date: string; title: string; changes: { tag: Tag; text: string }[
 const ENTRIES: Entry[] = [
   {
     date: '2026-06-23',
-    title: 'Private trial site',
+    title: 'Launch site',
     changes: [
       { tag: 'new', text: 'Atlas Framework product page, plus FAQ, Security, and About.' },
       { tag: 'new', text: 'Newsletter sign-up and a book-a-demo path.' },
       { tag: 'improved', text: 'Refreshed identity, new Contineon brand, type, and cinematic imagery.' },
-      { tag: 'improved', text: 'Access is now request-based for design-partner labs.' },
+      { tag: 'improved', text: 'Atlas is open source, install it from the docs and run your own campaigns.' },
     ],
   },
 ];
@@ -67,7 +67,7 @@ export function ChangelogPage() {
             What’s new.
           </h1>
           <p data-beat-fade className="type-lede mt-7 max-w-2xl text-white/75">
-            Product updates as we move from private trial toward launch.
+            Product updates as we build Atlas in the open.
           </p>
         </div>
       </Beat>

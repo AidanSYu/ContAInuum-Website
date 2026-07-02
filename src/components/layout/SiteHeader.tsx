@@ -3,7 +3,6 @@ import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, ChevronDown } from 'lucide-react';
 import { Logo } from './Logo';
 import { Button } from '@/components/ui/button';
-import { useAuth } from '@/lib/auth';
 import { cn } from '@/lib/utils';
 import { DarkHeroContext } from './darkHero';
 
@@ -30,13 +29,21 @@ const NAV: NavEntry[] = [
 ];
 
 export function SiteHeader() {
-  const { user } = useAuth();
   const { pathname } = useLocation();
   const { darkHero } = useContext(DarkHeroContext);
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [menu, setMenu] = useState<string | null>(null);
+  const [prevPath, setPrevPath] = useState(pathname);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Close any open menu when the route changes. Adjusting state during render
+  // (React's recommended pattern) instead of an effect avoids a cascading render.
+  if (pathname !== prevPath) {
+    setPrevPath(pathname);
+    setOpen(false);
+    setMenu(null);
+  }
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -44,12 +51,6 @@ export function SiteHeader() {
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
-
-  // Close menus on navigation.
-  useEffect(() => {
-    setOpen(false);
-    setMenu(null);
-  }, [pathname]);
 
   // Escape closes any open menu (dropdown or mobile).
   useEffect(() => {
@@ -151,29 +152,9 @@ export function SiteHeader() {
         </nav>
 
         <div className="hidden items-center gap-1.5 md:flex">
-          {user ? (
-            <Button asChild size="sm" className="bg-safety text-white hover:bg-safety/90">
-              <Link to="/app">Dashboard</Link>
-            </Button>
-          ) : (
-            <>
-              <Button
-                asChild
-                variant="ghost"
-                size="sm"
-                className={cn(
-                  darkTop
-                    ? 'text-white/80 hover:bg-white/10 hover:text-white'
-                    : 'text-ink-muted hover:text-ink',
-                )}
-              >
-                <Link to="/login">Sign in</Link>
-              </Button>
-              <Button asChild size="sm" className="bg-safety text-white hover:bg-safety/90">
-                <Link to="/contact?topic=partner">Request access</Link>
-              </Button>
-            </>
-          )}
+          <Button asChild size="sm" className="bg-safety text-white hover:bg-safety/90">
+            <Link to="/docs">Get started</Link>
+          </Button>
         </div>
 
         <button
@@ -216,20 +197,9 @@ export function SiteHeader() {
               ),
             )}
             <div className="mt-3 flex flex-col gap-2 border-t border-line pt-4">
-              {user ? (
-                <Button asChild className="bg-safety text-white hover:bg-safety/90">
-                  <Link to="/app">Dashboard</Link>
-                </Button>
-              ) : (
-                <>
-                  <Button asChild variant="outline">
-                    <Link to="/login">Sign in</Link>
-                  </Button>
-                  <Button asChild className="bg-safety text-white hover:bg-safety/90">
-                    <Link to="/contact?topic=partner">Request access</Link>
-                  </Button>
-                </>
-              )}
+              <Button asChild className="bg-safety text-white hover:bg-safety/90">
+                <Link to="/docs">Get started</Link>
+              </Button>
             </div>
           </nav>
         </div>

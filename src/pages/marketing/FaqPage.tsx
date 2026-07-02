@@ -9,8 +9,8 @@ import { DarkPageShell } from '@/components/marketing/DarkPageShell';
 
 /* =============================================================================
    FaqPage, objection handling for evaluating labs. Grouped by the questions a
-   lab director actually asks before a trial: what it is, how it connects, what
-   happens to their data, and how the trial/billing works.
+   lab director actually asks before adopting Atlas: what it is, how it connects,
+   what happens to their data, and how to get started with the open-source stack.
    ============================================================================= */
 
 type QA = { q: string; a: string };
@@ -69,11 +69,11 @@ const GROUPS: Group[] = [
     ],
   },
   {
-    group: 'Access & onboarding',
+    group: 'Getting started',
     items: [
       {
-        q: 'How do I get access?',
-        a: 'We onboard a small cohort of design-partner labs at a time. Request access and we will scope an early-partner pilot for your lab on the instruments you already run, no rip-and-replace.',
+        q: 'How do I get Atlas?',
+        a: 'Atlas is open source. There is no waitlist and no access request, install it from the docs, point it at the instruments you already run, and start your first campaign. The quickstart walks you through setup end to end.',
       },
       {
         q: 'Is there a demo?',
@@ -81,7 +81,7 @@ const GROUPS: Group[] = [
       },
       {
         q: 'What support do I get?',
-        a: 'Design partners work directly with the team building Atlas, with response times scoped to your pilot.',
+        a: 'Atlas is built in the open, so the docs and issue tracker are the fastest path for most questions. Teams that need hands-on onboarding, governance, or response-time guarantees can talk to us about a supported deployment.',
       },
     ],
   },
@@ -92,7 +92,7 @@ export function FaqPage() {
     <DarkPageShell>
       <Seo
         title="FAQ, Contineon"
-        description="Answers to common questions about Atlas: instruments and integrations, data privacy and security, setup time, and how to get access."
+        description="Answers to common questions about Atlas: instruments and integrations, data privacy and security, setup time, and how to get started with the open-source stack."
         path="/faq"
       />
 
@@ -163,8 +163,8 @@ export function FaqPage() {
               Ready to see it on your bench?
             </p>
             <div className="flex flex-wrap items-center gap-3">
-              <Cta to="/contact?topic=partner" variant="accent">
-                Request access <ArrowRight className="h-4 w-4" />
+              <Cta to="/docs" variant="accent">
+                Get started <ArrowRight className="h-4 w-4" />
               </Cta>
               <Cta to="/contact?topic=demo" variant="outlineLight">
                 Book a demo

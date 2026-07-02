@@ -9,8 +9,8 @@ import { DarkPageShell } from '@/components/marketing/DarkPageShell';
 /* =============================================================================
    SecurityPage, the trust posture a lab needs before it connects Atlas to its
    instruments and data. Honest about what exists today vs. what is on the
-   roadmap (the product is in private trial). Cinematic obsidian: a compact
-   GridField hero, then a hairline spec list, mono readout rows, and one call.
+   roadmap (Atlas is open source and under active development). Cinematic obsidian:
+   a compact GridField hero, then a hairline spec list, mono readout rows, and one call.
    ============================================================================= */
 
 const PILLARS = [
@@ -198,10 +198,12 @@ export function SecurityPage() {
             Honest about today, clear about the roadmap.
           </h2>
           <p data-beat-fade className="type-lede mt-7 max-w-2xl text-white/75">
-            Contineon is in private trial. The protections above are in place now. Formal attestations
-            (such as SOC 2) and a published Data Processing Addendum are on our roadmap as we move
-            toward general availability. If your evaluation needs a specific control, certification, or
-            contractual term, tell us, we would rather scope it with you than over-claim.
+            Atlas is open source and under active development. On the hosted service the protections
+            above are in place now, and self-hosting keeps your data entirely inside your own
+            infrastructure. Formal attestations (such as SOC 2) and a published Data Processing
+            Addendum are on our roadmap for the hosted offering. If your evaluation needs a specific
+            control, certification, or contractual term, tell us, we would rather scope it with you
+            than over-claim.
           </p>
           <div data-beat-fade className="mt-10 flex flex-wrap items-center gap-3">
             <Magnetic>

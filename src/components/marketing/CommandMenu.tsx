@@ -5,7 +5,6 @@ import {
   BookOpen,
   FileText,
   LayoutGrid,
-  LogIn,
   Mail,
   PlayCircle,
   Rocket,
@@ -90,14 +89,11 @@ export function CommandMenu() {
         </CommandGroup>
         <CommandSeparator />
         <CommandGroup heading="Actions">
-          <CommandItem onSelect={go('/contact?topic=partner')}>
-            <Rocket /> Request access
+          <CommandItem onSelect={go('/docs')}>
+            <Rocket /> Get started
           </CommandItem>
           <CommandItem onSelect={go('/contact?topic=demo')}>
             <PlayCircle /> Book a demo
-          </CommandItem>
-          <CommandItem onSelect={go('/login')}>
-            <LogIn /> Sign in
           </CommandItem>
         </CommandGroup>
       </CommandList>

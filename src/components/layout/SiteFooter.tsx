@@ -7,8 +7,8 @@ const COLS = [
     title: 'Product',
     links: [
       { label: 'Atlas Framework', href: '/platform' },
+      { label: 'Get started', href: '/docs' },
       { label: 'Demo', href: '/contact?topic=demo' },
-      { label: 'Request access', href: '/contact?topic=partner' },
     ],
   },
   {
@@ -26,7 +26,6 @@ const COLS = [
       { label: 'About', href: '/about' },
       { label: 'Research', href: '/blog' },
       { label: 'Contact', href: '/contact' },
-      { label: 'Sign in', href: '/login' },
     ],
   },
   {

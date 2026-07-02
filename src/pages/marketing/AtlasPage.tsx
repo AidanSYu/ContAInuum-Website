@@ -101,8 +101,8 @@ export function AtlasPage() {
           </p>
           <div data-beat-fade className="mt-10">
             <Magnetic>
-              <Cta to="/contact?topic=partner" variant="outlineLight">
-                Request access <ArrowRight className="h-4 w-4" />
+              <Cta to="/docs" variant="outlineLight">
+                Get started <ArrowRight className="h-4 w-4" />
               </Cta>
             </Magnetic>
           </div>
@@ -335,19 +335,13 @@ export function AtlasPage() {
         </h2>
         <div data-beat-fade className="mt-10 flex flex-wrap items-center gap-3">
           <Magnetic>
-            <Cta to="/contact?topic=partner" variant="accent">
-              Request access <ArrowRight className="h-4 w-4" />
+            <Cta to="/docs" variant="accent">
+              Get started <ArrowRight className="h-4 w-4" />
             </Cta>
           </Magnetic>
           <Cta to="/contact?topic=demo" variant="outlineLight">
             Book a demo
           </Cta>
-          <a
-            href="/docs"
-            className="ml-1 text-[15px] text-white/60 underline-offset-4 transition-colors hover:text-white hover:underline"
-          >
-            Read the docs
-          </a>
         </div>
       </Beat>
     </DarkPageShell>

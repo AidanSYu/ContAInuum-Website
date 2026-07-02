@@ -1,11 +1,4 @@
 User-agent: *
 Allow: /
 
-# Keep the authenticated app and auth flows out of the index.
-Disallow: /app
-Disallow: /login
-Disallow: /signup
-Disallow: /forgot-password
-Disallow: /reset-password
-
 Sitemap: https://containuum.io/sitemap.xml
