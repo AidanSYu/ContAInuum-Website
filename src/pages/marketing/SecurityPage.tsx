@@ -1,10 +1,16 @@
-import { Lock, Database, KeyRound, Network, Eye, FileCheck } from 'lucide-react';
+import { ArrowRight, Lock, Database, KeyRound, Network, Eye, FileCheck } from 'lucide-react';
 import { Seo } from '@/components/Seo';
+import { Magnetic, ParticleField } from '@/components/motion';
+import { Cta, Kicker } from '@/components/marketing/ui';
+import { GridField } from '@/components/marketing/visuals';
+import { Beat } from '@/components/marketing/Beat';
+import { DarkPageShell } from '@/components/marketing/DarkPageShell';
 
 /* =============================================================================
    SecurityPage, the trust posture a lab needs before it connects Atlas to its
    instruments and data. Honest about what exists today vs. what is on the
-   roadmap (the product is in private trial).
+   roadmap (the product is in private trial). Cinematic obsidian: a compact
+   GridField hero, then a hairline spec list, mono readout rows, and one call.
    ============================================================================= */
 
 const PILLARS = [
@@ -47,77 +53,171 @@ const PROCESSORS = [
 
 export function SecurityPage() {
   return (
-    <div className="px-[5vw] pb-28 pt-32 lg:px-8 lg:pt-40">
+    <DarkPageShell>
       <Seo
         title="Security & Trust, Contineon"
         description="How Contineon protects your lab data: encryption, tenant isolation, access controls, privacy-preserving learning, and auditability."
         path="/security"
       />
 
-      <div className="mx-auto max-w-5xl">
-        <div className="border-b border-line pb-8">
-          <p className="lab-label text-safety">SECURITY &amp; TRUST</p>
-          <h1 className="mt-4 font-display text-[clamp(34px,5vw,56px)] font-bold tracking-tight text-ink">
+      {/* Hero */}
+      <Beat
+        minH="min-h-[80svh]"
+        align="end"
+        intro
+        media={
+          <>
+            <div className="absolute inset-0 bg-gradient-to-b from-[#06080B] via-[#0A0D12] to-[#06080B]" />
+            <ParticleField className="pointer-events-none absolute inset-0 z-[1]" />
+            <GridField className="opacity-[0.4]" />
+          </>
+        }
+      >
+        <div className="max-w-4xl pb-8">
+          <p data-beat-fade>
+            <Kicker>Security &amp; trust</Kicker>
+          </p>
+          <h1
+            data-beat-title
+            className="type-hero mt-5"
+          >
             Built to be trusted with your lab.
           </h1>
-          <p className="mt-4 max-w-2xl text-lg text-ink-muted">
+          <p
+            data-beat-fade
+            className="type-lede mt-8 max-w-2xl text-white/75"
+          >
             Atlas connects to the instruments and data that run your science. Here is how we protect
             them, and an honest account of where we are today.
           </p>
+          <div data-beat-fade className="mt-10">
+            <Magnetic>
+              <Cta to="/contact?topic=security" variant="outlineLight">
+                Request our security details <ArrowRight className="h-4 w-4" />
+              </Cta>
+            </Magnetic>
+          </div>
         </div>
+      </Beat>
 
-        {/* pillars */}
-        <div className="mt-12 grid grid-cols-1 gap-px border border-line bg-line sm:grid-cols-2 lg:grid-cols-3">
+      {/* Pillars — hairline spec list */}
+      <Beat
+        media={
+          <>
+            <div className="absolute inset-0 bg-[#06080B]" />
+            <GridField className="opacity-20" />
+          </>
+        }
+      >
+        <div className="max-w-2xl">
+          <p data-beat-fade>
+            <Kicker>How we protect it</Kicker>
+          </p>
+          <h2
+            data-beat-title
+            className="type-h2 mt-4"
+          >
+            The controls that guard your science.
+          </h2>
+        </div>
+        <div className="mt-14">
           {PILLARS.map((p) => (
-            <div key={p.title} className="bg-surface p-7">
-              <div className="flex h-10 w-10 items-center justify-center border border-line-hair text-safety">
-                <p.icon className="h-5 w-5" strokeWidth={1.5} />
+            <div
+              key={p.title}
+              data-beat-fade
+              className="grid grid-cols-1 gap-3 border-t border-white/10 py-6 sm:grid-cols-[44px_1fr] sm:gap-8"
+            >
+              <p.icon className="mt-1 h-6 w-6 text-ink" strokeWidth={1.5} />
+              <div className="max-w-2xl">
+                <h3 className="text-lg font-semibold tracking-tight text-ink">{p.title}</h3>
+                <p className="mt-2 text-[15px] leading-relaxed text-ink-muted">{p.body}</p>
               </div>
-              <h3 className="mt-5 text-lg font-semibold tracking-tight text-ink">{p.title}</h3>
-              <p className="mt-2.5 text-sm leading-relaxed text-ink-muted">{p.body}</p>
             </div>
           ))}
         </div>
+      </Beat>
 
-        {/* subprocessors */}
-        <div className="mt-14">
-          <h2 className="font-display text-2xl font-bold tracking-tight text-ink">Subprocessors</h2>
-          <p className="mt-2 max-w-2xl text-ink-muted">
-            We rely on a small set of vetted providers to operate the Service. Each processes data only
-            to deliver their service to us, under contract.
-          </p>
-          <div className="mt-6 overflow-hidden rounded-xl border border-line bg-surface">
-            {PROCESSORS.map(([name, role], i) => (
+      {/* Subprocessors — mono readout rows */}
+      <Beat
+        minH="min-h-[70svh]"
+        media={
+          <>
+            <div className="absolute inset-0 bg-gradient-to-b from-[#06080B] via-[#0A0D12] to-[#06080B]" />
+            <GridField className="opacity-25" />
+          </>
+        }
+      >
+        <div className="grid gap-12 lg:grid-cols-12">
+          <div className="lg:col-span-5">
+            <p data-beat-fade>
+              <Kicker>Subprocessors</Kicker>
+            </p>
+            <h2
+              data-beat-title
+              className="type-h2 mt-4"
+            >
+              A small set of vetted providers.
+            </h2>
+            <p data-beat-fade className="type-body mt-6 max-w-md text-white/75">
+              We rely on a small set of vetted providers to operate the Service. Each processes data
+              only to deliver their service to us, under contract.
+            </p>
+          </div>
+          <dl data-beat-fade className="lg:col-span-6 lg:col-start-7">
+            {PROCESSORS.map(([name, role]) => (
               <div
                 key={name}
-                className={`flex flex-wrap items-center justify-between gap-2 px-6 py-4 ${i ? 'border-t border-line' : ''}`}
+                className="grid grid-cols-1 gap-2 border-t border-white/10 py-5 sm:grid-cols-[160px_1fr] sm:gap-8"
               >
-                <span className="font-display font-semibold text-ink">{name}</span>
-                <span className="text-sm text-ink-muted">{role}</span>
+                <dt className="font-mono-tech text-[13px] uppercase tracking-[0.16em] text-ink">{name}</dt>
+                <dd className="text-[15px] leading-relaxed text-ink-muted">{role}</dd>
               </div>
             ))}
-          </div>
+          </dl>
         </div>
+      </Beat>
 
-        {/* honest status */}
-        <div className="mt-14 rounded-xl border border-line bg-panel p-7">
-          <h2 className="font-display text-2xl font-bold tracking-tight text-ink">Where we are today</h2>
-          <p className="mt-3 max-w-2xl leading-relaxed text-ink-muted">
+      {/* Honest status + close */}
+      <Beat
+        minH="min-h-[80svh]"
+        media={
+          <>
+            <div className="absolute inset-0 bg-[#06080B]" />
+            <GridField className="opacity-20" />
+          </>
+        }
+      >
+        <div className="max-w-3xl">
+          <p data-beat-fade>
+            <Kicker className="text-safety">Where we are today</Kicker>
+          </p>
+          <h2
+            data-beat-title
+            className="type-h2 mt-4"
+          >
+            Honest about today, clear about the roadmap.
+          </h2>
+          <p data-beat-fade className="type-lede mt-7 max-w-2xl text-white/75">
             Contineon is in private trial. The protections above are in place now. Formal attestations
-            (such as SOC 2) and a published Data Processing Addendum are on our roadmap as we move toward
-            general availability. If your evaluation needs a specific control, certification, or
+            (such as SOC 2) and a published Data Processing Addendum are on our roadmap as we move
+            toward general availability. If your evaluation needs a specific control, certification, or
             contractual term, tell us, we would rather scope it with you than over-claim.
           </p>
-          <div className="mt-6 flex flex-wrap gap-3">
-            <a href="/contact?topic=security" className="inline-flex items-center justify-center gap-2 rounded bg-ink px-5 py-2.5 text-sm font-medium text-paper transition-colors hover:opacity-90">
-              Request our security details
-            </a>
-            <a href="mailto:security@contineon.io" className="inline-flex items-center justify-center gap-2 rounded border border-line px-5 py-2.5 text-sm font-medium text-ink transition-colors hover:border-line-hair">
+          <div data-beat-fade className="mt-10 flex flex-wrap items-center gap-3">
+            <Magnetic>
+              <Cta to="/contact?topic=security" variant="accent">
+                Request our security details <ArrowRight className="h-4 w-4" />
+              </Cta>
+            </Magnetic>
+            <a
+              href="mailto:security@contineon.io"
+              className="inline-flex items-center justify-center gap-1.5 rounded-full border border-white/25 px-5 py-2.5 text-[15px] font-medium text-white transition-colors hover:bg-white/10"
+            >
               Report a vulnerability
             </a>
           </div>
         </div>
-      </div>
-    </div>
+      </Beat>
+    </DarkPageShell>
   );
 }

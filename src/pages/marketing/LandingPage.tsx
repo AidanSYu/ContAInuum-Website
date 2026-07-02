@@ -1,13 +1,14 @@
-import { useRef, type ReactNode } from 'react';
+import { useRef } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { Seo } from '@/components/Seo';
 import { Magnetic, ParticleField } from '@/components/motion';
-import { Cta } from '@/components/marketing/ui';
+import { Cta, Kicker } from '@/components/marketing/ui';
 import { GridField } from '@/components/marketing/visuals';
+import { Beat, ParallaxImage } from '@/components/marketing/Beat';
 import { AsciiMedia } from '@/components/marketing/AsciiMedia';
 import { InteractiveAscii } from '@/components/marketing/InteractiveAscii';
-import { gsap, useGSAP, SplitText } from '@/lib/gsap';
-import { cn } from '@/lib/utils';
+import { useDarkHero } from '@/components/layout/darkHero';
+import { gsap, useGSAP, SplitText, ScrollTrigger } from '@/lib/gsap';
 
 /* =============================================================================
    Landing — Contineon. A short cinematic mission piece. The open, the hook,
@@ -15,82 +16,6 @@ import { cn } from '@/lib/utils';
    ISS video, a generative loom, the ASCII sun, a photographic still. The poetry
    hooks; the specifics make it real. One typeface, one accent, all obsidian.
    ============================================================================= */
-
-/* Cinematic still with a gentle scroll parallax. */
-function ParallaxImage({ src, className }: { src: string; className?: string }) {
-  const ref = useRef<HTMLImageElement>(null);
-  useGSAP(
-    () => {
-      const mm = gsap.matchMedia();
-      mm.add('(prefers-reduced-motion: no-preference)', () => {
-        if (ref.current) {
-          gsap.to(ref.current, {
-            yPercent: 6,
-            ease: 'none',
-            scrollTrigger: { trigger: ref.current, start: 'top bottom', end: 'bottom top', scrub: true },
-          });
-        }
-      });
-      return () => mm.revert();
-    },
-    { scope: ref },
-  );
-  return <img ref={ref} src={src} alt="" className={cn('h-full w-full object-contain object-center', className)} />;
-}
-
-/* A full-bleed cinematic beat: media behind, one statement in front. The
-   headline reveals word by word on scroll; supporting lines fade up after. */
-function Beat({
-  media,
-  children,
-  minH = 'min-h-[92svh]',
-}: {
-  media: ReactNode;
-  children: ReactNode;
-  minH?: string;
-}) {
-  const root = useRef<HTMLElement>(null);
-  useGSAP(
-    () => {
-      const mm = gsap.matchMedia();
-      mm.add('(prefers-reduced-motion: no-preference)', () => {
-        const title = root.current?.querySelector('[data-beat-title]');
-        if (title) {
-          const split = new SplitText(title, { type: 'lines,words', linesClass: 'overflow-hidden pb-[0.1em]' });
-          gsap.from(split.words, {
-            yPercent: 118,
-            duration: 1,
-            ease: 'power4.out',
-            stagger: 0.045,
-            scrollTrigger: { trigger: title, start: 'top 88%' },
-          });
-        }
-        const fades = root.current?.querySelectorAll('[data-beat-fade]');
-        if (fades?.length) {
-          gsap.from(fades, {
-            opacity: 0,
-            y: 22,
-            duration: 0.9,
-            ease: 'power3.out',
-            stagger: 0.12,
-            scrollTrigger: { trigger: root.current, start: 'top 64%' },
-          });
-        }
-      });
-      return () => mm.revert();
-    },
-    { scope: root },
-  );
-
-  return (
-    <section ref={root} className={cn('dark relative flex items-center overflow-hidden bg-[#06080B] text-ink', minH)}>
-      {media}
-      <div className="relative z-10 mx-auto w-full max-w-7xl px-[5vw] py-[clamp(80px,12vw,170px)] lg:px-8 xl:px-16">
-        {children}
-      </div>
-    </section>
-  );
-}
 
 /* ---------------------------------- Hero ----------------------------------- */
 function Hero() {
@@ -108,11 +33,30 @@ function Hero() {
         }
         gsap.from('[data-hero-fade]', { opacity: 0, y: 18, duration: 0.9, ease: 'power3.out', stagger: 0.12, delay: 0.5 });
         if (media.current) {
-          gsap.fromTo(media.current, { scale: 1.06 }, { scale: 1.16, duration: 24, ease: 'sine.inOut', repeat: -1, yoyo: true });
+          const kenBurns = gsap.fromTo(
+            media.current,
+            { scale: 1.06 },
+            { scale: 1.16, duration: 24, ease: 'sine.inOut', repeat: -1, yoyo: true },
+          );
           gsap.to(media.current, {
             yPercent: 16,
             ease: 'none',
             scrollTrigger: { trigger: root.current, start: 'top top', end: 'bottom top', scrub: true },
+          });
+          // Once the hero leaves the viewport, stop the video + its infinite scale
+          // tween so they don't keep decoding/animating and starving scroll for the
+          // rest of the (long) page. Resume when scrolled back up.
+          ScrollTrigger.create({
+            trigger: root.current,
+            start: 'bottom top',
+            onEnter: () => {
+              media.current?.pause();
+              kenBurns.pause();
+            },
+            onLeaveBack: () => {
+              media.current?.play().catch(() => {});
+              kenBurns.resume();
+            },
           });
         }
       });
@@ -141,20 +85,30 @@ function Hero() {
         <div className="absolute inset-0 bg-gradient-to-b from-[#06080B]/55 via-[#06080B]/35 to-[#06080B]/95" />
         <div className="absolute inset-0 bg-gradient-to-r from-[#06080B]/85 via-transparent to-transparent" />
       </div>
-      <ParticleField className="pointer-events-none absolute inset-0 z-[1]" />
+      <ParticleField count={28} className="pointer-events-none absolute inset-0 z-[1]" />
       <GridField className="opacity-[0.5]" />
 
       <div className="relative z-10 mx-auto w-full max-w-7xl px-[5vw] pb-20 pt-32 lg:px-8 xl:px-16">
         <div className="max-w-5xl">
+          <p data-hero-fade>
+            <Kicker>The self-driving lab that remembers</Kicker>
+          </p>
           <h1
             data-hero-title
-            className="text-[clamp(44px,7.4vw,116px)] font-bold leading-[0.94] tracking-[-0.045em]"
+            className="type-display mt-5"
           >
             <span className="block">Industrializing</span>
             <span className="block">Breakthrough</span>
             <span className="block">Science.</span>
           </h1>
-          <div data-hero-fade className="mt-10 flex flex-wrap items-center gap-3">
+          <p
+            data-hero-fade
+            className="type-lede mt-8 max-w-xl text-white/75"
+          >
+            Contineon builds Atlas — an autonomous agent that designs experiments, runs them on the
+            instruments you already own, and remembers every result.
+          </p>
+          <div data-hero-fade className="mt-9 flex flex-wrap items-center gap-3">
             <Magnetic>
               <Cta to="/platform" variant="outlineLight">
                 See Atlas <ArrowRight className="h-4 w-4" />
@@ -169,6 +123,8 @@ function Hero() {
 
 /* --------------------------------- Page ------------------------------------ */
 export function LandingPage() {
+  useDarkHero();
+
   return (
     <>
       <Seo
@@ -186,7 +142,7 @@ export function LandingPage() {
             <InteractiveAscii
               src="/images/mill.mp4"
               poster="/images/mill-poster.jpg"
-              cols={142}
+              cols={110}
               className="absolute inset-0"
             />
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#06080B] via-[#06080B]/55 to-[#06080B]/10" />
@@ -196,13 +152,13 @@ export function LandingPage() {
       >
         <h2
           data-beat-title
-          className="max-w-5xl text-[clamp(36px,6.6vw,100px)] font-bold leading-[0.96] tracking-[-0.045em]"
+          className="type-display max-w-5xl"
         >
           Science never had its industrial revolution.
         </h2>
         <p
           data-beat-fade
-          className="mt-8 max-w-2xl text-[clamp(17px,1.7vw,26px)] font-medium leading-snug text-white/65"
+          className="type-lede mt-8 max-w-2xl text-white/65"
         >
           It is still done by hand. One result at a time. The way cloth was made before the loom.
         </p>
@@ -217,8 +173,9 @@ export function LandingPage() {
               src="/images/sun-sdo.mp4"
               type="video"
               poster="/images/sun-sdo-poster.jpg"
-              cols={160}
+              cols={120}
               speed={1.2}
+              fps={18}
               tint="ember"
               className="absolute inset-0"
             />
@@ -230,13 +187,13 @@ export function LandingPage() {
       >
         <h2
           data-beat-title
-          className="max-w-5xl text-[clamp(36px,6.6vw,100px)] font-bold leading-[0.96] tracking-[-0.045em]"
+          className="type-display max-w-5xl"
         >
           We are building the invention factory.
         </h2>
         <p
           data-beat-fade
-          className="mt-8 max-w-5xl text-[clamp(18px,1.7vw,24px)] font-medium leading-snug text-white/85"
+          className="type-lede mt-8 max-w-5xl text-white/85"
         >
           Foundational model systems that design an experiment, run it on real instruments, learn from
           the result, and choose what to run next. On their own. At machine speed.{' '}
@@ -250,7 +207,7 @@ export function LandingPage() {
         media={
           <>
             <div className="absolute inset-0">
-              <ParallaxImage src="/images/sr71-quote-wide.png" className="opacity-[0.62]" />
+              <ParallaxImage src="/images/sr71-quote-wide.png" fit="contain" className="opacity-[0.62]" />
             </div>
             <div className="absolute inset-0 bg-gradient-to-r from-[#06080B] via-[#06080B]/35 to-transparent" />
             <div className="absolute inset-0 bg-gradient-to-b from-[#06080B]/45 via-transparent to-[#06080B]/55" />
@@ -260,11 +217,11 @@ export function LandingPage() {
       >
         <h2
           data-beat-title
-          className="max-w-4xl text-[clamp(34px,5.6vw,88px)] font-bold leading-[0.98] tracking-[-0.045em]"
+          className="type-display max-w-4xl"
         >
           Come build it with us.
         </h2>
-        <p data-beat-fade className="mt-8 max-w-2xl text-[clamp(16px,1.5vw,22px)] leading-relaxed text-white/65">
+        <p data-beat-fade className="type-lede mt-8 max-w-2xl text-white/65">
           We are a small team of researchers and engineers. If you build foundational models,
           autonomous systems, or the instruments they run on, we want to talk.
         </p>

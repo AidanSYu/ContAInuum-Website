@@ -1,9 +1,16 @@
+import { ArrowRight } from 'lucide-react';
 import { Seo } from '@/components/Seo';
+import { Magnetic, ParticleField } from '@/components/motion';
+import { Cta, Kicker } from '@/components/marketing/ui';
+import { GridField } from '@/components/marketing/visuals';
+import { Beat, ParallaxImage } from '@/components/marketing/Beat';
+import { DarkPageShell } from '@/components/marketing/DarkPageShell';
 
 /* =============================================================================
-   AboutPage, who is behind Contineon and why. Deliberately avoids fabricated
-   bios/headshots; states the mission, the beliefs that shape the product, and
-   how to meet the team (a call). Swap in real leadership once ready.
+   AboutPage — who is behind Contineon and why. A cinematic obsidian mission
+   piece: the thesis, the beliefs that shape the product, where we work, and a
+   call to meet the team. Deliberately avoids fabricated bios/headshots. Swap in
+   real leadership once ready.
    ============================================================================= */
 
 const BELIEFS = [
@@ -29,78 +36,164 @@ const BELIEFS = [
   },
 ];
 
+const HUBS = ['Shanghai', 'San Francisco', 'Salt Lake City', 'Boston'];
+
 export function AboutPage() {
   return (
-    <div className="px-[5vw] pb-28 pt-32 lg:px-8 lg:pt-40">
+    <DarkPageShell>
       <Seo
         title="About, Contineon"
         description="Contineon builds the self-driving lab that remembers, retrofitting the labs scientists already run with an autonomous agent and a compounding memory."
         path="/about"
       />
 
-      <div className="mx-auto max-w-5xl">
-        {/* masthead */}
-        <div className="border-b border-line pb-10">
-          <p className="lab-label text-safety">ABOUT</p>
-          <h1 className="mt-4 max-w-[18ch] font-display text-[clamp(34px,5.4vw,64px)] font-bold leading-[1.05] tracking-tight text-ink">
+      {/* Hero */}
+      <Beat
+        minH="min-h-[94svh]"
+        align="end"
+        intro
+        media={
+          <>
+            <div className="absolute inset-0">
+              <ParallaxImage src="/images/airglow.jpg" className="opacity-[0.6]" />
+            </div>
+            <div className="absolute inset-0 bg-gradient-to-b from-[#06080B]/75 via-[#06080B]/45 to-[#06080B]/95" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#06080B]/90 via-transparent to-transparent" />
+            <ParticleField className="pointer-events-none absolute inset-0 z-[1]" />
+            <GridField className="opacity-[0.4]" />
+          </>
+        }
+      >
+        <div className="max-w-4xl pb-8">
+          <p data-beat-fade>
+            <Kicker>About</Kicker>
+          </p>
+          <h1
+            data-beat-title
+            className="type-hero mt-5"
+          >
             The self-driving lab that remembers.
           </h1>
-          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-ink-muted">
+          <p
+            data-beat-fade
+            className="type-lede mt-8 max-w-2xl text-white/75"
+          >
             Contineon exists to make autonomous science practical for the labs that already exist.
             Instead of a sealed robotic box that only works greenfield, we retrofit the instruments and
-            people you run today with Atlas, an agent that plans, executes, hands work back when it
+            people you run today with Atlas — an agent that plans, executes, hands work back when it
             needs a human, and remembers every campaign it touches.
           </p>
-        </div>
-
-        {/* beliefs */}
-        <div className="mt-12">
-          <h2 className="lab-label text-ink-faint">What we believe</h2>
-          <div className="mt-5 grid grid-cols-1 gap-px border border-line bg-line sm:grid-cols-2">
-            {BELIEFS.map((b) => (
-              <div key={b.n} className="bg-surface p-7">
-                <span className="font-display text-3xl font-extrabold tracking-tight text-safety">{b.n}</span>
-                <h3 className="mt-3 text-lg font-semibold tracking-tight text-ink">{b.h}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-ink-muted">{b.p}</p>
-              </div>
-            ))}
+          <div data-beat-fade className="mt-10">
+            <Magnetic>
+              <Cta to="/contact" variant="outlineLight">
+                Talk to the team <ArrowRight className="h-4 w-4" />
+              </Cta>
+            </Magnetic>
           </div>
         </div>
+      </Beat>
 
-        {/* presence */}
-        <div className="mt-14 grid gap-8 rounded-xl border border-line bg-surface p-8 md:grid-cols-2 md:items-center">
-          <div>
-            <h2 className="font-display text-2xl font-bold tracking-tight text-ink">A distributed team, close to the bench.</h2>
-            <p className="mt-3 leading-relaxed text-ink-muted">
+      {/* Beliefs */}
+      <Beat
+        media={
+          <>
+            <div className="absolute inset-0 bg-gradient-to-b from-[#06080B] via-[#0A0D12] to-[#06080B]" />
+            <GridField className="opacity-25" />
+          </>
+        }
+      >
+        <div className="max-w-2xl">
+          <p data-beat-fade>
+            <Kicker>What we believe</Kicker>
+          </p>
+          <h2
+            data-beat-title
+            className="type-h2 mt-4"
+          >
+            Four convictions behind the product.
+          </h2>
+        </div>
+        <div className="mt-14">
+          {BELIEFS.map((b) => (
+            <div
+              key={b.n}
+              data-beat-fade
+              className="grid grid-cols-1 gap-3 border-t border-white/10 py-8 sm:grid-cols-[80px_1fr] sm:gap-10"
+            >
+              <span className="lab-label pt-1.5 text-safety">{b.n}</span>
+              <div className="max-w-2xl">
+                <h3 className="type-h3 text-ink">{b.h}</h3>
+                <p className="mt-3 text-[15px] leading-relaxed text-ink-muted">{b.p}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </Beat>
+
+      {/* Presence */}
+      <Beat
+        minH="min-h-[80svh]"
+        media={
+          <>
+            <div className="absolute inset-0 bg-[#06080B]" />
+            <GridField className="opacity-20" />
+          </>
+        }
+      >
+        <div className="grid gap-12 lg:grid-cols-12">
+          <div className="lg:col-span-6">
+            <p data-beat-fade>
+              <Kicker>Where we work</Kicker>
+            </p>
+            <h2
+              data-beat-title
+              className="type-h2 mt-4"
+            >
+              A distributed team, close to the bench.
+            </h2>
+            <p data-beat-fade className="type-lede mt-6 max-w-xl text-white/75">
               We work alongside chemistry, materials, and biology labs across four hubs, building with
               practitioners rather than for an imagined user. Partner names will be shared at launch.
             </p>
           </div>
-          <ul className="grid grid-cols-2 gap-3 font-mono-tech text-[12px] uppercase tracking-[0.12em] text-ink-muted">
-            {['Shanghai', 'San Francisco', 'Salt Lake City', 'Boston'].map((c) => (
-              <li key={c} className="flex items-center gap-2 border border-line bg-paper px-4 py-3">
-                <span className="h-1.5 w-1.5 rounded-full bg-safety" />
-                {c}
-              </li>
+          <dl data-beat-fade className="lg:col-span-5 lg:col-start-8">
+            {HUBS.map((c) => (
+              <div key={c} className="flex items-baseline justify-between border-t border-white/10 py-4">
+                <dt className="font-mono-tech text-[13px] uppercase tracking-[0.16em] text-ink">{c}</dt>
+                <dd className="lab-label">Hub</dd>
+              </div>
             ))}
-          </ul>
+          </dl>
         </div>
+      </Beat>
 
-        {/* CTA */}
-        <div className="mt-14 flex flex-wrap items-center justify-between gap-4 border-t border-line pt-8">
-          <p className="max-w-lg font-display text-xl font-semibold text-ink">
-            Want to meet the people building it?
-          </p>
-          <div className="flex gap-3">
-            <a href="/contact" className="inline-flex items-center justify-center gap-2 rounded bg-safety px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-safety/90">
-              Talk to the team
-            </a>
-            <a href="/" className="inline-flex items-center justify-center gap-2 rounded border border-line px-5 py-2.5 text-sm font-medium text-ink transition-colors hover:border-line-hair">
-              See the platform
-            </a>
-          </div>
+      {/* Close */}
+      <Beat
+        minH="min-h-[80svh]"
+        media={
+          <>
+            <div className="absolute inset-0 bg-gradient-to-b from-[#06080B] via-[#0A0D12] to-[#06080B]" />
+            <GridField className="opacity-25" />
+          </>
+        }
+      >
+        <h2
+          data-beat-title
+          className="type-h2 max-w-3xl"
+        >
+          Want to meet the people building it?
+        </h2>
+        <div data-beat-fade className="mt-10 flex flex-wrap items-center gap-3">
+          <Magnetic>
+            <Cta to="/contact" variant="accent">
+              Talk to the team <ArrowRight className="h-4 w-4" />
+            </Cta>
+          </Magnetic>
+          <Cta to="/platform" variant="outlineLight">
+            See the platform
+          </Cta>
         </div>
-      </div>
-    </div>
+      </Beat>
+    </DarkPageShell>
   );
 }
