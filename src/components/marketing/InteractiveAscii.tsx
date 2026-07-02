@@ -105,7 +105,7 @@ export function InteractiveAscii({
     const layout = () => {
       const rect = host.getBoundingClientRect();
       if (!rect.width || !rect.height) return;
-      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      dpr = Math.min(window.devicePixelRatio || 1, 1.5);
       cvs.width = Math.floor(rect.width * dpr);
       cvs.height = Math.floor(rect.height * dpr);
       rows = Math.max(8, Math.round((cols / srcAspect()) * 0.52));
@@ -177,11 +177,20 @@ export function InteractiveAscii({
       }
     };
 
+    // Hold the last frame while the user is actively scrolling — the getImageData
+    // readback otherwise stalls the scroll. Resumes ~140ms after scroll settles.
+    let lastScroll = -9999;
+    const onScroll = () => {
+      lastScroll = performance.now();
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+
     const loop = (t: number) => {
       raf = requestAnimationFrame(loop);
       if (!onScreen || !ready) return;
       const dt = Math.min(64, t - last || 16);
-      if (t - last < 1000 / 30) return;
+      if (t - last < 1000 / 22) return;
+      if (t - lastScroll < 140) return;
       last = t;
       draw(dt);
     };
@@ -251,6 +260,7 @@ export function InteractiveAscii({
       ro.disconnect();
       io.disconnect();
       window.removeEventListener('mousemove', onMove);
+      window.removeEventListener('scroll', onScroll);
       if (source instanceof HTMLVideoElement) {
         source.pause();
         source.src = '';

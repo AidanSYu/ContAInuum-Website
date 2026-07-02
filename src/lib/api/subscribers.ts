@@ -2,7 +2,7 @@ import { FUNCTIONS_URL, SUPABASE_ANON_KEY, isBackendConfigured } from '@/lib/sup
 import { subscribeSchema, type SubscribeInput } from '@/lib/validation';
 
 /**
- * Join the newsletter / waitlist. Routed through the `newsletter-subscribe`
+ * Join the newsletter. Routed through the `newsletter-subscribe`
  * Edge Function, which verifies Turnstile, stores a pending row, and emails a
  * double-opt-in confirmation link.
  */

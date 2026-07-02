@@ -1,10 +1,10 @@
-import { useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, ChevronDown } from 'lucide-react';
 import { Logo } from './Logo';
 import { Button } from '@/components/ui/button';
-import { useAuth } from '@/lib/auth';
 import { cn } from '@/lib/utils';
+import { DarkHeroContext } from './darkHero';
 
 type NavLink = { label: string; to: string; desc?: string };
 type NavEntry = { label: string; to?: string; items?: NavLink[] };
@@ -28,16 +28,22 @@ const NAV: NavEntry[] = [
   { label: 'Docs', to: '/docs' },
 ];
 
-/** Routes whose hero is a full-bleed dark section under the transparent header. */
-const DARK_HERO_ROUTES = new Set(['/']);
-
 export function SiteHeader() {
-  const { user } = useAuth();
   const { pathname } = useLocation();
+  const { darkHero } = useContext(DarkHeroContext);
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [menu, setMenu] = useState<string | null>(null);
+  const [prevPath, setPrevPath] = useState(pathname);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Close any open menu when the route changes. Adjusting state during render
+  // (React's recommended pattern) instead of an effect avoids a cascading render.
+  if (pathname !== prevPath) {
+    setPrevPath(pathname);
+    setOpen(false);
+    setMenu(null);
+  }
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -46,13 +52,19 @@ export function SiteHeader() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // Close menus on navigation.
+  // Escape closes any open menu (dropdown or mobile).
   useEffect(() => {
-    setOpen(false);
-    setMenu(null);
-  }, [pathname]);
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setMenu(null);
+        setOpen(false);
+      }
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, []);
 
-  const darkTop = !scrolled && DARK_HERO_ROUTES.has(pathname);
+  const darkTop = !scrolled && darkHero;
 
   const openMenu = (label: string) => {
     if (closeTimer.current) clearTimeout(closeTimer.current);
@@ -78,6 +90,12 @@ export function SiteHeader() {
       )}
       onMouseLeave={scheduleClose}
     >
+      <a
+        href="#main"
+        className="sr-only rounded-md bg-safety px-4 py-2 text-sm font-medium text-white focus:not-sr-only focus:absolute focus:left-4 focus:top-3 focus:z-[200]"
+      >
+        Skip to content
+      </a>
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-[5vw] lg:px-8">
         <Logo className={cn('text-[19px]', darkTop && 'text-white')} />
 
@@ -134,29 +152,9 @@ export function SiteHeader() {
         </nav>
 
         <div className="hidden items-center gap-1.5 md:flex">
-          {user ? (
-            <Button asChild size="sm" className="bg-safety text-white hover:bg-safety/90">
-              <Link to="/app">Dashboard</Link>
-            </Button>
-          ) : (
-            <>
-              <Button
-                asChild
-                variant="ghost"
-                size="sm"
-                className={cn(
-                  darkTop
-                    ? 'text-white/80 hover:bg-white/10 hover:text-white'
-                    : 'text-ink-muted hover:text-ink',
-                )}
-              >
-                <Link to="/login">Sign in</Link>
-              </Button>
-              <Button asChild size="sm" className="bg-safety text-white hover:bg-safety/90">
-                <Link to="/contact?topic=partner">Request access</Link>
-              </Button>
-            </>
-          )}
+          <Button asChild size="sm" className="bg-safety text-white hover:bg-safety/90">
+            <Link to="/docs">Get started</Link>
+          </Button>
         </div>
 
         <button
@@ -199,20 +197,9 @@ export function SiteHeader() {
               ),
             )}
             <div className="mt-3 flex flex-col gap-2 border-t border-line pt-4">
-              {user ? (
-                <Button asChild className="bg-safety text-white hover:bg-safety/90">
-                  <Link to="/app">Dashboard</Link>
-                </Button>
-              ) : (
-                <>
-                  <Button asChild variant="outline">
-                    <Link to="/login">Sign in</Link>
-                  </Button>
-                  <Button asChild className="bg-safety text-white hover:bg-safety/90">
-                    <Link to="/contact?topic=partner">Request access</Link>
-                  </Button>
-                </>
-              )}
+              <Button asChild className="bg-safety text-white hover:bg-safety/90">
+                <Link to="/docs">Get started</Link>
+              </Button>
             </div>
           </nav>
         </div>

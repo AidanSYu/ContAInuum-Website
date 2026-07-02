@@ -7,8 +7,8 @@ const COLS = [
     title: 'Product',
     links: [
       { label: 'Atlas Framework', href: '/platform' },
+      { label: 'Get started', href: '/docs' },
       { label: 'Demo', href: '/contact?topic=demo' },
-      { label: 'Request access', href: '/contact?topic=partner' },
     ],
   },
   {
@@ -26,7 +26,6 @@ const COLS = [
       { label: 'About', href: '/about' },
       { label: 'Research', href: '/blog' },
       { label: 'Contact', href: '/contact' },
-      { label: 'Sign in', href: '/login' },
     ],
   },
   {
@@ -40,8 +39,15 @@ const COLS = [
 
 export function SiteFooter() {
   return (
-    <footer className="relative z-10 border-t border-line bg-paper">
-      <div className="mx-auto grid max-w-7xl gap-10 px-[5vw] py-16 sm:grid-cols-2 md:grid-cols-[1.6fr_1fr_1fr_1fr] lg:grid-cols-[1.6fr_1fr_1fr_1fr_1fr] lg:px-8 xl:px-16">
+    <footer className="dark relative z-10 overflow-hidden border-t border-white/10 bg-[#06080B] text-ink">
+      {/* Gradient bridge — a soft horizon glow so the footer emerges from the
+          obsidian content above rather than starting on a hard line. */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-white/[0.035] to-transparent"
+      />
+
+      <div className="relative mx-auto grid max-w-7xl gap-10 px-[5vw] py-16 sm:grid-cols-2 md:grid-cols-[1.6fr_1fr_1fr_1fr] lg:grid-cols-[1.6fr_1fr_1fr_1fr_1fr] lg:px-8 xl:px-16">
         <div className="max-w-xs">
           <Logo className="text-[19px]" />
           <p className="mt-4 text-sm leading-relaxed text-ink-muted">
@@ -77,7 +83,7 @@ export function SiteFooter() {
         ))}
       </div>
 
-      <div className="border-t border-line">
+      <div className="relative border-t border-white/10">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-[5vw] py-6 lab-label sm:flex-row lg:px-8 xl:px-16">
           <span>© 2026 Contineon</span>
           <span>Built for working labs</span>

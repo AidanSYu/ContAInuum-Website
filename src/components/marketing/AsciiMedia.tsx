@@ -113,7 +113,7 @@ export function AsciiMedia({
     const layout = () => {
       const rect = host.getBoundingClientRect();
       if (!rect.width || !rect.height) return;
-      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      dpr = Math.min(window.devicePixelRatio || 1, 1.5);
       cvs.width = Math.floor(rect.width * dpr);
       cvs.height = Math.floor(rect.height * dpr);
       const aspect = source ? srcAspect() : rect.width / rect.height;
@@ -166,10 +166,20 @@ export function AsciiMedia({
       }
     };
 
+    // Hold the last frame while the user is actively scrolling: the per-frame
+    // getImageData readback otherwise stalls the scroll. Ambient enough that a
+    // brief freeze mid-scroll is imperceptible; resumes ~140ms after scroll stops.
+    let lastScroll = -9999;
+    const onScroll = () => {
+      lastScroll = performance.now();
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+
     const loop = (t: number) => {
       raf = requestAnimationFrame(loop);
       if (!onScreen) return;
       if (t - last < 1000 / fps) return;
+      if (t - lastScroll < 140) return;
       last = t;
       draw();
     };
@@ -232,6 +242,7 @@ export function AsciiMedia({
       cancelAnimationFrame(raf);
       ro.disconnect();
       io.disconnect();
+      window.removeEventListener('scroll', onScroll);
       if (source instanceof HTMLVideoElement) {
         source.pause();
         source.src = '';

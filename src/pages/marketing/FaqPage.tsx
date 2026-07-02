@@ -1,10 +1,16 @@
+import { ArrowRight } from 'lucide-react';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Seo } from '@/components/Seo';
+import { Reveal } from '@/components/motion';
+import { Cta, Kicker } from '@/components/marketing/ui';
+import { GridField } from '@/components/marketing/visuals';
+import { Beat } from '@/components/marketing/Beat';
+import { DarkPageShell } from '@/components/marketing/DarkPageShell';
 
 /* =============================================================================
    FaqPage, objection handling for evaluating labs. Grouped by the questions a
-   lab director actually asks before a trial: what it is, how it connects, what
-   happens to their data, and how the trial/billing works.
+   lab director actually asks before adopting Atlas: what it is, how it connects,
+   what happens to their data, and how to get started with the open-source stack.
    ============================================================================= */
 
 type QA = { q: string; a: string };
@@ -63,11 +69,11 @@ const GROUPS: Group[] = [
     ],
   },
   {
-    group: 'Access & onboarding',
+    group: 'Getting started',
     items: [
       {
-        q: 'How do I get access?',
-        a: 'We onboard a small cohort of design-partner labs at a time. Request access and we will scope an early-partner pilot for your lab on the instruments you already run, no rip-and-replace.',
+        q: 'How do I get Atlas?',
+        a: 'Atlas is open source. There is no waitlist and no access request, install it from the docs, point it at the instruments you already run, and start your first campaign. The quickstart walks you through setup end to end.',
       },
       {
         q: 'Is there a demo?',
@@ -75,7 +81,7 @@ const GROUPS: Group[] = [
       },
       {
         q: 'What support do I get?',
-        a: 'Design partners work directly with the team building Atlas, with response times scoped to your pilot.',
+        a: 'Atlas is built in the open, so the docs and issue tracker are the fastest path for most questions. Teams that need hands-on onboarding, governance, or response-time guarantees can talk to us about a supported deployment.',
       },
     ],
   },
@@ -83,58 +89,90 @@ const GROUPS: Group[] = [
 
 export function FaqPage() {
   return (
-    <div className="px-[5vw] pb-28 pt-32 lg:px-8 lg:pt-40">
+    <DarkPageShell>
       <Seo
         title="FAQ, Contineon"
-        description="Answers to common questions about Atlas: instruments and integrations, data privacy and security, setup time, and how to get access."
+        description="Answers to common questions about Atlas: instruments and integrations, data privacy and security, setup time, and how to get started with the open-source stack."
         path="/faq"
       />
 
-      <div className="mx-auto max-w-3xl">
-        <div className="border-b border-line pb-8">
-          <p className="lab-label text-safety">FAQ</p>
-          <h1 className="mt-4 font-display text-[clamp(34px,5vw,56px)] font-bold tracking-tight text-ink">
+      {/* Hero */}
+      <Beat
+        minH="min-h-[56svh]"
+        align="end"
+        intro
+        media={
+          <>
+            <div className="absolute inset-0 bg-gradient-to-b from-[#06080B] via-[#0A0D12] to-[#06080B]" />
+            <GridField className="opacity-[0.4]" />
+          </>
+        }
+      >
+        <div className="max-w-3xl pb-6">
+          <p data-beat-fade>
+            <Kicker>FAQ</Kicker>
+          </p>
+          <h1
+            data-beat-title
+            className="mt-5 type-hero"
+          >
             Questions, answered.
           </h1>
-          <p className="mt-4 max-w-xl text-lg text-ink-muted">
+          <p data-beat-fade className="mt-7 max-w-2xl type-lede text-white/75">
             What labs ask before they retrofit. Can’t find it here?{' '}
-            <a href="/contact" className="text-safety hover:underline">Ask us directly.</a>
+            <a href="/contact" className="text-safety underline-offset-4 hover:underline">
+              Ask us directly.
+            </a>
           </p>
         </div>
+      </Beat>
 
-        <div className="mt-10 space-y-12">
-          {GROUPS.map((g) => (
-            <div key={g.group}>
-              <h2 className="lab-label mb-2 text-ink-faint">{g.group}</h2>
-              <Accordion type="single" collapsible className="w-full">
-                {g.items.map((item) => (
-                  <AccordionItem key={item.q} value={item.q} className="border-line">
-                    <AccordionTrigger className="text-left font-display text-base font-semibold text-ink hover:no-underline">
-                      {item.q}
-                    </AccordionTrigger>
-                    <AccordionContent className="text-sm leading-relaxed text-ink-muted">
-                      {item.a}
-                    </AccordionContent>
-                  </AccordionItem>
-                ))}
-              </Accordion>
-            </div>
-          ))}
-        </div>
-
-        {/* soft CTA */}
-        <div className="mt-16 flex flex-wrap items-center justify-between gap-4 border-t border-line pt-8">
-          <p className="font-display text-lg font-semibold text-ink">Ready to see it on your bench?</p>
-          <div className="flex gap-3">
-            <a href="/contact?topic=partner" className="inline-flex items-center justify-center gap-2 rounded bg-safety px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-safety/90">
-              Request access
-            </a>
-            <a href="/contact?topic=demo" className="inline-flex items-center justify-center gap-2 rounded border border-line px-5 py-2.5 text-sm font-medium text-ink transition-colors hover:border-line-hair">
-              Book a demo
-            </a>
+      {/* Groups */}
+      <section className="relative border-t border-white/10">
+        <GridField className="opacity-[0.12]" />
+        <div className="relative z-10 mx-auto max-w-3xl px-[5vw] py-[clamp(48px,7vw,104px)] lg:px-8">
+          <div className="space-y-16">
+            {GROUPS.map((g) => (
+              <Reveal key={g.group}>
+                <Kicker>{g.group}</Kicker>
+                <div className="mt-4 border-t border-white/10">
+                  <Accordion type="single" collapsible className="w-full">
+                    {g.items.map((item) => (
+                      <AccordionItem key={item.q} value={item.q} className="border-white/10">
+                        <AccordionTrigger className="text-left font-display text-base font-semibold text-ink hover:text-safety hover:no-underline">
+                          {item.q}
+                        </AccordionTrigger>
+                        <AccordionContent className="text-sm leading-relaxed text-ink-muted">
+                          {item.a}
+                        </AccordionContent>
+                      </AccordionItem>
+                    ))}
+                  </Accordion>
+                </div>
+              </Reveal>
+            ))}
           </div>
         </div>
-      </div>
-    </div>
+      </section>
+
+      {/* Close */}
+      <section className="relative border-t border-white/10">
+        <div className="relative z-10 mx-auto max-w-3xl px-[5vw] py-[clamp(40px,5vw,72px)] lg:px-8">
+          <div className="flex flex-wrap items-center justify-between gap-6">
+            <p className="max-w-md type-h3 text-ink">
+              Ready to see it on your bench?
+            </p>
+            <div className="flex flex-wrap items-center gap-3">
+              <Cta to="/docs" variant="accent">
+                Get started <ArrowRight className="h-4 w-4" />
+              </Cta>
+              <Cta to="/contact?topic=demo" variant="outlineLight">
+                Book a demo
+              </Cta>
+            </div>
+          </div>
+        </div>
+      </section>
+    </DarkPageShell>
   );
 }

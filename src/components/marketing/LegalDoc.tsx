@@ -1,9 +1,14 @@
 import type { ReactNode } from 'react';
+import { DarkPageShell } from '@/components/marketing/DarkPageShell';
+import { GridField } from '@/components/marketing/visuals';
+import { Kicker } from '@/components/marketing/ui';
 
 /* =============================================================================
    LegalDoc, shared editorial shell for long-form legal/policy pages
-   (Terms, Privacy). Keeps the masthead + typographic rhythm consistent with the
-   rest of the marketing site. Content lives in the page that renders it.
+   (Terms, Privacy). Obsidian and ruthlessly plain: a calm titled masthead over a
+   faint grid, then a quiet dark reading column (.legal-prose). No hero media, no
+   motion theatrics — readability and seriousness first. Content lives in the page
+   that renders it.
    ============================================================================= */
 
 export function LegalDoc({
@@ -18,29 +23,32 @@ export function LegalDoc({
   children: ReactNode;
 }) {
   return (
-    <div className="px-[5vw] pb-28 pt-32 lg:px-8 lg:pt-40">
-      <div className="mx-auto max-w-3xl">
-        <div className="border-b border-line pb-8">
-          <p className="lab-label text-safety">{kicker}</p>
-          <h1 className="mt-4 font-display text-[clamp(34px,5vw,56px)] font-bold tracking-tight text-ink">
-            {title}
-          </h1>
-          <p className="mt-4 font-mono-tech text-[11px] uppercase tracking-[0.16em] text-ink-faint">
-            Last updated, {lastUpdated}
+    <DarkPageShell>
+      <div className="relative px-[5vw] pb-28 pt-32 lg:px-8 lg:pt-40">
+        <GridField className="opacity-[0.14]" />
+        <div className="relative z-10 mx-auto max-w-3xl">
+          <div className="border-b border-white/10 pb-8">
+            <Kicker>{kicker}</Kicker>
+            <h1 className="type-h2 mt-4 text-ink">
+              {title}
+            </h1>
+            <p className="mt-4 font-mono-tech text-[11px] uppercase tracking-[0.16em] text-ink-faint">
+              Last updated, {lastUpdated}
+            </p>
+          </div>
+
+          <div className="legal-prose mt-10 space-y-8">{children}</div>
+
+          <p className="mt-14 border-t border-white/10 pt-6 text-sm text-ink-muted">
+            Questions about this document?{' '}
+            <a href="/contact" className="text-safety hover:underline">
+              Contact us
+            </a>
+            .
           </p>
         </div>
-
-        <div className="legal-prose mt-10 space-y-8">{children}</div>
-
-        <p className="mt-14 border-t border-line pt-6 text-sm text-ink-muted">
-          Questions about this document?{' '}
-          <a href="/contact" className="text-safety hover:underline">
-            Contact us
-          </a>
-          .
-        </p>
       </div>
-    </div>
+    </DarkPageShell>
   );
 }
 

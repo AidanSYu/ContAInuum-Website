@@ -1,4 +1,10 @@
+import { ArrowRight } from 'lucide-react';
 import { Seo } from '@/components/Seo';
+import { Magnetic, ParticleField, Reveal } from '@/components/motion';
+import { Cta, Kicker } from '@/components/marketing/ui';
+import { GridField } from '@/components/marketing/visuals';
+import { Beat } from '@/components/marketing/Beat';
+import { DarkPageShell } from '@/components/marketing/DarkPageShell';
 
 /* =============================================================================
    DocsPage, a single integration guide (not a full docs system). Answers the
@@ -35,61 +41,107 @@ const STEPS = [
 
 export function DocsPage() {
   return (
-    <div className="px-[5vw] pb-28 pt-32 lg:px-8 lg:pt-40">
+    <DarkPageShell>
       <Seo
         title="Integration guide, Contineon"
         description="How Atlas connects to the instruments, ELN, and data you already run, and how a campaign goes from objective to compounding memory."
         path="/docs"
       />
 
-      <div className="mx-auto max-w-3xl">
-        <div className="border-b border-line pb-8">
-          <p className="lab-label text-safety">DOCS · INTEGRATION GUIDE</p>
-          <h1 className="mt-4 font-display text-[clamp(34px,5vw,56px)] font-bold tracking-tight text-ink">
+      {/* Hero */}
+      <Beat
+        minH="min-h-[60svh]"
+        align="end"
+        intro
+        media={
+          <>
+            <div className="absolute inset-0 bg-gradient-to-b from-[#06080B] via-[#0A0D12] to-[#06080B]" />
+            <ParticleField className="pointer-events-none absolute inset-0 z-[1]" />
+            <GridField className="opacity-[0.4]" />
+          </>
+        }
+      >
+        <div className="max-w-3xl pb-6">
+          <p data-beat-fade>
+            <Kicker>Docs · Integration guide</Kicker>
+          </p>
+          <h1
+            data-beat-title
+            className="type-hero mt-5"
+          >
             From your workcell to a learning lab.
           </h1>
-          <p className="mt-4 max-w-xl text-lg text-ink-muted">
+          <p data-beat-fade className="type-lede mt-7 max-w-2xl text-white/75">
             A practical overview of how Atlas plugs into the lab you already run. Need specifics for
-            your stack? <a href="/contact?topic=demo" className="text-safety hover:underline">Ask us.</a>
-          </p>
-        </div>
-
-        <div className="mt-10 space-y-10">
-          {STEPS.map((s) => (
-            <section key={s.n} className="border-l-2 border-line pl-6">
-              <div className="flex items-baseline gap-3">
-                <span className="font-display text-2xl font-extrabold tracking-tight text-safety">{s.n}</span>
-                <h2 className="font-display text-xl font-semibold tracking-tight text-ink">{s.h}</h2>
-              </div>
-              <p className="mt-3 leading-relaxed text-ink-muted">{s.p}</p>
-              <ul className="mt-4 grid gap-2 sm:grid-cols-2">
-                {s.items.map((it) => (
-                  <li key={it} className="flex items-center gap-2 border border-line bg-surface px-3 py-2 text-sm text-ink-muted">
-                    <span className="h-1.5 w-1.5 flex-none rounded-full bg-safety" />
-                    {it}
-                  </li>
-                ))}
-              </ul>
-            </section>
-          ))}
-        </div>
-
-        <div className="mt-14 rounded-xl border border-line bg-panel p-7">
-          <h2 className="font-display text-xl font-bold tracking-tight text-ink">Want the technical detail?</h2>
-          <p className="mt-2 text-ink-muted">
-            We’ll walk through integration for your specific instruments and data, and share security
-            and deployment specifics for your evaluation.
-          </p>
-          <div className="mt-5 flex flex-wrap gap-3">
-            <a href="/contact?topic=demo" className="inline-flex items-center justify-center rounded bg-ink px-5 py-2.5 text-sm font-medium text-paper transition-colors hover:opacity-90">
-              Book a technical walkthrough
+            your stack?{' '}
+            <a href="/contact?topic=demo" className="text-safety underline-offset-4 hover:underline">
+              Ask us.
             </a>
-            <a href="/security" className="inline-flex items-center justify-center rounded border border-line px-5 py-2.5 text-sm font-medium text-ink transition-colors hover:border-line-hair">
-              Read about security
-            </a>
+          </p>
+          <div data-beat-fade className="mt-10">
+            <Magnetic>
+              <Cta to="/contact?topic=demo" variant="outlineLight">
+                Book a walkthrough <ArrowRight className="h-4 w-4" />
+              </Cta>
+            </Magnetic>
           </div>
         </div>
-      </div>
-    </div>
+      </Beat>
+
+      {/* Steps */}
+      <section className="relative border-t border-white/10">
+        <GridField className="opacity-[0.12]" />
+        <div className="relative z-10 mx-auto max-w-4xl px-[5vw] py-[clamp(48px,7vw,96px)] lg:px-8">
+          {STEPS.map((s) => (
+            <Reveal
+              key={s.n}
+              className="grid grid-cols-1 gap-4 border-t border-white/10 py-8 sm:grid-cols-[80px_1fr] sm:gap-10"
+            >
+              <span className="lab-label pt-1.5 text-safety">{s.n}</span>
+              <div>
+                <h2 className="type-h3 text-ink">
+                  {s.h}
+                </h2>
+                <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-ink-muted">{s.p}</p>
+                <div className="mt-6 grid gap-x-10 sm:grid-cols-2">
+                  {s.items.map((it) => (
+                    <div
+                      key={it}
+                      className="border-t border-white/10 py-2.5 font-mono-tech text-[13px] tracking-[0.02em] text-ink-muted"
+                    >
+                      {it}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </section>
+
+      {/* Close */}
+      <section className="relative border-t border-white/10">
+        <GridField className="opacity-20" />
+        <div className="relative z-10 mx-auto max-w-4xl px-[5vw] py-[clamp(56px,8vw,112px)] lg:px-8">
+          <Reveal>
+            <h2 className="type-h2 max-w-3xl">
+              Want the technical detail?
+            </h2>
+            <p className="type-lede mt-6 max-w-xl text-white/75">
+              We’ll walk through integration for your specific instruments and data, and share security
+              and deployment specifics for your evaluation.
+            </p>
+            <div className="mt-10 flex flex-wrap items-center gap-3">
+              <Cta to="/contact?topic=demo" variant="accent">
+                Book a technical walkthrough <ArrowRight className="h-4 w-4" />
+              </Cta>
+              <Cta to="/security" variant="outlineLight">
+                Read about security
+              </Cta>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+    </DarkPageShell>
   );
 }

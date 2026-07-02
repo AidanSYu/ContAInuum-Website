@@ -15,42 +15,45 @@ export function TermsPage() {
         <LegalTemplateNotice />
 
         <p>
-          These Terms of Service ("Terms") govern your access to and use of the websites, account
-          dashboard, Atlas platform, and related services (collectively, the "Service") offered by{' '}
-          <Fact value={legal.entityName} placeholder="[LEGAL ENTITY NAME]" /> ("Contineon", "we", "us"). By creating an
-          account or using the Service, you agree to these Terms. If you are agreeing on behalf of an
+          These Terms of Service ("Terms") govern your access to and use of the websites, documentation,
+          the Atlas open-source software, and any related hosted or supported services (collectively, the
+          "Service") offered by{' '}
+          <Fact value={legal.entityName} placeholder="[LEGAL ENTITY NAME]" /> ("Contineon", "we", "us"). By using
+          the Service, you agree to these Terms. If you are agreeing on behalf of an
           organization, you represent that you are authorized to bind it.
         </p>
 
         <LegalSection n="1" heading="The Service">
           <p>
             Contineon provides software that helps laboratories plan, run, and learn from research
-            campaigns, including autonomous agent workflows and human-in-the-loop handoffs. The
-            Service is currently offered to design-partner labs and may evolve over time.
+            campaigns, including autonomous agent workflows and human-in-the-loop handoffs. Atlas is
+            distributed as open-source software under its published license; the hosted and supported
+            offerings are optional and may evolve over time.
           </p>
         </LegalSection>
 
         <LegalSection n="2" heading="Accounts">
           <p>
-            To use most features you must create an account with a valid email address and name. You
-            are responsible for safeguarding your credentials and for all activity under your account.
-            Provide accurate information, keep it current, and notify us promptly of any unauthorized
-            use. You must be old enough to form a binding contract in your jurisdiction.
+            You do not need an account to download, install, or run the open-source Atlas software.
+            Optional hosted or supported services may require an account with a valid email address
+            and name. Where you create such an account, you are responsible for safeguarding your
+            credentials and for all activity under it, provide accurate information, keep it current,
+            and notify us promptly of any unauthorized use. You must be old enough to form a binding
+            contract in your jurisdiction.
           </p>
         </LegalSection>
 
-        <LegalSection n="3" heading="Access & pilots">
+        <LegalSection n="3" heading="Access & engagements">
           <p>
-            <strong className="text-ink">Design-partner access.</strong> Contineon is currently offered
-            to a limited cohort of design-partner labs. There is no self-serve paid plan today.
-            Access is provisioned by us after you request it, and the scope of each pilot is agreed
-            with your lab.
+            <strong className="text-ink">Open-source access.</strong> Atlas is open-source software,
+            freely available under its published license. There is no access request, waitlist, or
+            approval required to use it, and self-hosting requires no account with us.
           </p>
           <p>
-            <strong className="text-ink">Pilot terms.</strong> Where a pilot involves fees or
-            milestone funding, those commercial terms are set out in a separate order or engagement
-            agreement between you and Contineon, which governs in the event of any conflict with these
-            Terms.
+            <strong className="text-ink">Engagement terms.</strong> Where a hosted deployment or
+            supported engagement involves fees or milestone funding, those commercial terms are set
+            out in a separate order or engagement agreement between you and Contineon, which governs
+            in the event of any conflict with these Terms.
           </p>
         </LegalSection>
 
