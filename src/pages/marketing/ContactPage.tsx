@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useMutation } from '@tanstack/react-query';
 import { useSearchParams } from 'react-router-dom';
 import { toast } from 'sonner';
 import { Mail, MapPin } from 'lucide-react';
@@ -22,15 +21,15 @@ const TOPICS: Record<string, { eyebrow: string; heading: string; blurb: string; 
     eyebrow: 'DESIGN PARTNER PROGRAM',
     heading: 'Apply for access.',
     blurb:
-      'We onboard a small cohort of design-partner labs, chemistry, materials, and biology teams who run Atlas on their own instruments and shape the product with us. Tell us about your lab and we’ll be in touch within two business days.',
+      'We onboard a small cohort of design-partner labs, chemistry, materials, and biology teams who run Asilia on their own instruments and shape the product with us. Tell us about your lab and we’ll be in touch within two business days.',
     starter:
       'Our lab works on … and we run the following instruments / ELN: …\nWe’d like to join the design-partner program because …\nTeam size: …',
   },
   demo: {
     eyebrow: 'BOOK A DEMO',
-    heading: 'See Atlas on your bench.',
+    heading: 'See Asilia on your bench.',
     blurb: 'Tell us about your lab and what you run, and we’ll set up a walkthrough on instruments like yours.',
-    starter: 'I’d like a demo of Atlas. Our lab works on … and we run the following instruments / ELN: …',
+    starter: 'I’d like a demo of Asilia. Our lab works on … and we run the following instruments / ELN: …',
   },
   enterprise: {
     eyebrow: 'ENTERPRISE',
@@ -44,10 +43,18 @@ const TOPICS: Record<string, { eyebrow: string; heading: string; blurb: string; 
     blurb: 'Ask for our security details, or share the controls and terms your evaluation needs.',
     starter: 'For our security review we need details on … (e.g. data residency, DPA, SSO, audit logs).',
   },
+  careers: {
+    eyebrow: 'CAREERS',
+    heading: 'Come build it with us.',
+    blurb:
+      'We’re a small team of researchers and engineers. If you build foundational models, autonomous systems, or the instruments they run on, tell us what you’ve made and where you want to go next.',
+    starter:
+      'I’m interested in working on … at Contineon.\nHere’s what I’ve built / a link to my work: …',
+  },
   general: {
     eyebrow: 'CONTACT',
     heading: 'Let’s talk.',
-    blurb: 'Whether you’re evaluating Atlas for your team or need an enterprise deployment, tell us what you’re building and we’ll get back within two business days.',
+    blurb: 'Whether you’re evaluating Asilia for your team or need an enterprise deployment, tell us what you’re building and we’ll get back within two business days.',
     starter: '',
   },
 };
@@ -57,6 +64,7 @@ export function ContactPage() {
   const topicKey = params.get('topic') ?? 'general';
   const topic = TOPICS[topicKey] ?? TOPICS.general;
   const [turnstileToken, setTurnstileToken] = useState('');
+  const [isPending, setIsPending] = useState(false);
 
   const {
     register,
@@ -68,31 +76,30 @@ export function ContactPage() {
     defaultValues: { name: '', email: '', organization: '', message: topic.starter, company_website: '' },
   });
 
-  const mutation = useMutation({
-    mutationFn: submitContact,
-    onSuccess: () => {
-      toast.success('Message sent. We’ll respond within two business days.');
-      reset();
-      setTurnstileToken('');
-    },
-    onError: (error: unknown) => {
-      toast.error(error instanceof Error ? error.message : 'Something went wrong.');
-    },
-  });
-
-  const onSubmit = handleSubmit((values) => {
+  const onSubmit = handleSubmit(async (values) => {
     if (turnstileEnabled && !turnstileToken) {
       toast.error('Please complete the verification challenge.');
       return;
     }
-    mutation.mutate({ ...values, topic: topicKey, turnstileToken });
+
+    setIsPending(true);
+    try {
+      await submitContact({ ...values, topic: topicKey, turnstileToken });
+      toast.success('Message sent. We’ll respond within two business days.');
+      reset();
+      setTurnstileToken('');
+    } catch (error: unknown) {
+      toast.error(error instanceof Error ? error.message : 'Something went wrong.');
+    } finally {
+      setIsPending(false);
+    }
   });
 
   return (
     <div className="px-[5vw] pb-28 pt-32 lg:px-8 lg:pt-40">
       <Seo
         title="Contact, Contineon"
-        description="Talk to the Contineon team about retrofitting your lab with Atlas. Book a demo or ask about an enterprise deployment."
+        description="Talk to the Contineon team about retrofitting your lab with Asilia. Book a demo or ask about an enterprise deployment."
         path="/contact"
       />
       <div className="mx-auto grid max-w-6xl border border-line bg-surface shadow-lab lg:grid-cols-2">
@@ -150,8 +157,8 @@ export function ContactPage() {
 
             {turnstileEnabled && <Turnstile onToken={setTurnstileToken} className="pt-1" />}
 
-            <Button type="submit" disabled={mutation.isPending} className="w-full bg-safety text-white hover:bg-safety/90">
-              {mutation.isPending ? 'Sending…' : 'Send message'}
+            <Button type="submit" disabled={isPending} className="w-full bg-safety text-white hover:bg-safety/90">
+              {isPending ? 'Sending…' : 'Send message'}
             </Button>
           </form>
         </div>

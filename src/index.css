@@ -130,6 +130,42 @@
 }
 
 @layer components {
+  /* Site shell — the one shared content container, so the header, footer, and
+     every full-bleed section align on the same column. max-w-7xl alone reads
+     skinny past ~1600px (a 27–32" monitor is half empty), so the shell steps
+     wider with the viewport instead of freezing at 1280px. */
+  .site-shell {
+    margin-inline: auto;
+    width: 100%;
+    max-width: 80rem; /* 1280 — unchanged through laptop sizes */
+    padding-inline: 5vw;
+  }
+  @media (min-width: 1024px) {
+    .site-shell {
+      padding-inline: 2rem;
+    }
+  }
+  @media (min-width: 1280px) {
+    .site-shell {
+      padding-inline: 4rem;
+    }
+  }
+  @media (min-width: 1680px) {
+    .site-shell {
+      max-width: 94rem; /* 1504 */
+    }
+  }
+  @media (min-width: 2080px) {
+    .site-shell {
+      max-width: 107rem; /* 1712 */
+    }
+  }
+  @media (min-width: 2560px) {
+    .site-shell {
+      max-width: 120rem; /* 1920 — ultrawide/4K */
+    }
+  }
+
   /* One sans does everything. These aliases keep older markup coherent while
      pointing at the single family. No serif, no decorative italic. */
   .font-display,
@@ -200,7 +236,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    filter: saturate(0.78) contrast(1.04) brightness(0.98);
+    filter: saturate(2.0) contrast(10.0) brightness(1.01);
   }
   /* subtle cool wash + bottom falloff so text overlays stay legible */
   .cine-img::after {
@@ -236,13 +272,14 @@
   inset: 0;
   pointer-events: none;
   z-index: 9999;
-  opacity: 0.045;
-  mix-blend-mode: multiply;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.025;
+  background-image: url('/images/grain.png');
+  background-size: 128px 128px;
+  contain: strict;
+  transform: translateZ(0);
 }
 .dark .grain-overlay {
-  mix-blend-mode: screen;
-  opacity: 0.05;
+  opacity: 0.025;
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -39,7 +39,7 @@ values
    5900, 'usd', 'month', 14, 1, true,
    '["1 active campaign","Cross-campaign memory","Human handoff via email","Recipe & failure-mode library","Community support"]'::jsonb),
   ('lab', 'Lab',
-   'For a group running ATLAS across the bench.',
+   'For a group running ASILIA across the bench.',
    32900, 'usd', 'month', 14, 2, true,
    '["10 active campaigns","Shared knowledge graph & lab lore","Slack / mobile handoff","Drift detection & alerts","Run history, lineage & exports","Priority support"]'::jsonb),
   ('institute', 'Institute',

@@ -44,7 +44,7 @@ export function Plate({
             alt={alt}
             loading="lazy"
             className="h-full w-full object-cover"
-            style={{ filter: 'saturate(0.72) contrast(1.05) brightness(0.96)' }}
+            style={{ filter: 'saturate(1.15) contrast(10.8) brightness(1.0)' }}
           />
           {tint && (
             <div

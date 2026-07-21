@@ -17,7 +17,7 @@ export function PrivacyPage() {
         <p>
           This Privacy Policy explains what information <Fact value={legal.entityName} placeholder="[LEGAL ENTITY NAME]" />{' '}
           ("Contineon", "we", "us") collects, how we use it, and the choices you have. It applies to
-          our marketing website, the account/dashboard area, and the Atlas platform (together, the
+          our marketing website, the account/dashboard area, and the Asilia platform (together, the
           "Service"). It is written to describe how the Service actually handles data today.
         </p>
 
@@ -54,7 +54,7 @@ export function PrivacyPage() {
           </p>
           <p>
             <strong className="text-ink">Lab content.</strong> The campaigns, protocols, traces,
-            results, and knowledge graph you create or connect within Atlas are processed to provide
+            results, and knowledge graph you create or connect within Asilia are processed to provide
             the Service to your account. <Placeholder>[REVIEW WITH COUNSEL]</Placeholder>, confirm the
             scope of lab-content processing and any feature-specific data flows before launch.
           </p>

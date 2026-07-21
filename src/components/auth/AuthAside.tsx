@@ -6,7 +6,7 @@
 
 const PROOF = [
   { t: 'Cross-campaign memory', d: 'Knowledge carries from the very first run.' },
-  { t: 'Human handoff, any time', d: 'Atlas pauses mid-campaign for the steps that need hands.' },
+  { t: 'Human handoff, any time', d: 'Asilia pauses mid-campaign for the steps that need hands.' },
   { t: 'No instruments to replace', d: 'It runs on the bench and integrations you already operate.' },
 ];
 
@@ -14,8 +14,9 @@ export function AuthAside() {
   return (
     <aside className="relative hidden overflow-hidden bg-ink lg:block">
       <img
-        src="/images/sr71-quote-wide.png"
+        src="/images/sr71-quote-wide.webp"
         alt=""
+        decoding="async"
         className="absolute inset-0 h-full w-full object-cover opacity-50"
       />
       <div
@@ -23,7 +24,7 @@ export function AuthAside() {
         style={{ background: 'linear-gradient(180deg, rgba(11,13,17,.6), rgba(11,13,17,.92))' }}
       />
       <div className="relative z-10 flex h-full flex-col justify-between p-[clamp(36px,4vw,60px)]">
-        <p className="lab-label text-white/55">Atlas, the lab that remembers</p>
+        <p className="lab-label text-white/55">Asilia, the lab that remembers</p>
 
         <p className="max-w-md text-[clamp(24px,2.6vw,36px)] font-bold leading-[1.1] tracking-[-0.02em] text-white">
           One agent that plans, runs, and remembers, on the lab you already have.

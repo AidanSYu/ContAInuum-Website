@@ -15,7 +15,7 @@ const BELIEFS = [
   {
     n: '02',
     h: 'Humans stay in the loop',
-    p: 'Autonomy that ignores the bench is a demo. Atlas pauses for the steps that need hands, and treats a scientist’s correction as the most valuable signal it gets.',
+    p: 'Autonomy that ignores the bench is a demo. Asilia pauses for the steps that need hands, and treats a scientist’s correction as the most valuable signal it gets.',
   },
   {
     n: '03',
@@ -33,9 +33,9 @@ export function AboutPage() {
   return (
     <div className="px-[5vw] pb-28 pt-32 lg:px-8 lg:pt-40">
       <Seo
-        title="About, Contineon"
+        title="Mission, Contineon"
         description="Contineon builds the self-driving lab that remembers, retrofitting the labs scientists already run with an autonomous agent and a compounding memory."
-        path="/about"
+        path="/mission"
       />
 
       <div className="mx-auto max-w-5xl">
@@ -48,7 +48,7 @@ export function AboutPage() {
           <p className="mt-6 max-w-2xl text-lg leading-relaxed text-ink-muted">
             Contineon exists to make autonomous science practical for the labs that already exist.
             Instead of a sealed robotic box that only works greenfield, we retrofit the instruments and
-            people you run today with Atlas, an agent that plans, executes, hands work back when it
+            people you run today with Asilia, an agent that plans, executes, hands work back when it
             needs a human, and remembers every campaign it touches.
           </p>
         </div>

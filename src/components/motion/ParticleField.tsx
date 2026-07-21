@@ -36,6 +36,7 @@ export function ParticleField({ className, count = 44 }: { className?: string; c
         a: Math.random() * 0.35 + 0.12,
       }));
     };
+    let running = false;
     const tick = () => {
       ctx.clearRect(0, 0, w, h);
       for (const p of parts) {
@@ -52,16 +53,32 @@ export function ParticleField({ className, count = 44 }: { className?: string; c
       }
       raf = requestAnimationFrame(tick);
     };
+    const startLoop = () => {
+      if (!running) {
+        running = true;
+        raf = requestAnimationFrame(tick);
+      }
+    };
+    const stopLoop = () => {
+      running = false;
+      cancelAnimationFrame(raf);
+    };
     const onResize = () => {
       resize();
       init();
     };
     resize();
     init();
-    tick();
+    startLoop();
     window.addEventListener('resize', onResize);
+    // Don't animate the field while it's scrolled out of view.
+    const io = new IntersectionObserver(
+      ([entry]) => ((entry?.isIntersecting ?? true) ? startLoop() : stopLoop()),
+    );
+    io.observe(canvas);
     return () => {
-      cancelAnimationFrame(raf);
+      stopLoop();
+      io.disconnect();
       window.removeEventListener('resize', onResize);
     };
   }, [count]);

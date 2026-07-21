@@ -12,11 +12,11 @@ export function BlogPostPage() {
 
   return (
     <div className="px-[5vw] pb-28 pt-32 lg:px-8 lg:pt-40">
-      <Seo title={`${post.title}, Contineon`} description={post.excerpt} path={`/blog/${post.slug}`} type="article" />
+      <Seo title={`${post.title}, Contineon`} description={post.excerpt} path={`/news/${post.slug}`} type="article" />
 
       <article className="mx-auto max-w-2xl">
-        <Link to="/blog" className="inline-flex items-center gap-1.5 font-mono-tech text-[11px] uppercase tracking-[0.14em] text-ink-muted hover:text-ink">
-          <ArrowLeft className="h-3.5 w-3.5" /> All posts
+        <Link to="/news" className="inline-flex items-center gap-1.5 font-mono-tech text-[11px] uppercase tracking-[0.14em] text-ink-muted hover:text-ink">
+          <ArrowLeft className="h-3.5 w-3.5" /> All news
         </Link>
 
         <header className="mt-6 border-b border-line pb-8">

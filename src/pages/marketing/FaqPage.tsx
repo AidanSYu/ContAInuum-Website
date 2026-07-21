@@ -15,16 +15,16 @@ const GROUPS: Group[] = [
     group: 'Product',
     items: [
       {
-        q: 'What exactly is Atlas?',
-        a: 'Atlas is an autonomous agent for the lab. It plans a campaign toward an objective you set, executes the steps it can, and pauses to hand off the steps that still need a human. Every campaign it touches feeds a memory that makes the next one start smarter.',
+        q: 'What exactly is Asilia?',
+        a: 'Asilia is an autonomous agent for the lab. It plans a campaign toward an objective you set, executes the steps it can, and pauses to hand off the steps that still need a human. Every campaign it touches feeds a memory that makes the next one start smarter.',
       },
       {
         q: 'Do I need to buy new instruments or rebuild my lab?',
-        a: 'No. Contineon is a retrofit, not a rip-and-replace. Atlas runs on the instruments, ELN, and data you already have. The whole premise is that you keep your workcell and add a memory and an autonomy layer on top of it.',
+        a: 'No. Contineon retrofits the lab you have. Asilia runs on the instruments, ELN, and data you already operate. The whole premise is that you keep your workcell and add a memory and an autonomy layer on top of it.',
       },
       {
         q: 'What happens when a step needs a human?',
-        a: 'Atlas pauses the campaign and notifies a scientist, like a job awaiting approval. You return a result (a TLC photo, a CSV, a note) and the run resumes from exactly where it stopped. Correct a tool call once and that correction becomes training signal.',
+        a: 'Asilia pauses the campaign and notifies a scientist, like a job awaiting approval. You return a result (a TLC photo, a CSV, a note) and the run resumes from exactly where it stopped. Correct a tool call once and that correction becomes training signal.',
       },
     ],
   },
@@ -33,15 +33,15 @@ const GROUPS: Group[] = [
     items: [
       {
         q: 'Which instruments and systems integrate?',
-        a: 'Atlas connects over open integrations to the systems labs already run, liquid handlers, plate readers, analytical instruments (e.g. LC/MS), and electronic lab notebooks. As a rule of thumb: if a step can be scripted or its output can be exported, Atlas can read it. Tell us your stack and we will confirm specifics.',
+        a: 'Asilia connects over open integrations to the systems labs already run, liquid handlers, plate readers, analytical instruments (e.g. LC/MS), and electronic lab notebooks. As a rule of thumb: if a step can be scripted or its output can be exported, Asilia can read it. Tell us your stack and we will confirm specifics.',
       },
       {
         q: 'How long does setup take?',
-        a: 'Connecting your workcell is an afternoon, not a quarter. You point Atlas at your instruments and data, define an objective, and run your first campaign the same day.',
+        a: 'Connecting your workcell takes an afternoon. You point Asilia at your instruments and data, define an objective, and run your first campaign the same day.',
       },
       {
         q: 'Is Contineon cloud or on-premises?',
-        a: 'Atlas runs on managed, secure cloud infrastructure. Dedicated or VPC arrangements with governance controls are available for larger deployments, talk to us about your requirements.',
+        a: 'Asilia runs on managed, secure cloud infrastructure. Dedicated or VPC arrangements with governance controls are available for larger deployments, talk to us about your requirements.',
       },
     ],
   },
@@ -54,7 +54,7 @@ const GROUPS: Group[] = [
       },
       {
         q: 'Can I export my data if I leave?',
-        a: 'Yes. Your knowledge graph and run history export with you. There is no lock-in, that is a deliberate design choice, not a favor.',
+        a: 'Yes. Your knowledge graph and run history export with you, by design. The data stays yours wherever you take it.',
       },
       {
         q: 'How do you secure my data?',
@@ -71,11 +71,11 @@ const GROUPS: Group[] = [
       },
       {
         q: 'Is there a demo?',
-        a: 'An interactive demo is on the way. In the meantime, book a live walkthrough and we will run Atlas against a campaign close to your own.',
+        a: 'An interactive demo is on the way. In the meantime, book a live walkthrough and we will run Asilia against a campaign close to your own.',
       },
       {
         q: 'What support do I get?',
-        a: 'Design partners work directly with the team building Atlas, with response times scoped to your pilot.',
+        a: 'Design partners work directly with the team building Asilia, with response times scoped to your pilot.',
       },
     ],
   },
@@ -86,7 +86,7 @@ export function FaqPage() {
     <div className="px-[5vw] pb-28 pt-32 lg:px-8 lg:pt-40">
       <Seo
         title="FAQ, Contineon"
-        description="Answers to common questions about Atlas: instruments and integrations, data privacy and security, setup time, and how to get access."
+        description="Answers to common questions about Asilia: instruments and integrations, data privacy and security, setup time, and how to get access."
         path="/faq"
       />
 

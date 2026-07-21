@@ -7,7 +7,7 @@ export function TermsPage() {
     <>
       <Seo
         title="Terms of Service, Contineon"
-        description="The terms governing your use of Contineon and the Atlas platform."
+        description="The terms governing your use of Contineon and the Asilia platform."
         path="/terms"
       />
 
@@ -16,7 +16,7 @@ export function TermsPage() {
 
         <p>
           These Terms of Service ("Terms") govern your access to and use of the websites, account
-          dashboard, Atlas platform, and related services (collectively, the "Service") offered by{' '}
+          dashboard, Asilia platform, and related services (collectively, the "Service") offered by{' '}
           <Fact value={legal.entityName} placeholder="[LEGAL ENTITY NAME]" /> ("Contineon", "we", "us"). By creating an
           account or using the Service, you agree to these Terms. If you are agreeing on behalf of an
           organization, you represent that you are authorized to bind it.
@@ -81,7 +81,7 @@ export function TermsPage() {
 
         <LegalSection n="6" heading="Autonomy & human oversight">
           <p>
-            Atlas executes steps autonomously and pauses for human approval where configured. You are
+            Asilia executes steps autonomously and pauses for human approval where configured. You are
             responsible for appropriate oversight of laboratory work, for validating outputs, and for
             compliance with the safety and regulatory requirements that apply to your lab. The Service
             is a tool, not a substitute for professional judgment.

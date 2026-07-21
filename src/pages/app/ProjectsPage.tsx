@@ -59,7 +59,7 @@ export function ProjectsPage() {
         <div>
           <p className="lab-label text-safety">PROJECTS</p>
           <h1 className="mt-2 font-display text-3xl font-bold tracking-tight text-ink">Projects</h1>
-          <p className="mt-1 text-ink-muted">Your ATLAS projects and agent runs.</p>
+          <p className="mt-1 text-ink-muted">Your ASILIA projects and agent runs.</p>
         </div>
 
         <Dialog open={open} onOpenChange={setOpen}>
@@ -71,7 +71,7 @@ export function ProjectsPage() {
           <DialogContent>
             <DialogHeader>
               <DialogTitle>Create a project</DialogTitle>
-              <DialogDescription>Give your ATLAS project a name to get started.</DialogDescription>
+              <DialogDescription>Give your ASILIA project a name to get started.</DialogDescription>
             </DialogHeader>
             <Input
               autoFocus
@@ -149,7 +149,7 @@ export function ProjectsPage() {
           <FolderKanban className="mx-auto h-10 w-10 text-ink-faint" strokeWidth={1.3} />
           <p className="mt-4 font-display text-lg text-ink">No projects yet</p>
           <p className="mt-1 text-sm text-ink-muted">
-            {access ? 'Create your first ATLAS project to get started.' : 'Start a trial to create your first project.'}
+            {access ? 'Create your first ASILIA project to get started.' : 'Start a trial to create your first project.'}
           </p>
         </div>
       )}

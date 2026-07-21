@@ -4,7 +4,7 @@ import { cn } from '@/lib/utils';
 
 /* =============================================================================
    OverviewExtras, dashboard handoff alert + stat cards.
-   <HandoffAlert /> and <StatCards /> show DEMO data (there is no ATLAS campaign
+   <HandoffAlert /> and <StatCards /> show DEMO data (there is no ASILIA campaign
    backend yet), so OverviewPage only renders them behind the `showDemoMetrics`
    feature flag (off by default). When the flag is off, customers see
    <CampaignsEmptyState /> instead, no fabricated numbers.
@@ -14,7 +14,7 @@ import { cn } from '@/lib/utils';
 
 export function HandoffAlert({
   title = 'Campaign 4821 paused, needs a human read',
-  detail = 'ATLAS ran a TLC plate on the Pd catalyst screen and needs you to confirm the result before it resumes.',
+  detail = 'ASILIA ran a TLC plate on the Pd catalyst screen and needs you to confirm the result before it resumes.',
   since = 'paused 14m ago',
   onResolve,
 }: {
@@ -95,7 +95,7 @@ export function CampaignsEmptyState({ className }: { className?: string }) {
       <div>
         <p className="font-display text-[15px] font-semibold text-ink">No active campaigns yet</p>
         <p className="mx-auto mt-1 max-w-md text-[13px] text-ink-muted">
-          Once you launch an ATLAS campaign, its live metrics, memory carry-over, and any handoffs
+          Once you launch an ASILIA campaign, its live metrics, memory carry-over, and any handoffs
           that need a human read will show up here.
         </p>
       </div>
