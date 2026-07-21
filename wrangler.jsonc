@@ -1,7 +1,7 @@
 {
-  "name": "containuum-website",
+  // Cloudflare Pages config. The name must match the Pages project, and
+  // pages_build_output_dir is required for Pages to accept this file.
+  "name": "contineon-website",
   "compatibility_date": "2026-02-07",
-  "assets": {
-    "directory": "./dist"
-  }
+  "pages_build_output_dir": "./dist"
 }
