@@ -300,8 +300,8 @@ function Hero() {
           </h1>
           <div data-hero-fade className="mt-10 flex flex-wrap items-center gap-3">
             <Magnetic>
-              <Cta to="https://asilia.contineon.com" variant="outlineLight">
-                See the Asilia <ArrowRight className="h-4 w-4" />
+              <Cta to="/asilia" variant="outlineLight">
+                See Asilia <ArrowRight className="h-4 w-4" />
               </Cta>
             </Magnetic>
           </div>

@@ -32,7 +32,7 @@ const COMPANY: NavLink[] = [
 ];
 
 const NAV: NavEntry[] = [
-  { label: 'Asilia Framework', to: '/asilia' },
+  { label: 'Asilia', to: '/asilia' },
   { label: 'Technology', items: TECHNOLOGY },
   { label: 'Company', items: COMPANY },
   { label: 'News', to: '/news' },

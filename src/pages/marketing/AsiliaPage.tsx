@@ -9,10 +9,13 @@ import { CREDITS } from '@/lib/mediaCredits';
 import { Cinematic, Section, ASILIA_URL } from './asilia/shared';
 
 /* =============================================================================
-   Asilia overview — the front door of the standalone Asilia site, paced like
+   Asilia overview, the front door of the standalone Asilia site, paced like
    antigravity.google's main page: one idea per screen, almost no body copy.
-   A vision-line hero, the film, one beat per product with a single route
-   deeper, and a close. All depth lives on /asilia/framework and /asilia/sdk.
+   Asilia is the UMBRELLA: the name over everything Contineon ships for
+   autonomous science (like GPT over its family). The hero introduces the name
+   itself; the demo film and framework specifics sit under it as the first
+   product, with the SDK beside it and room for more (CLI etc.) later. All
+   depth lives on /asilia/framework and /asilia/sdk.
    ============================================================================= */
 
 export function AsiliaPage() {
@@ -20,7 +23,7 @@ export function AsiliaPage() {
     <>
       <Seo
         title="Asilia, Contineon"
-        description="Asilia is Contineon's autonomous lab system: it plans real experiments, runs them on real instruments, and learns from every result. Built on the Asilia Framework and Asilia SDK."
+        description="Asilia is Contineon's system for autonomous science: it plans real experiments, runs them on real instruments, and learns from every result. Today it ships as the Asilia Framework and the open Asilia SDK."
         path="/asilia"
       />
 
@@ -41,12 +44,12 @@ export function AsiliaPage() {
           />
         }
       >
-        <div className="max-w-4xl pb-6 2xl:max-w-[72rem]">
-          <h1 data-title className="text-[clamp(42px,7vw,152px)] font-bold leading-[0.92] tracking-[-0.05em]">
-            A new era of autonomous science.
+        <div className="max-w-5xl pb-6 2xl:max-w-[80rem]">
+          <h1 data-title className="text-[clamp(64px,13vw,224px)] font-bold leading-[0.9] tracking-[-0.05em]">
+            Asilia
           </h1>
-          <p data-fade className="mt-8 max-w-2xl text-[clamp(17px,1.6vw,28px)] font-medium leading-snug text-white/70 2xl:max-w-3xl">
-            Asilia turns an objective into real experiments on real instruments, and learns from every result.
+          <p data-fade className="mt-6 max-w-2xl text-[clamp(19px,2vw,36px)] font-medium leading-snug text-white/80 2xl:max-w-3xl">
+            The system for autonomous science.
           </p>
           <div data-fade className="mt-10 flex flex-wrap items-center gap-3">
             <Magnetic>
@@ -63,7 +66,23 @@ export function AsiliaPage() {
         </div>
       </Section>
 
-      {/* FILM — the intro-film slot (antigravity's hero play-button beat) */}
+      {/* UMBRELLA — what the name covers. One screen that sets the family up:
+          Framework now, SDK underneath, room for more releases under Asilia. */}
+      <Section media={<GridField className="opacity-[0.16]" />}>
+        <div className="mx-auto max-w-3xl text-center 2xl:max-w-[64rem]">
+          <h2 data-title className="text-[clamp(30px,4.4vw,88px)] font-bold leading-[1.0] tracking-[-0.04em]">
+            A new era of autonomous science.
+          </h2>
+          <p data-fade className="mt-7 text-[clamp(16px,1.4vw,25px)] leading-relaxed text-white/70">
+            Asilia is one name for everything we build toward the autonomous lab: systems that plan real
+            experiments, run them on real instruments, and learn from every result. Today it ships as the
+            Asilia Framework, with the open Asilia SDK underneath. More is on the way.
+          </p>
+        </div>
+      </Section>
+
+      {/* ASILIA FRAMEWORK — the first product under the umbrella. The demo film
+          and the framework beat sit together under the product name. */}
       <Section media={<GridField className="opacity-[0.18]" />}>
         <div className="mx-auto max-w-6xl 2xl:max-w-[88rem]">
           <div className="mx-auto max-w-2xl text-center">
@@ -73,21 +92,20 @@ export function AsiliaPage() {
           </div>
           <div data-fade className="mt-12">
             {/* Drop the finished film into `src` and this becomes a click-to-play player. */}
-            <VideoFrame poster="/images/iss-hero-poster.jpg" label="Asilia campaign walkthrough" />
+            <VideoFrame poster="/images/iss-hero-poster.jpg" label="Asilia Framework demo" />
           </div>
         </div>
       </Section>
 
-      {/* FRAMEWORK — one beat, one sentence, one route deeper */}
       <Section minH="min-h-[88svh]" media={<GridField className="opacity-[0.14]" />}>
         <div className="grid items-center gap-x-16 gap-y-12 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]">
           <div>
             <h2 data-title className="text-[clamp(30px,4.4vw,88px)] font-bold leading-[1.0] tracking-[-0.04em]">
-              One system runs the whole loop.
+              Asilia Framework runs the whole loop.
             </h2>
             <p data-fade className="mt-7 max-w-xl text-[clamp(16px,1.4vw,25px)] leading-relaxed text-white/70 2xl:max-w-2xl">
-              The Asilia Framework plans the campaign, runs it on the instruments you already have, and hands
-              work back only where hands are needed.
+              The first product under Asilia. It plans the campaign, runs it on the instruments you already
+              have, and hands work back only where hands are needed.
             </p>
             <div data-fade className="mt-9">
               <Magnetic>
