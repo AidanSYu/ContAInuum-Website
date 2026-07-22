@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { cn } from '@/lib/utils';
+import { canUseAsciiWorker, startAsciiWorker } from './ascii-worker-client';
 
 /* =============================================================================
    InteractiveAscii — a full-screen character field rendered from a video, that
@@ -18,11 +19,11 @@ const LEVELS = 30;
 
 // shadows -> ash -> ember -> hot. Higher level = brighter + hotter.
 const STOPS: Array<[number, [number, number, number]]> = [
-  [0.0, [26, 29, 34]],
-  [0.45, [108, 112, 116]],
-  [0.74, [214, 120, 92]],
-  [0.9, [242, 97, 58]],
-  [1.0, [255, 232, 220]],
+  [0.0, [20, 17, 22]],
+  [0.4, [92, 50, 52]],
+  [0.66, [206, 96, 66]],
+  [0.85, [246, 108, 52]],
+  [1.0, [255, 236, 216]],
 ];
 
 function palette(): string[] {
@@ -68,6 +69,31 @@ export function InteractiveAscii({
     const host = wrap.current;
     const cvs = canvas.current;
     if (!host || !cvs) return;
+
+    if (canUseAsciiWorker(cvs)) {
+      let stopWorker: (() => void) | undefined;
+      const boot = requestAnimationFrame(() => {
+        stopWorker = startAsciiWorker({
+          host,
+          canvas: cvs,
+          src,
+          type: 'video',
+          poster,
+          cols,
+          speed,
+          fps: 30,
+          tint: 'ember',
+          contrast: 1,
+          interactive: true,
+        });
+      });
+      return () => {
+        cancelAnimationFrame(boot);
+        stopWorker?.();
+      };
+    }
+
+    // Compatibility path for browsers without transferable OffscreenCanvas.
     const ctx = cvs.getContext('2d', { alpha: false });
     if (!ctx) return;
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -82,8 +108,11 @@ export function InteractiveAscii({
     let dpr = 1;
     let raf = 0;
     let last = 0;
-    let onScreen = true;
+    let onScreen = false;
     let ready = false;
+    let running = false;
+    let hostDocumentLeft = 0;
+    let hostDocumentTop = 0;
 
     // pointer state (display px). eased toward target; auto-drift when idle.
     let px = 0;
@@ -105,7 +134,12 @@ export function InteractiveAscii({
     const layout = () => {
       const rect = host.getBoundingClientRect();
       if (!rect.width || !rect.height) return;
-      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      hostDocumentLeft = rect.left + window.scrollX;
+      hostDocumentTop = rect.top + window.scrollY;
+      // Render at 1x — glyph raster cost scales with dpr^2 and the ASCII grid resolution
+      // (cols x rows) is independent of it, so this is a ~4x per-frame win on retina with
+      // no change to the effect's detail. Raise toward 1.5 for crisper glyphs at more cost.
+      dpr = 1;
       cvs.width = Math.floor(rect.width * dpr);
       cvs.height = Math.floor(rect.height * dpr);
       rows = Math.max(8, Math.round((cols / srcAspect()) * 0.52));
@@ -132,9 +166,15 @@ export function InteractiveAscii({
         tx = cvs.width * (0.5 + 0.32 * Math.cos(a));
         ty = cvs.height * (0.5 + 0.3 * Math.sin(a * 1.3));
       }
-      // ease pointer toward target
-      px += (tx - px) * 0.08;
-      py += (ty - py) * 0.08;
+      // Ease the pointer toward its target with a framerate-independent smoothing
+      // factor, so the glow tracks identically whatever the redraw rate. RESPONSE is
+      // the fraction of the remaining gap closed per 16.7ms; ~0.22 lands a ~150ms
+      // catch-up — tight and alive like GI's cursor, versus the old 0.08-per-frame
+      // that trailed the pointer by well over a second.
+      const RESPONSE = 0.22;
+      const k = 1 - Math.pow(1 - RESPONSE, dt / 16.667);
+      px += (tx - px) * k;
+      py += (ty - py) * k;
 
       const radius = Math.min(cvs.width, cvs.height) * 0.36;
       const inv = 1 / radius;
@@ -177,19 +217,37 @@ export function InteractiveAscii({
       }
     };
 
+    // Throttle to 30fps. Each draw is a heavy per-cell fillText pass on the main thread,
+    // so we cap it to leave frame budget for the (main-thread) Lenis smooth-scroll. 20fps
+    // was steppy for the cursor glow — 30 keeps the pointer tracking feeling responsive
+    // while still yielding to scroll. True 60fps parity with GI needs the OffscreenCanvas/
+    // WebGL worker path so this stops touching the main thread at all.
+    const FRAME_MS = 1000 / 30;
     const loop = (t: number) => {
+      if (!running) return;
       raf = requestAnimationFrame(loop);
-      if (!onScreen || !ready) return;
       const dt = Math.min(64, t - last || 16);
-      if (t - last < 1000 / 30) return;
+      if (t - last < FRAME_MS) return;
       last = t;
       draw(dt);
     };
 
+    const startLoop = () => {
+      if (!ready || running) return;
+      running = true;
+      raf = requestAnimationFrame(loop);
+    };
+
+    const stopLoop = () => {
+      running = false;
+      cancelAnimationFrame(raf);
+      raf = 0;
+    };
+
     const onMove = (e: MouseEvent) => {
-      const rect = cvs.getBoundingClientRect();
-      tx = (e.clientX - rect.left) * dpr;
-      ty = (e.clientY - rect.top) * dpr;
+      if (!onScreen) return;
+      tx = (e.clientX + window.scrollX - hostDocumentLeft) * dpr;
+      ty = (e.clientY + window.scrollY - hostDocumentTop) * dpr;
       lastMove = clock;
     };
 
@@ -198,9 +256,7 @@ export function InteractiveAscii({
       layout();
       if (reduce) {
         draw(16);
-      } else {
-        raf = requestAnimationFrame(loop);
-      }
+      } else if (onScreen) startLoop();
     };
 
     if (!reduce) {
@@ -237,17 +293,22 @@ export function InteractiveAscii({
       (en) => {
         onScreen = en[0]?.isIntersecting ?? true;
         if (source instanceof HTMLVideoElement) {
-          if (onScreen) source.play().catch(() => {});
-          else source.pause();
+          if (onScreen) {
+            source.play().catch(() => {});
+            startLoop();
+          } else {
+            source.pause();
+            stopLoop();
+          }
         }
       },
-      { rootMargin: '120px' },
+      { threshold: 0.01 },
     );
     io.observe(host);
-    window.addEventListener('mousemove', onMove);
+    window.addEventListener('mousemove', onMove, { passive: true });
 
     return () => {
-      cancelAnimationFrame(raf);
+      stopLoop();
       ro.disconnect();
       io.disconnect();
       window.removeEventListener('mousemove', onMove);
@@ -259,7 +320,11 @@ export function InteractiveAscii({
   }, [src, poster, cols, speed]);
 
   return (
-    <div ref={wrap} className={cn('relative overflow-hidden bg-[#06080b]', className)} aria-hidden="true">
+    <div
+      ref={wrap}
+      className={cn('relative overflow-hidden bg-[#06080b] [contain:layout_paint_style]', className)}
+      aria-hidden="true"
+    >
       <canvas ref={canvas} className="h-full w-full" />
     </div>
   );

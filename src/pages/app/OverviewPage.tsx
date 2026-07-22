@@ -48,7 +48,7 @@ export function OverviewPage() {
             <Sparkles className="mt-0.5 h-6 w-6 shrink-0 text-safety" strokeWidth={1.5} />
             <div className="flex-1">
               <h2 className="font-display text-lg font-semibold text-ink">
-                Activate your ATLAS access
+                Activate your ASILIA access
               </h2>
               <p className="mt-1 text-sm text-ink-muted">
                 Start your free trial to spin up projects and run autonomous agents.
@@ -110,13 +110,13 @@ export function OverviewPage() {
       )}
 
       {/* Campaign handoff + headline metrics.
-          The numbers are demo data (no ATLAS campaign backend yet), so they only
+          The numbers are demo data (no ASILIA campaign backend yet), so they only
           render behind the showDemoMetrics flag. Otherwise: an honest empty state. */}
       {access && (
         <div>
           {flags.showDemoMetrics ? (
             <>
-              <HandoffAlert onResolve={() => toast.success('Handoff resolved, ATLAS is resuming the campaign.')} />
+              <HandoffAlert onResolve={() => toast.success('Handoff resolved, ASILIA is resuming the campaign.')} />
               <StatCards />
             </>
           ) : (

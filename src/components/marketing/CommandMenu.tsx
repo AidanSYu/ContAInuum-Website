@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
-  Activity,
   BookOpen,
   FileText,
   LayoutGrid,
@@ -9,6 +8,8 @@ import {
   Mail,
   PlayCircle,
   Rocket,
+  ShieldCheck,
+  Target,
 } from 'lucide-react';
 import {
   CommandDialog,
@@ -27,8 +28,8 @@ import {
 
 export const COMMAND_EVENT = 'contineon:command';
 
-export function CommandMenu() {
-  const [open, setOpen] = useState(false);
+export function CommandMenu({ initiallyOpen = false }: { initiallyOpen?: boolean }) {
+  const [open, setOpen] = useState(initiallyOpen);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -63,29 +64,26 @@ export function CommandMenu() {
       <CommandList>
         <CommandEmpty>No results.</CommandEmpty>
         <CommandGroup heading="Navigate">
-          <CommandItem onSelect={go('/platform')}>
-            <LayoutGrid /> Atlas Framework
+          <CommandItem onSelect={go('/asilia')}>
+            <Rocket /> Asilia
           </CommandItem>
-          <CommandItem onSelect={go('/blog')}>
-            <FileText /> Research
+          <CommandItem onSelect={go('/technology/foundation-models')}>
+            <LayoutGrid /> Foundation Models
+          </CommandItem>
+          <CommandItem onSelect={go('/mission')}>
+            <Target /> Mission
+          </CommandItem>
+          <CommandItem onSelect={go('/news')}>
+            <FileText /> News
           </CommandItem>
           <CommandItem onSelect={go('/docs')}>
             <BookOpen /> Docs
           </CommandItem>
+          <CommandItem onSelect={go('/security')}>
+            <ShieldCheck /> Security
+          </CommandItem>
           <CommandItem onSelect={go('/contact')}>
             <Mail /> Contact
-          </CommandItem>
-        </CommandGroup>
-        <CommandSeparator />
-        <CommandGroup heading="On the landing page">
-          <CommandItem onSelect={go('/#thesis')}>
-            <BookOpen /> The thesis
-          </CommandItem>
-          <CommandItem onSelect={go('/#loop')}>
-            <Activity /> Campaign loop
-          </CommandItem>
-          <CommandItem onSelect={go('/#how')}>
-            <LayoutGrid /> How it works
           </CommandItem>
         </CommandGroup>
         <CommandSeparator />

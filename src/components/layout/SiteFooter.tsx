@@ -1,14 +1,27 @@
 import { Link } from 'react-router-dom';
+import { ArrowUpRight } from 'lucide-react';
 import { Logo } from './Logo';
 import { NewsletterSignup } from '@/components/marketing/NewsletterSignup';
 
-const COLS = [
+type FooterLink = { label: string; href: string; external?: boolean };
+
+const COLS: { title: string; links: FooterLink[] }[] = [
   {
-    title: 'Product',
+    title: 'Explore',
     links: [
-      { label: 'Atlas Framework', href: '/platform' },
-      { label: 'Demo', href: '/contact?topic=demo' },
-      { label: 'Request access', href: '/contact?topic=partner' },
+      { label: 'Asilia', href: '/asilia' },
+      { label: 'Foundation Models', href: '/technology/foundation-models' },
+      { label: 'Autonomous Discovery', href: '/technology/autonomous-discovery' },
+      { label: 'News', href: '/news' },
+    ],
+  },
+  {
+    title: 'Company',
+    links: [
+      { label: 'Mission', href: '/mission' },
+      { label: 'Careers', href: '/contact?topic=careers' },
+      { label: 'Security', href: '/security' },
+      { label: 'Contact', href: '/contact' },
     ],
   },
   {
@@ -16,17 +29,8 @@ const COLS = [
     links: [
       { label: 'Docs', href: '/docs' },
       { label: 'FAQ', href: '/faq' },
-      { label: 'Security', href: '/security' },
       { label: 'Changelog', href: '/changelog' },
-    ],
-  },
-  {
-    title: 'Company',
-    links: [
-      { label: 'About', href: '/about' },
-      { label: 'Research', href: '/blog' },
-      { label: 'Contact', href: '/contact' },
-      { label: 'Sign in', href: '/login' },
+      { label: 'Request access', href: '/contact?topic=partner' },
     ],
   },
   {
@@ -41,11 +45,11 @@ const COLS = [
 export function SiteFooter() {
   return (
     <footer className="relative z-10 border-t border-line bg-paper">
-      <div className="mx-auto grid max-w-7xl gap-10 px-[5vw] py-16 sm:grid-cols-2 md:grid-cols-[1.6fr_1fr_1fr_1fr] lg:grid-cols-[1.6fr_1fr_1fr_1fr_1fr] lg:px-8 xl:px-16">
+      <div className="site-shell grid gap-10 py-16 sm:grid-cols-2 md:grid-cols-[1.6fr_1fr_1fr_1fr] lg:grid-cols-[1.6fr_1fr_1fr_1fr_1fr]">
         <div className="max-w-xs">
           <Logo className="text-[19px]" />
           <p className="mt-4 text-sm leading-relaxed text-ink-muted">
-            The self-driving lab that remembers. Atlas runs autonomous campaigns on
+            The self-driving lab that remembers. Asilia runs autonomous campaigns on
             the instruments you already have.
           </p>
 
@@ -62,23 +66,37 @@ export function SiteFooter() {
           <div key={col.title}>
             <h4 className="lab-label">{col.title}</h4>
             <ul className="mt-4 space-y-3">
-              {col.links.map((l) => (
-                <li key={l.label}>
-                  <Link
-                    to={l.href}
-                    className="text-sm text-ink-muted transition-colors hover:text-ink"
-                  >
-                    {l.label}
-                  </Link>
-                </li>
-              ))}
+              {col.links.map((l) =>
+                l.external ? (
+                  <li key={l.label}>
+                    <a
+                      href={l.href}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-1 text-sm text-ink-muted transition-colors hover:text-ink"
+                    >
+                      {l.label}
+                      <ArrowUpRight className="h-3.5 w-3.5 opacity-60" />
+                    </a>
+                  </li>
+                ) : (
+                  <li key={l.label}>
+                    <Link
+                      to={l.href}
+                      className="text-sm text-ink-muted transition-colors hover:text-ink"
+                    >
+                      {l.label}
+                    </Link>
+                  </li>
+                ),
+              )}
             </ul>
           </div>
         ))}
       </div>
 
       <div className="border-t border-line">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-[5vw] py-6 lab-label sm:flex-row lg:px-8 xl:px-16">
+        <div className="site-shell flex flex-col items-center justify-between gap-3 py-6 lab-label sm:flex-row">
           <span>© 2026 Contineon</span>
           <span>Built for working labs</span>
         </div>

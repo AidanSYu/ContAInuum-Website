@@ -25,7 +25,7 @@
 | 1 | `HeroSection` | `src/sections/HeroSection.tsx` |
 | 2 | `ThesisSection` | `src/sections/ThesisSection.tsx` |
 | 3 | `MissionSection` | `src/sections/MissionSection.tsx` |
-| 4 | `AtlasSection` | `src/sections/AtlasSection.tsx` |
+| 4 | `AsiliaSection` | `src/sections/AsiliaSection.tsx` |
 | 5 | `CapabilitiesSection` | `src/sections/CapabilitiesSection.tsx` |
 | 6 | `FrontierSection` | `src/sections/FrontierSection.tsx` |
 | 7 | `ContactSection` | `src/sections/ContactSection.tsx` |
@@ -79,7 +79,7 @@
 │   ├── images/
 │   │   ├── thesis-lone-figure.jpg
 │   │   ├── mission-robotic-arm.jpg
-│   │   ├── atlas-knowledge-graph.jpg
+│   │   ├── asilia-knowledge-graph.jpg
 │   │   ├── frontier-industrial-space.jpg
 │   │   └── contact-lab-closeup.jpg
 │   └── grain.png
@@ -94,7 +94,7 @@
 │   │   ├── HeroSection.tsx
 │   │   ├── ThesisSection.tsx
 │   │   ├── MissionSection.tsx
-│   │   ├── AtlasSection.tsx
+│   │   ├── AsiliaSection.tsx
 │   │   ├── CapabilitiesSection.tsx
 │   │   ├── FrontierSection.tsx
 │   │   └── ContactSection.tsx
@@ -143,7 +143,7 @@ npm install gsap @fontsource/sora @fontsource/inter @fontsource/ibm-plex-mono
 
 ### Scroll Snap Implementation
 - Derive snap targets from `ScrollTrigger.getAll()` pinned triggers
-- Use per-section `settleRatio` (0.50 default, 0.52 for ATLAS)
+- Use per-section `settleRatio` (0.50 default, 0.52 for ASILIA)
 - Only snap when within pinned ranges (+/- 5% buffer)
 - Flowing sections remain free-scroll
 

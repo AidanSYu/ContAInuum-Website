@@ -14,7 +14,7 @@ const ENTRIES: Entry[] = [
     date: '2026-06-23',
     title: 'Private trial site',
     changes: [
-      { tag: 'new', text: 'Atlas Framework product page, plus FAQ, Security, and About.' },
+      { tag: 'new', text: 'Asilia Framework product page, plus FAQ, Security, and About.' },
       { tag: 'new', text: 'Newsletter sign-up and a book-a-demo path.' },
       { tag: 'improved', text: 'Refreshed identity, new Contineon brand, type, and cinematic imagery.' },
       { tag: 'improved', text: 'Access is now request-based for design-partner labs.' },
@@ -33,7 +33,7 @@ export function ChangelogPage() {
     <div className="px-[5vw] pb-28 pt-32 lg:px-8 lg:pt-40">
       <Seo
         title="Changelog, Contineon"
-        description="What’s new in Contineon and the Atlas platform."
+        description="What’s new in Contineon and the Asilia platform."
         path="/changelog"
       />
 

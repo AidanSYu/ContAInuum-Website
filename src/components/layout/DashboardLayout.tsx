@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
+import { QueryClientProvider, useQuery } from '@tanstack/react-query';
 import {
   LayoutDashboard,
   FolderKanban,
@@ -14,6 +14,7 @@ import { Logo } from './Logo';
 import { ThemeToggle } from './ThemeToggle';
 import { getMyProfile } from '@/lib/api/profiles';
 import { useAuth } from '@/lib/auth';
+import { queryClient } from '@/lib/queryClient';
 import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
 
@@ -28,6 +29,14 @@ const NAV = [
 
 /** Authenticated dashboard shell: sidebar nav + content area. */
 export function DashboardLayout() {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <DashboardShell />
+    </QueryClientProvider>
+  );
+}
+
+function DashboardShell() {
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
@@ -117,7 +126,7 @@ export function DashboardLayout() {
       )}
 
       <div className="lg:pl-64">
-        <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-line bg-paper/80 px-4 backdrop-blur-xl lg:px-8">
+        <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-line bg-paper/95 px-4 lg:px-8">
           <button className="lg:hidden" onClick={() => setOpen(true)} aria-label="Open menu">
             <Menu className="h-6 w-6 text-ink" />
           </button>

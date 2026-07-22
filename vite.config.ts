@@ -4,9 +4,14 @@ import { defineConfig } from "vite"
 import { inspectAttr } from 'kimi-plugin-inspect-react'
 
 // https://vite.dev/config/
-export default defineConfig({
+export default defineConfig(({ command }) => ({
   base: '/',
-  plugins: [inspectAttr(), react()],
+  plugins: [
+    // Opt in with VITE_ENABLE_INSPECTOR=true when element inspection is needed.
+    // Dev-only inspector — keep it out of the production bundle.
+    ...(command === 'serve' && process.env.VITE_ENABLE_INSPECTOR === 'true' ? [inspectAttr()] : []),
+    react(),
+  ],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
@@ -19,4 +24,4 @@ export default defineConfig({
   // Rollup's automatic chunking orders cyclic modules correctly, so we let it
   // decide. Routes are still code-split via React.lazy(), so first paint stays
   // small without the fragile manual split.
-});
+}));

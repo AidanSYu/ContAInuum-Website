@@ -10,7 +10,7 @@ const on = (v: unknown) => v === 'true';
 export const flags = {
   /**
    * Show the illustrative campaign metrics (handoff alert + stat cards) on the
-   * dashboard Overview. OFF by default: the ATLAS campaign backend does not
+   * dashboard Overview. OFF by default: the ASILIA campaign backend does not
    * exist yet, so those numbers are demo data, not the signed-in user's data.
    * Turn on only for sales demos / screenshots, never in customer-facing prod.
    */

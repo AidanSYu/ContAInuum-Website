@@ -61,7 +61,7 @@ export function TrialBanner() {
   if (sub.status === 'past_due') {
     return (
       <Banner tone="warn" icon={AlertTriangle} cta={{ to: '/app/billing', label: 'Fix billing' }}>
-        There’s a problem with your last payment. Update your billing details to keep ATLAS running.
+        There’s a problem with your last payment. Update your billing details to keep ASILIA running.
       </Banner>
     );
   }
@@ -94,7 +94,7 @@ export function TrialBanner() {
     if (!flags.selfServeBilling) return null;
     return (
       <Banner tone="warn" icon={AlertTriangle} cta={{ to: '/app/billing', label: 'Choose a plan' }}>
-        Your subscription is inactive. Pick a plan to resume running campaigns with ATLAS.
+        Your subscription is inactive. Pick a plan to resume running campaigns with ASILIA.
       </Banner>
     );
   }

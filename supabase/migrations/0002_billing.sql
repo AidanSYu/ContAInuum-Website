@@ -103,13 +103,13 @@ values
   ('starter', 'Starter',
    'For individuals exploring autonomous research workflows.',
    4900, 'usd', 'month', 14, 1,
-   '["1 active ATLAS project","Up to 100 agent runs / mo","Community support","Standard compute pool"]'::jsonb),
+   '["1 active ASILIA project","Up to 100 agent runs / mo","Community support","Standard compute pool"]'::jsonb),
   ('pro', 'Pro',
-   'For teams running ATLAS in production.',
+   'For teams running ASILIA in production.',
    24900, 'usd', 'month', 14, 2,
-   '["10 active ATLAS projects","Up to 5,000 agent runs / mo","Priority support","Priority compute pool","Run history & exports"]'::jsonb),
+   '["10 active ASILIA projects","Up to 5,000 agent runs / mo","Priority support","Priority compute pool","Run history & exports"]'::jsonb),
   ('enterprise', 'Enterprise',
    'Dedicated capacity, SSO, and a named success engineer.',
    0, 'usd', 'month', 14, 3,
-   '["Unlimited ATLAS projects","Unlimited agent runs","Dedicated compute","SSO / SAML","SLA & named engineer"]'::jsonb)
+   '["Unlimited ASILIA projects","Unlimited agent runs","Dedicated compute","SSO / SAML","SLA & named engineer"]'::jsonb)
 on conflict (id) do nothing;

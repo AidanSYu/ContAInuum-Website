@@ -1,4 +1,4 @@
-import { FUNCTIONS_URL, SUPABASE_ANON_KEY, isBackendConfigured } from '@/lib/supabase';
+import { FUNCTIONS_URL, SUPABASE_ANON_KEY, isBackendConfigured } from '@/lib/backendConfig';
 import { subscribeSchema, type SubscribeInput } from '@/lib/validation';
 
 /**

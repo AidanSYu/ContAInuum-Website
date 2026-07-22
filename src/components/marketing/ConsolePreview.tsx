@@ -1,9 +1,9 @@
 import { cn } from '@/lib/utils';
 
-/* Placeholder for the Atlas console. The old baked screenshot carried stale
+/* Placeholder for the Asilia console. The old baked screenshot carried stale
    branding, so until a fresh on-brand capture exists we show a clean framed
    placeholder rather than a misleading image. */
-export function ConsolePreview({ className, label = 'Atlas console' }: { className?: string; label?: string }) {
+export function ConsolePreview({ className, label = 'Asilia console' }: { className?: string; label?: string }) {
   return (
     <div
       className={cn(

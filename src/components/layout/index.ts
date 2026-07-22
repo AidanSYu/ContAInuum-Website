@@ -3,5 +3,8 @@ export { ThemeToggle } from './ThemeToggle';
 export { SiteHeader } from './SiteHeader';
 export { SiteFooter } from './SiteFooter';
 export { MarketingLayout } from './MarketingLayout';
+export { AsiliaLayout } from './AsiliaLayout';
+export { AsiliaHeader } from './AsiliaHeader';
+export { AsiliaLogo } from './AsiliaLogo';
 export { AuthLayout } from './AuthLayout';
 export { DashboardLayout } from './DashboardLayout';

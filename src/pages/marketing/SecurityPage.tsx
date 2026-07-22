@@ -2,7 +2,7 @@ import { Lock, Database, KeyRound, Network, Eye, FileCheck } from 'lucide-react'
 import { Seo } from '@/components/Seo';
 
 /* =============================================================================
-   SecurityPage, the trust posture a lab needs before it connects Atlas to its
+   SecurityPage, the trust posture a lab needs before it connects Asilia to its
    instruments and data. Honest about what exists today vs. what is on the
    roadmap (the product is in private trial).
    ============================================================================= */
@@ -61,7 +61,7 @@ export function SecurityPage() {
             Built to be trusted with your lab.
           </h1>
           <p className="mt-4 max-w-2xl text-lg text-ink-muted">
-            Atlas connects to the instruments and data that run your science. Here is how we protect
+            Asilia connects to the instruments and data that run your science. Here is how we protect
             them, and an honest account of where we are today.
           </p>
         </div>

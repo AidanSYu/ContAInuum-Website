@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { cn } from '@/lib/utils';
+import { canUseAsciiWorker, startAsciiWorker } from './ascii-worker-client';
 
 /* =============================================================================
    AsciiMedia — Contineon's signature media treatment. Renders a video or image
@@ -21,16 +22,18 @@ type Tint = 'ember' | 'ice';
 // 4-stop duotone gradients [t, [r,g,b]]: shadows -> ash -> accent -> hot.
 const RAMPS: Record<Tint, Array<[number, [number, number, number]]>> = {
   ember: [
-    [0.0, [28, 31, 36]],
-    [0.5, [120, 122, 124]],
-    [0.82, [242, 97, 58]],
-    [1.0, [255, 226, 212]],
+    [0.0, [22, 18, 24]],
+    [0.34, [96, 44, 52]],
+    [0.6, [206, 78, 52]],
+    [0.82, [247, 120, 56]],
+    [1.0, [255, 234, 208]],
   ],
   ice: [
-    [0.0, [26, 30, 36]],
-    [0.5, [110, 120, 130]],
-    [0.82, [127, 182, 214]],
-    [1.0, [228, 244, 255]],
+    [0.0, [18, 24, 32]],
+    [0.34, [40, 78, 104]],
+    [0.6, [72, 150, 196]],
+    [0.82, [130, 200, 236]],
+    [1.0, [232, 246, 255]],
   ],
 };
 
@@ -88,6 +91,34 @@ export function AsciiMedia({
     const host = wrap.current;
     const cvs = canvas.current;
     if (!host || !cvs) return;
+
+    // OffscreenCanvas can only be transferred once. Deferring the transfer by
+    // one frame lets React StrictMode finish its development-only effect probe
+    // first, while production still boots before the first film is in view.
+    if (canUseAsciiWorker(cvs)) {
+      let stopWorker: (() => void) | undefined;
+      const boot = requestAnimationFrame(() => {
+        stopWorker = startAsciiWorker({
+          host,
+          canvas: cvs,
+          src,
+          type,
+          poster,
+          cols,
+          speed,
+          fps,
+          tint,
+          contrast,
+          interactive: false,
+        });
+      });
+      return () => {
+        cancelAnimationFrame(boot);
+        stopWorker?.();
+      };
+    }
+
+    // Compatibility path for browsers without transferable OffscreenCanvas.
     const ctx = cvs.getContext('2d', { alpha: false });
     if (!ctx) return;
 
@@ -104,8 +135,9 @@ export function AsciiMedia({
     let dpr = 1;
     let raf = 0;
     let last = 0;
-    let onScreen = true;
+    let onScreen = false;
     let ready = false;
+    let running = false;
 
     // bucket cell coords by luminance level so we batch fillStyle changes
     const buckets: number[][] = Array.from({ length: LEVELS }, () => []);
@@ -113,7 +145,12 @@ export function AsciiMedia({
     const layout = () => {
       const rect = host.getBoundingClientRect();
       if (!rect.width || !rect.height) return;
-      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      // Render at 1x. Each cell is a canvas fillText, and glyph raster cost scales with
+      // dpr^2 — at 2x on a retina screen this quadruples the per-frame cost for detail the
+      // stylized ASCII doesn't need. The character grid (cols x rows) is unchanged, so the
+      // look is effectively identical; only backing-store sharpness drops. Raise toward 1.5
+      // if you want crisper glyphs at proportionally higher cost.
+      dpr = 1;
       cvs.width = Math.floor(rect.width * dpr);
       cvs.height = Math.floor(rect.height * dpr);
       const aspect = source ? srcAspect() : rect.width / rect.height;
@@ -167,11 +204,23 @@ export function AsciiMedia({
     };
 
     const loop = (t: number) => {
+      if (!running) return;
       raf = requestAnimationFrame(loop);
-      if (!onScreen) return;
       if (t - last < 1000 / fps) return;
       last = t;
       draw();
+    };
+
+    const startLoop = () => {
+      if (!ready || running) return;
+      running = true;
+      raf = requestAnimationFrame(loop);
+    };
+
+    const stopLoop = () => {
+      running = false;
+      cancelAnimationFrame(raf);
+      raf = 0;
     };
 
     const start = () => {
@@ -179,9 +228,7 @@ export function AsciiMedia({
       layout();
       if (reduce || type === 'image') {
         draw();
-      } else {
-        raf = requestAnimationFrame(loop);
-      }
+      } else if (onScreen) startLoop();
     };
 
     // build the source
@@ -220,16 +267,21 @@ export function AsciiMedia({
       (entries) => {
         onScreen = entries[0]?.isIntersecting ?? true;
         if (source instanceof HTMLVideoElement) {
-          if (onScreen) source.play().catch(() => {});
-          else source.pause();
+          if (onScreen) {
+            source.play().catch(() => {});
+            startLoop();
+          } else {
+            source.pause();
+            stopLoop();
+          }
         }
       },
-      { rootMargin: '120px' },
+      { threshold: 0.01 },
     );
     io.observe(host);
 
     return () => {
-      cancelAnimationFrame(raf);
+      stopLoop();
       ro.disconnect();
       io.disconnect();
       if (source instanceof HTMLVideoElement) {
@@ -240,7 +292,11 @@ export function AsciiMedia({
   }, [src, type, poster, cols, speed, fps, tint, contrast]);
 
   return (
-    <div ref={wrap} className={cn('relative overflow-hidden bg-[#06080b]', className)} aria-hidden="true">
+    <div
+      ref={wrap}
+      className={cn('relative overflow-hidden bg-[#06080b] [contain:layout_paint_style]', className)}
+      aria-hidden="true"
+    >
       <canvas ref={canvas} className="h-full w-full" />
     </div>
   );
